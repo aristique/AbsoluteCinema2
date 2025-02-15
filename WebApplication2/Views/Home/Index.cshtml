@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Index";
+
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн Кинотеатр</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+            nav ul li {
+                display: inline;
+                margin: 0 15px;
+            }
+
+                nav ul li a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+        .banner {
+            text-align: center;
+            padding: 50px;
+            background-color: #333;
+        }
+
+        .movies {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .movie-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .movie img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Онлайн Кинотеатр</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#movies">Фильмы</a></li>
+                <li><a href="/Home/About">О нас</a></li>
+
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <h2>Лучшие фильмы в отличном качестве</h2>
+        <p>Смотрите новинки прямо сейчас!</p>
+    </section>
+
+    <section class="movies" id="movies">
+        <h2>Популярные фильмы</h2>
+        <div class="movie-grid">
+            <div class="movie">
+                <img src="poster1.jpg" alt="Фильм 1">
+                <h3>Название фильма</h3>
+            </div>
+            <div class="movie">
+                <img src="poster2.jpg" alt="Фильм 2">
+                <h3>Название фильма</h3>
+            </div>
+            <div class="movie">
+                <img src="poster3.jpg" alt="Фильм 3">
+                <h3>Название фильма</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Онлайн Кинотеатр. Все права защищены.</p>
+    </footer>
+</body>
+</html>
