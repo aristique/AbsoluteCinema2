@@ -10,18 +10,20 @@
 
     <style>
         .header-button {
+            display: inline-block;
             background-color: #e50914;
             color: white;
             padding: 10px 20px;
-            border: none;
             border-radius: 5px;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.9s ease-in-out;
         }
 
         .header-button:hover {
-            background: #b2070f;
+            background-color: #b2070f;
         }
 
         .hr {
@@ -75,12 +77,12 @@
     <header class="header">
         <div class="logo">ABSOLUTE CINEMA</div>
         <nav class="nav-menu">
-            <a type="button" class="header-button" href="@Url.Action("Index", "Home")">Главная</a>
-            <a type="button" class="header-button" href="@Url.Action("Index", "Films")">Фильмы</a>
-            <a type="button" class="header-button" href="@Url.Action("Index", "News")">Новости</a>
-            <a type="button" class="header-button" href="@Url.Action("Index", "About")">О нас</a>
-            <a type="button" class="header-button" href="@Url.Action("Index", "Contact")">Контакты</a>
-            <a type="button" class="header-button" href="@Url.Action("Index", "Registration")">Аутентификация</a>
+            <a class="header-button" href="@Url.Action("Index", "Home")">Главная</a>
+            <a class="header-button" href="@Url.Action("Index", "Films")">Фильмы</a>
+            <a class="header-button" href="@Url.Action("Index", "News")">Новости</a>
+            <a class="header-button" href="@Url.Action("Index", "About")">О нас</a>
+            <a class="header-button" href="@Url.Action("Index", "Contact")">Контакты</a>
+            <a class="header-button" href="@Url.Action("Index", "Registration")">Аутентификация</a>
         </nav>
     </header>
 
