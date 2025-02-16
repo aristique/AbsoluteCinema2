@@ -10,6 +10,21 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
     <style>
+        .header-button {
+            background-color: #e50914;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .header-button:hover {
+            background: #b2070f;
+        }
+
         .hr {
             margin-top: 40px;
         }
@@ -53,7 +68,7 @@
             }
 
                 .nav-menu a:hover {
-                    color: #e50914;
+                    color: antiquewhite;
                 }
     </style>
 </head>
@@ -61,12 +76,12 @@
     <header class="header">
         <div class="logo">ABSOLUTE CINEMA</div>
         <nav class="nav-menu">
-            <button type="button" class="btn btn-danger" href="@Url.Action("Index", "Home")">Главная</button>
-            <a href="@Url.Action("Index", "Movies")">Фильмы</a>
-            <a href="@Url.Action("Index", "News")">Новости</a>
-            <a href="@Url.Action("Index", "About")">О нас</a>
-            <a href="@Url.Action("Index", "Contact")">Контакты</a>
-            <a href="@Url.Action("Index", "Registration")">Аутентификация</a>
+            <a type="button" class="header-button" href="@Url.Action("Index", "Home")">Главная</a>
+            <a type="button" class="header-button" href="@Url.Action("Index", "Movies")">Фильмы</a>
+            <a type="button" class="header-button" href="@Url.Action("Index", "News")">Новости</a>
+            <a type="button" class="header-button" href="@Url.Action("Index", "About")">О нас</a>
+            <a type="button" class="header-button" href="@Url.Action("Index", "Contact")">Контакты</a>
+            <a type="button" class="header-button" href="@Url.Action("Index", "Registration")">Аутентификация</a>
         </nav>
     </header>
 
