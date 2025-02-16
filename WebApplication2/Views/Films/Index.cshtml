@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .logo {
+            font-size: 2em;
+            color: #e50914;
+            font-weight: bold;
+            font-family: 'Impact', sans-serif;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+            .nav-menu a {
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 1.1em;
+                transition: color 0.3s;
+            }
+
+                .nav-menu a:hover {
+                    color: #e50914;
+                }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        .movie-card {
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+            .movie-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .movie-card img {
+                width: 100%;
+                height: 350px;
+                object-fit: cover;
+            }
+
+        .movie-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .footer {
+            background-color: #000000;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="movie-grid">
+        <!-- Ван Пис -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Ван+Пис" alt="Ван Пис">
+            <div class="movie-info">
+                <h3>Ван Пис</h3>
+            </div>
+        </a>
+
+        <!-- Наруто -->
+        <a href="#" class="movie-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg=Наруто" alt="Наруто">
+            <div class="movie-info">
+                <h3>Наруто</h3>
+            </div>
+        </a>
+
+        <!-- Джон Уик -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Джон+Уик" alt="Джон Уик">
+            <div class="movie-info">
+                <h3>Джон Уик</h3>
+            </div>
+        </a>
+
+        <!-- Магическая битва -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Магическая+битва" alt="Магическая битва">
+            <div class="movie-info">
+                <h3>Магическая битва</h3>
+            </div>
+        </a>
+
+        <!-- Аватар: Аанг -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Аватар:+Аанг" alt="Аватар: Аанг">
+            <div class="movie-info">
+                <h3>Аватар: Аанг</h3>
+            </div>
+        </a>
+
+        <!-- Аватар: Кора -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Аватар:+Кора" alt="Аватар: Кора">
+            <div class="movie-info">
+                <h3>Аватар: Кора</h3>
+            </div>
+        </a>
+
+        <!-- Темный рыцарь -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Темный+рыцарь" alt="Темный рыцарь">
+            <div class="movie-info">
+                <h3>Темный рыцарь</h3>
+            </div>
+        </a>
+
+        <!-- Мстители -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Мстители" alt="Мстители">
+            <div class="movie-info">
+                <h3>Мстители</h3>
+            </div>
+        </a>
+
+        <!-- Стражи Галактики -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Стражи+Галактики" alt="Стражи Галактики">
+            <div class="movie-info">
+                <h3>Стражи Галактики</h3>
+            </div>
+        </a>
+
+        <!-- Железный человек -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Железный+человек" alt="Железный человек">
+            <div class="movie-info">
+                <h3>Железный человек</h3>
+            </div>
+        </a>
+
+        <!-- Человек-паук -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Человек-паук" alt="Человек-паук">
+            <div class="movie-info">
+                <h3>Человек-паук</h3>
+            </div>
+        </a>
+
+        <!-- Хоббит -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Хоббит" alt="Хоббит">
+            <div class="movie-info">
+                <h3>Хоббит</h3>
+            </div>
+        </a>
+
+        <!-- Властелин колец -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Властелин+колец" alt="Властелин колец">
+            <div class="movie-info">
+                <h3>Властелин колец</h3>
+            </div>
+        </a>
+
+        <!-- Форсаж -->
+        <a href="#" class="movie-card">
+            <img src="https://via.placeholder.com/300x450?text=Форсаж" alt="Форсаж">
+            <div class="movie-info">
+                <h3>Форсаж</h3>
+            </div>
+        </a>
+    </div>
+
+
+</body>
+</html>
+
