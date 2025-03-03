@@ -1,80 +1,205 @@
-﻿
-@{
-    ViewBag.Title = "About";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О нас - Онлайн Кинотеатр</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Absolute Cinema - О нас</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #121212;
-            color: white;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
 
-        header {
-            background-color: #1f1f1f;
-            padding: 20px;
-            text-align: center;
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
         }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
+        .logo {
+            font-size: 2em;
+            color: #e50914;
+            font-weight: bold;
+            font-family: 'Impact', sans-serif;
         }
 
-            nav ul li {
-                display: inline;
-                margin: 0 15px;
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+            .nav-menu a {
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 1.1em;
+                transition: color 0.3s;
             }
 
-                nav ul li a {
-                    color: white;
-                    text-decoration: none;
+                .nav-menu a:hover {
+                    color: antiquewhite;
                 }
 
-        .content {
-            padding: 40px;
+        .about-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .about-section {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 30px;
             text-align: center;
         }
 
-        footer {
-            background-color: #1f1f1f;
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
         }
+
+        .about-card {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+        }
+
+            .about-card h3 {
+                margin-bottom: 15px;
+                color: #e50914;
+            }
+
+            .about-card p {
+                line-height: 1.6;
+            }
+
+        .team-section {
+            padding: 50px 20px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+            .team-member img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+            }
+
+        .member-info {
+            padding: 20px;
+        }
+
+            .member-info h3 {
+                margin-bottom: 10px;
+            }
+
+            .member-info p {
+                color: #cccccc;
+            }
     </style>
 </head>
 <body>
-    <header>
-        <h1>О нас</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="movies.html">Фильмы</a></li>
-                <li><a href="#">О нас</a></li>
-                <li><a href="contact.html">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="content">
-        <h2>Добро пожаловать в наш онлайн кинотеатр</h2>
-        <p>Наш онлайн кинотеатр предоставляет доступ к лучшим фильмам в отличном качестве. Мы работаем, чтобы сделать ваш просмотр удобным и приятным.</p>
-        <p>Смотрите любимые фильмы в любое время и в любом месте!</p>
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>О нас</h1>
+            <p>Узнайте больше о кинотеатре Absolute Cinema</p>
+        </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Онлайн Кинотеатр. Все права защищены.</p>
-    </footer>
+    <section class="about-section">
+        <h2 class="section-title">Наша миссия</h2>
+        <div class="about-content">
+            <div class="about-card">
+                <h3>Качество</h3>
+                <p>Мы стремимся предоставлять фильмы только в высоком качестве, чтобы каждый просмотр был незабываемым.</p>
+            </div>
+            <div class="about-card">
+                <h3>Разнообразие</h3>
+                <p>Наша коллекция включает фильмы всех жанров и эпох, чтобы каждый зритель нашел что-то по своему вкусу.</p>
+            </div>
+            <div class="about-card">
+                <h3>Доступность</h3>
+                <p>Мы делаем кино доступным для всех, предлагая удобный интерфейс и разумные цены на подписку.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">История Absolute Cinema</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto; line-height: 1.8; margin-bottom: 50px;">
+            Absolute Cinema был основан в 2020 году группой энтузиастов кинематографа, объединенных общей страстью к кино.
+            Начав с небольшой коллекции классических фильмов, мы постепенно расширили наш каталог до тысяч картин разных жанров и стран.
+            Сегодня мы гордимся тем, что стали одним из ведущих онлайн-кинотеатров, сохраняя при этом индивидуальный подход к каждому зрителю.
+        </p>
+    </section>
+
+    <section class="team-section">
+        <h2 class="section-title">Наша команда</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Директор">
+                <div class="member-info">
+                    <h3>Александр Петров</h3>
+                    <p>Основатель и директор</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Куратор">
+                <div class="member-info">
+                    <h3>Елена Смирнова</h3>
+                    <p>Главный куратор</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" alt="Технический директор">
+                <div class="member-info">
+                    <h3>Михаил Иванов</h3>
+                    <p>Технический директор</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e" alt="Маркетолог">
+                <div class="member-info">
+                    <h3>Анна Козлова</h3>
+                    <p>Руководитель маркетинга</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
 

@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absolute Cinema - Новости</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .logo {
+            font-size: 2em;
+            color: #e50914;
+            font-weight: bold;
+            font-family: 'Impact', sans-serif;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+            .nav-menu a {
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 1.1em;
+                transition: color 0.3s;
+            }
+
+                .nav-menu a:hover {
+                    color: antiquewhite;
+                }
+
+        .news-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1478720568477-152d9b164e26') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .news-hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .news-section {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .news-card {
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+            .news-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .news-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-date {
+            color: #e50914;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .news-excerpt {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: #e50914;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+            .read-more:hover {
+                color: #ff3c47;
+            }
+
+        .featured-news {
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+            .featured-news img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .featured-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-date {
+            color: #e50914;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .featured-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .featured-excerpt {
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .subscribe-section {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1') center/cover;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+
+        .subscribe-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .subscribe-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .subscribe-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1em;
+        }
+
+        .subscribe-button {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+            .subscribe-button:hover {
+                background-color: #b2070f;
+            }
+
+        @@media (max-width: 768px) {
+            .featured-news {
+                grid-template-columns: 1fr;
+            }
+
+                .featured-news img {
+                    height: 300px;
+                }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .subscribe-input, .subscribe-button {
+                width: 100%;
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="news-hero">
+        <div class="hero-content">
+            <h1>Новости кино</h1>
+            <p>Будьте в курсе последних событий в мире кинематографа</p>
+        </div>
+    </section>
+
+    <section class="news-section">
+        <div class="featured-news">
+            <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b" alt="Премьера нового фильма">
+            <div class="featured-content">
+                <div class="featured-date">15 марта 2024</div>
+                <h2 class="featured-title">Грандиозная премьера нового блокбастера "Вселенная бесконечности"</h2>
+                <p class="featured-excerpt">
+                    Долгожданная премьера фильма "Вселенная бесконечности" состоится уже в этом месяце. Картина, на создание которой ушло более трех лет, обещает стать одним из самых зрелищных проектов года. Режиссер Джеймс Кэмерон рассказал о технологических инновациях, использованных при съемках.
+                </p>
+                <a href="#" class="read-more">Читать подробнее →</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">Последние новости</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1616530940355-351fabd9524b" alt="Новый фильм">
+                <div class="news-content">
+                    <div class="news-date">10 марта 2024</div>
+                    <h3 class="news-title">Объявлены номинанты на премию "Золотая камера"</h3>
+                    <p class="news-excerpt">
+                        Академия киноискусства объявила список номинантов на ежегодную премию "Золотая камера". В этом году в основной номинации представлено рекордное количество фильмов.
+                    </p>
+                    <a href="#" class="read-more">Читать подробнее →</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728" alt="Интервью с актером">
+                <div class="news-content">
+                    <div class="news-date">5 марта 2024</div>
+                    <h3 class="news-title">Эксклюзивное интервью с Робертом Дауни-младшим</h3>
+                    <p class="news-excerpt">
+                        В эксклюзивном интервью для Absolute Cinema актер рассказал о своих планах на будущее и новых проектах, в которых он примет участие в ближайшее время.
+                    </p>
+                    <a href="#" class="read-more">Читать подробнее →</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1512070679279-8988d32161be" alt="Новый сериал">
+                <div class="news-content">
+                    <div class="news-date">28 февраля 2024</div>
+                    <h3 class="news-title">Стартовали съемки нового сезона "Тайны старого города"</h3>
+                    <p class="news-excerpt">
+                        Популярный сериал "Тайны старого города" получит продолжение. Съемки нового сезона уже начались, и создатели обещают множество сюрпризов для поклонников.
+                    </p>
+                    <a href="#" class="read-more">Читать подробнее →</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9" alt="Фестиваль кино">
+                <div class="news-content">
+                    <div class="news-date">20 февраля 2024</div>
+                    <h3 class="news-title">Международный кинофестиваль пройдет в нашем городе</h3>
+                    <p class="news-excerpt">
+                        С 15 по 25 апреля в нашем городе пройдет Международный кинофестиваль. В программе более 100 фильмов из 30 стран мира, мастер-классы и встречи с известными режиссерами.
+                    </p>
+                    <a href="#" class="read-more">Читать подробнее →</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1" alt="Технологии в кино">
+                <div class="news-content">
+                    <div class="news-date">15 февраля 2024</div>
+                    <h3 class="news-title">Новые технологии изменят будущее кинематографа</h3>
+                    <p class="news-excerpt">
+                        Ведущие эксперты киноиндустрии обсудили, как искусственный интеллект и виртуальная реальность меняют подход к созданию фильмов и зрительскому опыту.
+                    </p>
+                    <a href="#" class="read-more">Читать подробнее →</a>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf" alt="Ретроспектива">
+                <div class="news-content">
+                    <div class="news-date">10 февраля 2024</div>
+                    <h3 class="news-title">Ретроспектива фильмов Стэнли Кубрика в нашем кинотеатре</h3>
+                    <p class="news-excerpt">
+                        В течение марта в нашем кинотеатре будет проходить ретроспектива фильмов легендарного режиссера Стэнли Кубрика. Зрители смогут увидеть отреставрированные версии его картин.
+                    </p>
+                    <a href="#" class="read-more">Читать подробнее →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="subscribe-section">
+            <h2 class="subscribe-title">Подпишитесь на нашу рассылку</h2>
+            <p style="margin-bottom: 30px;">Получайте самые свежие новости кино и анонсы премьер прямо на вашу почту</p>
+            <form class="subscribe-form">
+                <input type="email" placeholder="Ваш email" class="subscribe-input" required>
+                <button type="submit" class="subscribe-button">Подписаться</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html> 

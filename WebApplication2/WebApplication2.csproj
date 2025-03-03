@@ -90,6 +90,8 @@
   <ItemGroup>
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <None Include="Views\News\News.cshtml" />
+    <None Include="Views\Home\Contacts.cshtml" />
     <Content Include="Web.config" />
     <Content Include="wwwroot\lib\bootstrap\css\bootstrap-grid.css" />
     <Content Include="wwwroot\lib\bootstrap\css\bootstrap-grid.min.css" />
@@ -118,6 +120,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
