@@ -90,7 +90,7 @@
   <ItemGroup>
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Home\serials.cshtml" />
+    <None Include="Views\Home\Series.cshtml" />
     <Content Include="Views\Home\profil.cshtml" />
     <Content Include="Views\Home\adminpanel.cshtml" />
     <None Include="Views\News\News.cshtml" />

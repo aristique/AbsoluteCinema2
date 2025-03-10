@@ -1,4 +1,4 @@
-@{
+﻿@{
     ViewBag.Title = "Сериалы";
 }
 
@@ -34,16 +34,16 @@
             justify-content: center;
         }
 
-        .nav-menu a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1.1em;
-            transition: color 0.3s;
-        }
+            .nav-menu a {
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 1.1em;
+                transition: color 0.3s;
+            }
 
-        .nav-menu a:hover {
-            color: antiquewhite;
-        }
+                .nav-menu a:hover {
+                    color: antiquewhite;
+                }
 
         .films-hero {
             height: 50vh;
@@ -96,10 +96,10 @@
             transition: all 0.3s;
         }
 
-        .filter-button:hover, .filter-button.active {
-            background-color: #e50914;
-            border-color: #e50914;
-        }
+            .filter-button:hover, .filter-button.active {
+                background-color: #e50914;
+                border-color: #e50914;
+            }
 
         .search-container {
             max-width: 600px;
@@ -128,9 +128,9 @@
             transition: background-color 0.3s;
         }
 
-        .search-button:hover {
-            background-color: #b2070f;
-        }
+            .search-button:hover {
+                background-color: #b2070f;
+            }
 
         .movie-grid {
             display: grid;
@@ -149,21 +149,21 @@
             position: relative;
         }
 
-        .movie-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(229, 9, 20, 0.2);
-        }
+            .movie-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 20px rgba(229, 9, 20, 0.2);
+            }
 
-        .movie-card img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
+            .movie-card img {
+                width: 100%;
+                height: 320px;
+                object-fit: cover;
+                transition: transform 0.5s;
+            }
 
-        .movie-card:hover img {
-            transform: scale(1.05);
-        }
+            .movie-card:hover img {
+                transform: scale(1.05);
+            }
 
         .movie-info {
             padding: 15px;
@@ -190,9 +190,9 @@
             font-weight: bold;
         }
 
-        .movie-rating span {
-            margin-left: 5px;
-        }
+            .movie-rating span {
+                margin-left: 5px;
+            }
 
         .movie-genre {
             color: #aaaaaa;
@@ -216,9 +216,9 @@
             transition: background-color 0.3s;
         }
 
-        .page-link:hover, .page-link.active {
-            background-color: #e50914;
-        }
+            .page-link:hover, .page-link.active {
+                background-color: #e50914;
+            }
 
         .featured-film {
             background: #1a1a1a;
@@ -229,11 +229,11 @@
             grid-template-columns: 1fr 1fr;
         }
 
-        .featured-film img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+            .featured-film img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
 
         .featured-content {
             padding: 40px;
@@ -273,18 +273,18 @@
             max-width: 200px;
         }
 
-        .watch-button:hover {
-            background-color: #b2070f;
-        }
+            .watch-button:hover {
+                background-color: #b2070f;
+            }
 
-        @media (max-width: 768px) {
+        @@media (max-width: 768px) {
             .featured-film {
                 grid-template-columns: 1fr;
             }
 
-            .featured-film img {
-                height: 300px;
-            }
+                .featured-film img {
+                    height: 300px;
+                }
 
             .movie-grid {
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
