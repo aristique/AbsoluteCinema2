@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .admin-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            padding: 20px;
+        }
+
+            .sidebar h2 {
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .sidebar ul {
+                list-style: none;
+            }
+
+                .sidebar ul li {
+                    margin: 15px 0;
+                }
+
+                    .sidebar ul li a {
+                        text-decoration: none;
+                        color: white;
+                        display: block;
+                        padding: 10px;
+                        background: #e50914;
+                        border-radius: 5px;
+                        text-align: center;
+                        transition: background 0.3s;
+                    }
+
+                        .sidebar ul li a:hover {
+                            background: #b2070f;
+                        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .dashboard-section {
+            margin-bottom: 30px;
+        }
+
+            .dashboard-section h2 {
+                margin-bottom: 15px;
+            }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+            .card h3 {
+                margin-bottom: 10px;
+            }
+
+            .card p {
+                font-size: 1.2em;
+            }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <h2>Админ-панель</h2>
+            <ul>
+                <li><a href="#">Пользователи</a></li>
+                <li><a href="#">Фильмы</a></li>
+                <li><a href="#">Аналитика</a></li>
+                <li><a href="#">Настройки</a></li>
+            </ul>
+        </aside>
+        <main class="content">
+            <div class="dashboard-section">
+                <h2>Общая статистика</h2>
+                <div class="cards">
+                    <div class="card">
+                        <h3>Всего пользователей</h3>
+                        <p>10,245</p>
+                    </div>
+                    <div class="card">
+                        <h3>Всего фильмов</h3>
+                        <p>3,567</p>
+                    </div>
+                    <div class="card">
+                        <h3>Активных сегодня</h3>
+                        <p>1,203</p>
+                    </div>
+                    <div class="card">
+                        <h3>Новых отзывов</h3>
+                        <p>147</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

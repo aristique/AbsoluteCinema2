@@ -1,0 +1,146 @@
+@{
+    ViewBag.Title = "Профиль пользователя";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #e50914;
+            margin-bottom: 20px;
+        }
+
+        .username {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .history-section, .favorites-section {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .movie-card {
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+            .movie-card:hover {
+                transform: scale(1.05);
+            }
+
+            .movie-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+        .movie-title {
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+        }
+
+        .settings-button {
+            margin-top: 20px;
+            display: inline-block;
+            background-color: #e50914;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+            .settings-button:hover {
+                background-color: #b2070f;
+            }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="https://via.placeholder.com/150" alt="Аватар" class="avatar">
+        <h1 class="username">Имя пользователя</h1>
+        <a href="#" class="settings-button">Настройки профиля</a>
+
+        <div class="history-section">
+            <h2 class="section-title">История просмотров</h2>
+            <div class="movies-grid">
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x200" alt="Фильм 1">
+                    <div class="movie-title">Интерстеллар</div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x200" alt="Фильм 2">
+                    <div class="movie-title">Джон Уик</div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x200" alt="Фильм 3">
+                    <div class="movie-title">Во все тяжкие</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="favorites-section">
+            <h2 class="section-title">Избранные фильмы</h2>
+            <div class="movies-grid">
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x200" alt="Фильм 4">
+                    <div class="movie-title">Игра престолов</div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x200" alt="Фильм 5">
+                    <div class="movie-title">Ведьмак</div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://via.placeholder.com/150x200" alt="Фильм 6">
+                    <div class="movie-title">Темный рыцарь</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
