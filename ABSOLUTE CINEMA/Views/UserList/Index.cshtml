@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ABSOLUTE_CINEMA.Models.User>
+
+@{
+    ViewBag.Title = "Список пользователей";
+    var allRoles = ViewBag.AllRoles as List<ABSOLUTE_CINEMA.Models.Role>;
+}
+
+<h2>Список пользователей</h2>
+
+@using (Html.BeginForm("UpdateRoles", "UserList", FormMethod.Post))
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Роль</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                var selectedRoleId = user.UserRoles.FirstOrDefault()?.RoleId;
+
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <input type="hidden" name="userIds" value="@user.Id" />
+                        <select name="roleIds">
+                            @foreach (var role in allRoles)
+                            {
+                                <option value="@role.Id" @(role.Id == selectedRoleId ? "selected" : "")>
+                                    @role.Name
+                                </option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+}
