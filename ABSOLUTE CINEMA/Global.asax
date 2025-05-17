@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="ABSOLUTE_CINEMA.MvcApplication" Language="C#" %>

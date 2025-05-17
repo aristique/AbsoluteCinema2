@@ -1,0 +1,129 @@
+﻿@model ABSOLUTE_CINEMA.Models.Movie
+
+@{
+    ViewBag.Title = "Добавить фильм";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Title)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Year)
+        @Html.TextBoxFor(model => model.Year, new { @class = "form-control", type = "number" })
+        @Html.ValidationMessageFor(model => model.Year)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Country)
+        @Html.TextBoxFor(model => model.Country, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Country)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description)
+        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 4 })
+        @Html.ValidationMessageFor(model => model.Description)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.YouTubeVideoId)
+        @Html.TextBox("youtubeUrl", null, new { 
+            @class = "form-control", 
+            placeholder = "Пример: https://www.youtube.com/watch?v=zscyI9vMc_Y",
+            required = "required"
+        })
+        @Html.ValidationMessageFor(model => model.YouTubeVideoId)
+        <small class="form-text text-muted">Вставьте полную ссылку или только ID видео</small>
+    </div>
+
+    <div class="form-group card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Жанры</h5>
+            @foreach (var genre in ViewBag.Genres)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" 
+                           type="checkbox" 
+                           name="SelectedGenres" 
+                           value="@genre.Id" 
+                           id="genre-@genre.Id">
+                    <label class="form-check-label" for="genre-@genre.Id">
+                        @genre.Name
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Актеры</h5>
+            @if (ViewBag.Actors != null)
+            {
+                foreach (var actor in ViewBag.Actors)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" 
+                               type="checkbox" 
+                               name="SelectedActors" 
+                               value="@actor.Id" 
+                               id="actor-@actor.Id">
+                        <label class="form-check-label" for="actor-@actor.Id">
+                            @actor.Name
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning">Нет доступных актеров</div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Режиссеры</h5>
+            @if (ViewBag.Directors != null)
+            {
+                foreach (var director in ViewBag.Directors)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" 
+                               type="checkbox" 
+                               name="SelectedDirectors" 
+                               value="@director.Id" 
+                               id="director-@director.Id">
+                        <label class="form-check-label" for="director-@director.Id">
+                            @director.Name
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning">Нет доступных режиссеров</div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-save"></i> Добавить фильм
+        </button>
+        @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+}
+
+
+
+}

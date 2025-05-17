@@ -1,0 +1,98 @@
+﻿@using System.Data.Entity
+@using ABSOLUTE_CINEMA.Models
+
+@{
+    Layout = null;
+    bool hasActiveSubscription = false;
+    bool isAdmin = false;
+
+    if (Request.IsAuthenticated)
+    {
+        var email = User.Identity.Name;
+
+        using (var db = new WebDbContext())
+        {
+            var user = db.Users
+                         .Include(u => u.Subscriptions)
+                         .Include(u => u.UserRoles.Select(ur => ur.Role))
+                         .FirstOrDefault(u => u.Email == email);
+
+            hasActiveSubscription = user?.Subscriptions?
+                .Any(s => s.IsActive && s.EndDate >= DateTime.Now) ?? false;
+
+            isAdmin = user?.UserRoles.Any(ur => ur.Role.Name == "Admin") ?? false;
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ABSOLUTE CINEMA</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand">ABSOLUTE CINEMA</span>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Фильмы", "Index", "Movies")</li>
+                    <li>@Html.ActionLink("Каталог", "Index", "Catalog")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("LogOut", "Logout", "Account")</li>
+                        <li>@Html.ActionLink("Профиль", "Index", "Profile")</li>
+
+                        if (!hasActiveSubscription)
+                        {
+                            <li>@Html.ActionLink("Подписка", "Subscripe", "Subscription")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Подписка есть", "Subscripe available", "Subscription available")</li>
+                        }
+
+                        if (isAdmin)
+                        {
+                            <li>@Html.ActionLink("Список пользователей", "Index", "UserList")</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ABSOLUTE CINEMA</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

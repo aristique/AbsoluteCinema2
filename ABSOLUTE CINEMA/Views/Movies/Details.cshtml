@@ -1,0 +1,112 @@
+﻿@model ABSOLUTE_CINEMA.Models.Movie
+
+<div class="movie-details">
+    <h1>@Model.Title</h1>
+    
+    @if (!string.IsNullOrEmpty(Model.YouTubeVideoId))
+    {
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/@Model.YouTubeVideoId" 
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            Видео недоступно
+        </div>
+    }
+
+    <div class="movie-info">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Информация</h3>
+                <p><strong>Год:</strong> @Model.Year</p>
+                <p><strong>Страна:</strong> @Model.Country</p>
+            </div>
+            
+            <div class="col-md-4">
+                <h3>Жанры</h3>
+                <ul>
+                    @foreach (var genre in Model.Genres.Select(g => g.Genre.Name))
+                    {
+                        <li>@genre</li>
+                    }
+                </ul>
+            </div>
+            
+            <div class="col-md-4">
+                <h3>Актеры</h3>
+                <ul>
+                    @foreach (var actor in Model.Actors.Select(a => a.Actor.Name))
+                    {
+                        <li>@actor</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        
+        <div class="movie-description">
+            <h3>Описание</h3>
+            <p>@Model.Description</p>
+        </div>
+    </div>
+
+     <div class="comments">
+            <h3>Комментарии</h3>
+            
+            @if (User.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm("Create", "Comments"))
+                {
+                    @Html.Hidden("movieId", Model.Id)
+                    <textarea name="text" rows="3"></textarea>
+                    <button type="submit">Добавить комментарий</button>
+                }
+            }
+    
+            @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+            {
+                <div class="comment">
+                    <strong>@comment.User.Name</strong>
+                    <span class="date">@comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                    <p>@comment.Text</p>
+                    
+                    @if (User.IsInRole("Admin"))
+                    {
+                        using (Html.BeginForm("Delete", "Comments", new { id = comment.Id }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit">Удалить</button>
+                        }
+                    }
+                </div>
+            }
+        </div>
+</div>
+
+<style>
+.video-wrapper {
+    margin: 20px 0;
+    background: #000;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>

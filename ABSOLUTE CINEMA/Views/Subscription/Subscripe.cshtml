@@ -1,0 +1,40 @@
+﻿@model ABSOLUTE_CINEMA.Models.PaymentViewModel
+@{
+    ViewBag.Title = "Оформление подписки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Оформление подписки</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.SubscriptionType)
+        @Html.DropDownListFor(m => m.SubscriptionType, 
+            new SelectList(new[] { "Monthly", "Annual" }), 
+            "Выберите тип", 
+            new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SubscriptionType)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CardNumber)
+        @Html.TextBoxFor(m => m.CardNumber, new { @class = "form-control", placeholder = "1234 5678 9012 3456" })
+        @Html.ValidationMessageFor(m => m.CardNumber)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ExpiryDate)
+        @Html.TextBoxFor(m => m.ExpiryDate, new { @class = "form-control", placeholder = "MM/YY" })
+        @Html.ValidationMessageFor(m => m.ExpiryDate)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CVV)
+        @Html.PasswordFor(m => m.CVV, new { @class = "form-control", placeholder = "123" })
+        @Html.ValidationMessageFor(m => m.CVV)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Оформить подписку</button>
+}
