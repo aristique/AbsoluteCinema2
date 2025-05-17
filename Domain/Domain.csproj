@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C5EF0249-5633-4368-8650-75ECEC3D1953}</ProjectGuid>
+    <ProjectGuid>{0F9C6A6F-9DDF-4332-8099-B4DA3B02F752}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Domain</RootNamespace>
@@ -41,11 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="BaseDbItem.cs" />
+    <Compile Include="Entities\Actor.cs" />
+    <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Director.cs" />
+    <Compile Include="Entities\MovieActor.cs" />
+    <Compile Include="Entities\MovieDirector.cs" />
+    <Compile Include="Entities\MovieGenre.cs" />
+    <Compile Include="Entities\Genre.cs" />
+    <Compile Include="Entities\Movie.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Subscription.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

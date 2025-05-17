@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ABSOLUTE_CINEMA.Models.Movie>
+
+@{
+    ViewBag.Title = "Каталог фильмов";
+}
+
+@if (ViewBag.Genres != null && ViewBag.Genres.Count > 0)
+{
+    <div class="genre-filter">
+        <h4>Жанры:</h4>
+        <div class="btn-group">
+            @foreach (var genre in ViewBag.Genres)
+            {
+                <a href="@Url.Action("ByGenre", new { genre = genre.Name })" 
+                   class="btn btn-default @(ViewBag.SelectedGenre == genre.Name ? "active" : "")">
+                    @genre.Name
+                </a>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">Жанры не найдены</div>
+}
+
+<div class="row movie-list">
+    @foreach (var movie in Model)
+    {
+        <div class="col-md-4 movie-item">
+            <div class="thumbnail">
+                @if (!string.IsNullOrEmpty(movie.YouTubeVideoId))
+                {
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" 
+                                src="https://www.youtube.com/embed/@movie.YouTubeVideoId" 
+                                allowfullscreen></iframe>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">Видео недоступно</div>
+                }
+                <div class="caption">
+                    <h4>@movie.Title (@movie.Year)</h4>
+                    <p>@movie.Description</p> <!-- Исправлена опечатка -->
+                    @Html.ActionLink("Подробнее", "Details", new { id = movie.Id }, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+.movie-list {
+    margin-top: 20px;
+}
+.movie-item {
+    margin-bottom: 30px;
+}
+.thumbnail {
+    height: 420px;
+    overflow: hidden;
+}
+.caption {
+    padding: 15px;
+}
+</style>
