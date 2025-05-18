@@ -42,6 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDbItem.cs" />
+    <Compile Include="DTO\Login.cs" />
+    <Compile Include="DTO\PaymentViewModel.cs" />
+    <Compile Include="DTO\ProfileViewModel.cs" />
+    <Compile Include="DTO\Register.cs" />
+    <Compile Include="DTO\UserRegistrationResponse.cs" />
+    <Compile Include="DTO\UserViewModel.cs" />
     <Compile Include="Entities\Actor.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Director.cs" />
@@ -54,6 +60,7 @@
     <Compile Include="Entities\Subscription.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserRole.cs" />
+    <Compile Include="Entities\UserRoleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

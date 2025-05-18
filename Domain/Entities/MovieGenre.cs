@@ -6,5 +6,7 @@ namespace ABSOLUTE_CINEMA.Domain.Entities
     {
         public Guid MovieId { get; set; }
         public Guid GenreId { get; set; }
+        public virtual Movie Movie { get; set; }
+        public virtual Genre Genre { get; set; }
     }
 }
