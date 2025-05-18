@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ABSOLUTE_CINEMA.Domain.Entities;
 
-namespace BusinessLogic.Interfaces
+namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
 {
-    internal class IAdmin
+    public interface IAdmin
     {
+        void BanUser(Guid userId);
+        void ChangeUserRole(Guid userId, Guid roleId);
+        void DeleteComments(Guid userId);
+        void GrantSubscription(Guid userId, string subscriptionType);
     }
 }
+

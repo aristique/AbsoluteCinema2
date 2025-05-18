@@ -9,5 +9,7 @@ namespace ABSOLUTE_CINEMA.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public Guid MovieId { get; set; }
         public Guid UserId { get; set; }
+        public virtual Movie Movie { get; set; }
+        public virtual User User { get; set; }
     }
 }

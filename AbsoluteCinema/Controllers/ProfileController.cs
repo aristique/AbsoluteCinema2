@@ -3,7 +3,8 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using ABSOLUTE_CINEMA.Models;
+using ABSOLUTE_CINEMA.Domain.Entities;
+using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
