@@ -105,6 +105,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BLogic\" />
+    <Folder Include="Core\" />
+    <Folder Include="DBModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AbsoluteCinema\AbsoluteCinema.csproj">
+      <Project>{973dd3b6-acc5-4e9e-a2f0-fc10b451a303}</Project>
+      <Name>AbsoluteCinema</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{0f9c6a6f-9ddf-4332-8099-b4da3b02f752}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

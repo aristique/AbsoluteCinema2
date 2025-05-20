@@ -1,13 +1,18 @@
-﻿using ABSOLUTE_CINEMA.Domain.DTO;
+﻿using System;
+using System.Collections.Generic;
+using ABSOLUTE_CINEMA.Domain.DTO;
 using ABSOLUTE_CINEMA.Domain.Entities;
 using System.Collections.Generic;
 using System;
 
-public interface IAccount
+namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
 {
-    UserRegistrationResponse Register(Register dto);
-    UserRoleType Login(Login dto);
-    void SignIn(Guid userId, string email, UserRoleType role);
+    public interface IAccount
+    {
+        UserRegistrationResponse Register(Register dto);
+        UserRoleType Login(Login dto);
+        void SignIn(Guid userId, string email, UserRoleType role);
     void SignOut();                      
-    List<UserViewModel> ListUsers();
+       List<UserViewModel> ListUsers();
+    }
 }
