@@ -1,18 +1,10 @@
-﻿@model ABSOLUTE_CINEMA.Models.Movie
-
-@{
-    ViewBag.Title = "Удаление фильма";
-}
-
+﻿@model ABSOLUTE_CINEMA.Domain.Entities.Movie
+@{ ViewBag.Title = "Удалить фильм"; Layout = "~/Views/Shared/_Layout.cshtml"; }
 <h2>@ViewBag.Title</h2>
-
-<h3>Вы уверены, что хотите удалить этот фильм?</h3>
-<div>
-    <h4>@Model.Title (@Model.Year)</h4>
-    
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-        <input type="submit" value="Удалить" class="btn btn-danger" />
-        @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
-    }
-</div>
+<h4>Вы уверены, что хотите удалить фильм "@Model.Title"?</h4>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    @Html.ActionLink("Отмена", "Index", "Movies", null, new { @class = "btn btn-secondary ml-2" })
+}

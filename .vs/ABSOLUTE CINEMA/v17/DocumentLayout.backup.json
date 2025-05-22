@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\migrations\\202505101928108_reguser2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\migrations\\202505101928108_reguser2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\migrations\\202505101840490_reguser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\migrations\\202505101840490_reguser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|c:\\users\\sabmm\\desktop\\absolute cinema\\absolute cinema\\migrations\\202505141927361_pr1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\migrations\\202505141927361_pr1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|c:\\users\\sabmm\\desktop\\absolute cinema\\absolute cinema\\controllers\\userlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\controllers\\userlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\views\\subscription\\subscripe.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\views\\subscription\\subscripe.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|c:\\users\\sabmm\\desktop\\absolute cinema\\absolute cinema\\controllers\\userlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\controllers\\userlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\SABMM\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -73,10 +89,6 @@
       "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\views\\profile\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\SABMM\\AppData\\Local\\SourceServer\\31a7ea48f8b79d38f6b017728e2c0138e4965100182987dc04ce2367a6a6dbcd\\src\\Npgsql\\NpgsqlConnector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -130,14 +142,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\migrations\\202505101928108_reguser2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\migrations\\202505101928108_reguser2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\migrations\\202505101840490_reguser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|solutionrelative:absolute cinema\\migrations\\202505101840490_reguser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{973DD3B6-ACC5-4E9E-A2F0-FC10B451A303}|ABSOLUTE CINEMA\\ABSOLUTE CINEMA.csproj|C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\absolute cinema\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -223,7 +227,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -248,32 +252,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UserListController.cs",
-              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\UserListController.cs",
-              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\UserListController.cs",
-              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\UserListController.cs",
-              "RelativeToolTip": "ABSOLUTE CINEMA\\Controllers\\UserListController.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAwBQAAAAoAAAAAAAAAA==",
+              "Title": "202505141927361_Pr1.cs",
+              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505141927361_Pr1.cs",
+              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505141927361_Pr1.cs",
+              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505141927361_Pr1.cs",
+              "RelativeToolTip": "ABSOLUTE CINEMA\\Migrations\\202505141927361_Pr1.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAA7wCIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T07:56:21.012Z",
+              "WhenOpened": "2025-05-15T09:23:21.232Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ControllerActionInvoker.cs",
-              "DocumentMoniker": "C:\\Users\\SABMM\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs",
-              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs",
-              "ToolTip": "C:\\Users\\SABMM\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs",
-              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs",
-              "ViewState": "AgIAAEYBAAAAAAAAAAAIwFcBAAAEAAAAAQAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T22:48:25.798Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Shared\\_Layout.cshtml",
@@ -286,33 +277,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "ABSOLUTE CINEMA\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAJkAAAAAAAAAAAA1wKoAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "FilterConfig.cs",
+              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\App_Start\\FilterConfig.cs",
+              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\App_Start\\FilterConfig.cs",
+              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\App_Start\\FilterConfig.cs",
+              "RelativeToolTip": "ABSOLUTE CINEMA\\App_Start\\FilterConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T15:54:56.557Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Delete.cshtml",
-              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movies\\Delete.cshtml",
-              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Movies\\Delete.cshtml",
-              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movies\\Delete.cshtml",
-              "RelativeToolTip": "ABSOLUTE CINEMA\\Views\\Movies\\Delete.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-14T19:30:10.045Z",
+              "WhenOpened": "2025-05-14T23:02:55.685Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "202505101840490_RegUser.cs",
+              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505101840490_RegUser.cs",
+              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505101840490_RegUser.cs",
+              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505101840490_RegUser.cs",
+              "RelativeToolTip": "ABSOLUTE CINEMA\\Migrations\\202505101840490_RegUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T15:51:27.828Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "202505101928108_RegUser2.cs",
+              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505101928108_RegUser2.cs",
+              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505101928108_RegUser2.cs",
+              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505101928108_RegUser2.cs",
+              "RelativeToolTip": "ABSOLUTE CINEMA\\Migrations\\202505101928108_RegUser2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T15:51:27.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Subscripe.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Subscription\\Subscripe.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Subscription\\Subscripe.cshtml",
@@ -325,7 +329,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movies\\Delete.cshtml",
+              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Movies\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movies\\Delete.cshtml",
+              "RelativeToolTip": "ABSOLUTE CINEMA\\Views\\Movies\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-14T19:30:10.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "ABSOLUTE CINEMA\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAJkAAAAAAAAAAAA1wKoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T15:54:56.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserListController.cs",
+              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\UserListController.cs",
+              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\UserListController.cs",
+              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\UserListController.cs",
+              "RelativeToolTip": "ABSOLUTE CINEMA\\Controllers\\UserListController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T07:56:21.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ControllerActionInvoker.cs",
+              "DocumentMoniker": "C:\\Users\\SABMM\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs",
+              "ToolTip": "C:\\Users\\SABMM\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\07c4ec1cba87e4656ea3ff248a744c9ad14372e0efa94ac6f688b9e3e27ad0b3\\ControllerActionInvoker.cs",
+              "ViewState": "AgIAAEYBAAAAAAAAAAAIwFcBAAAEAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T22:48:25.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\UserList\\Index.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\UserList\\Index.cshtml",
@@ -342,7 +398,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\HomeController.cs",
@@ -355,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "AsyncControllerActionInvoker.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\AppData\\Local\\Temp\\.vsdbgsrc\\699240a29965a16a1ab9243778656bb218e80afce9ff4f58d851c59a83480efb\\AsyncControllerActionInvoker.cs",
               "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\699240a29965a16a1ab9243778656bb218e80afce9ff4f58d851c59a83480efb\\AsyncControllerActionInvoker.cs",
@@ -368,7 +424,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "SubscriptionController.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\SubscriptionController.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\SubscriptionController.cs",
@@ -381,7 +437,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\_ViewStart.cshtml",
@@ -394,7 +450,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\User.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\User.cs",
@@ -407,7 +463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "202505141936513_AddViewCountToMovie.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505141936513_AddViewCountToMovie.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505141936513_AddViewCountToMovie.cs",
@@ -419,7 +475,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "NpgsqlConnector.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\AppData\\Local\\SourceServer\\31a7ea48f8b79d38f6b017728e2c0138e4965100182987dc04ce2367a6a6dbcd\\src\\Npgsql\\NpgsqlConnector.cs",
               "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\SourceServer\\31a7ea48f8b79d38f6b017728e2c0138e4965100182987dc04ce2367a6a6dbcd\\src\\Npgsql\\NpgsqlConnector.cs",
@@ -431,7 +487,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "UserRole.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\UserRole.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\UserRole.cs",
@@ -443,7 +499,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movies\\Create.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Movies\\Create.cshtml",
@@ -455,7 +511,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "Login.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Account\\Login.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Account\\Login.cshtml",
@@ -467,7 +523,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "Register.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Account\\Register.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Account\\Register.cshtml",
@@ -479,7 +535,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "Subscription.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\Subscription.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\Subscription.cs",
@@ -491,7 +547,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Profile\\Index.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Profile\\Index.cshtml",
@@ -503,19 +559,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "FilterConfig.cs",
-              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\App_Start\\FilterConfig.cs",
-              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\App_Start\\FilterConfig.cs",
-              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\App_Start\\FilterConfig.cs",
-              "RelativeToolTip": "ABSOLUTE CINEMA\\App_Start\\FilterConfig.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T23:02:55.685Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "MovieController.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\MovieController.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\MovieController.cs",
@@ -527,7 +571,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Catalog\\Details.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Catalog\\Details.cshtml",
@@ -539,7 +583,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "Movie.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\Movie.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\Movie.cs",
@@ -551,7 +595,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movies\\Details.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Movies\\Details.cshtml",
@@ -563,7 +607,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Catalog\\Index.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Catalog\\Index.cshtml",
@@ -575,7 +619,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movies\\Index.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Movies\\Index.cshtml",
@@ -587,7 +631,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Home\\Index.cshtml",
@@ -599,7 +643,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "Contact.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Home\\Contact.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Home\\Contact.cshtml",
@@ -611,7 +655,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 32,
               "Title": "About.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Home\\About.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Home\\About.cshtml",
@@ -623,7 +667,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 33,
               "Title": "CommentsController.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\CommentsController.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\CommentsController.cs",
@@ -635,7 +679,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 34,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movies\\Edit.cshtml",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Movies\\Edit.cshtml",
@@ -647,7 +691,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 35,
               "Title": "Comment.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\Comment.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\Comment.cs",
@@ -659,31 +703,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "202505101928108_RegUser2.cs",
-              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505101928108_RegUser2.cs",
-              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505101928108_RegUser2.cs",
-              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505101928108_RegUser2.cs",
-              "RelativeToolTip": "ABSOLUTE CINEMA\\Migrations\\202505101928108_RegUser2.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAzwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T15:51:27.826Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "202505101840490_RegUser.cs",
-              "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505101840490_RegUser.cs",
-              "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505101840490_RegUser.cs",
-              "ToolTip": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505101840490_RegUser.cs",
-              "RelativeToolTip": "ABSOLUTE CINEMA\\Migrations\\202505101840490_RegUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T15:51:27.828Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "Register.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\Register.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\Register.cs",
@@ -695,7 +715,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "Global.asax.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Global.asax.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Global.asax.cs",
@@ -707,7 +727,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "MovieGenre.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\MovieGenre.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\MovieGenre.cs",
@@ -719,7 +739,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "MovieDirector.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\MovieDirector.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\MovieDirector.cs",
@@ -731,7 +751,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "Role.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\Role.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\Role.cs",
@@ -743,7 +763,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "glyphicons-halflings-regular.svg",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\fonts\\glyphicons-halflings-regular.svg",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\fonts\\glyphicons-halflings-regular.svg",
@@ -755,7 +775,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "Web.config",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Web.config",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Web.config",
@@ -768,7 +788,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "Actor.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\Actor.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\Actor.cs",
@@ -780,7 +800,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "Movie.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Views\\Movie.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Views\\Movie.cs",
@@ -792,7 +812,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "Login.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Models\\Login.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Models\\Login.cs",
@@ -804,7 +824,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "CatalogController.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Controllers\\CatalogController.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Controllers\\CatalogController.cs",
@@ -816,7 +836,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "202505102108052_Movie1.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505102108052_Movie1.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505102108052_Movie1.cs",
@@ -828,7 +848,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "packages.config",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\packages.config",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\packages.config",
@@ -840,7 +860,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "BundleConfig.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\App_Start\\BundleConfig.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\App_Start\\BundleConfig.cs",
@@ -852,7 +872,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "202505102312511_Movie4.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505102312511_Movie4.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505102312511_Movie4.cs",
@@ -864,7 +884,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "202505102231399_Movie3.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505102231399_Movie3.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505102231399_Movie3.cs",
@@ -876,7 +896,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "202505102136121_Movie2.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505102136121_Movie2.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505102136121_Movie2.cs",
@@ -888,7 +908,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "202505102010437_RegUser3.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\202505102010437_RegUser3.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\202505102010437_RegUser3.cs",
@@ -900,7 +920,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 54,
               "Title": "Configuration.cs",
               "DocumentMoniker": "C:\\Users\\SABMM\\Desktop\\ABSOLUTE CINEMA\\ABSOLUTE CINEMA\\Migrations\\Configuration.cs",
               "RelativeDocumentMoniker": "ABSOLUTE CINEMA\\Migrations\\Configuration.cs",

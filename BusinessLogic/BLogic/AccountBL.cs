@@ -25,28 +25,28 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
                 return new UserRegistrationResponse { Success = false, Message = "Email уже используется" };
 
             var user = CreateUser(_db, dto);
-            // При регистрации присваиваем роль User
-            AssignRole(_db, user.Id, UserRoleType.User.ToString());
+
+            // Присваиваем существующую роль RegisteredUser из таблицы Roles
+            AssignRole(_db, user.Id, "RegisteredUser");
+
             return new UserRegistrationResponse { Success = true, UserId = user.Id };
         }
+        public Guid GetUserIdByEmail(string email)
+    => FindByEmail(_db, email)?.Id ?? Guid.Empty;
 
-        // Возвращает роль текущего пользователя
         public UserRoleType Login(Login dto)
         {
             var user = FindByEmail(_db, dto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return UserRoleType.None;
 
-            // Берём единственную роль из БД
             var roleName = GetRoles(_db, user.Id).FirstOrDefault();
             var role = Enum.TryParse<UserRoleType>(roleName, out var rt) ? rt : UserRoleType.None;
 
-            // Сохраняем userId и роль в куки
             SignIn(user.Id, dto.Email, role);
             return role;
         }
 
-        // Записывает FormsAuth-куку с UserData = "userId|roleValue"
         public void SignIn(Guid userId, string email, UserRoleType role)
         {
             var userData = $"{userId}|{(int)role}";
@@ -58,6 +58,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
                 false,
                 userData
             );
+
             var encrypted = FormsAuthentication.Encrypt(ticket);
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted)
             {

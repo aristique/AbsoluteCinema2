@@ -1,68 +1,20 @@
-﻿@model IEnumerable<ABSOLUTE_CINEMA.Models.Movie>
-
+﻿@model IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Movie>
 @{
     ViewBag.Title = "Каталог фильмов";
 }
-
-@if (ViewBag.Genres != null && ViewBag.Genres.Count > 0)
-{
-    <div class="genre-filter">
-        <h4>Жанры:</h4>
-        <div class="btn-group">
-            @foreach (var genre in ViewBag.Genres)
-            {
-                <a href="@Url.Action("ByGenre", new { genre = genre.Name })" 
-                   class="btn btn-default @(ViewBag.SelectedGenre == genre.Name ? "active" : "")">
-                    @genre.Name
-                </a>
-            }
-        </div>
-    </div>
-}
-else
-{
-    <div class="alert alert-warning">Жанры не найдены</div>
-}
-
-<div class="row movie-list">
+<h2>@ViewBag.Title</h2>
+<div class="row">
     @foreach (var movie in Model)
     {
-        <div class="col-md-4 movie-item">
-            <div class="thumbnail">
-                @if (!string.IsNullOrEmpty(movie.YouTubeVideoId))
-                {
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" 
-                                src="https://www.youtube.com/embed/@movie.YouTubeVideoId" 
-                                allowfullscreen></iframe>
-                    </div>
-                }
-                else
-                {
-                    <div class="alert alert-info">Видео недоступно</div>
-                }
-                <div class="caption">
-                    <h4>@movie.Title (@movie.Year)</h4>
-                    <p>@movie.Description</p> <!-- Исправлена опечатка -->
-                    @Html.ActionLink("Подробнее", "Details", new { id = movie.Id }, new { @class = "btn btn-primary" })
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img class="card-img-top" src="/img/@movie.Id" alt="@movie.Title">
+                <div class="card-body">
+                    <h5 class="card-title">@movie.Title</h5>
+                    <p class="card-text">@movie.Year</p>
+                    <a href="@Url.Action("Details", new { id=movie.Id })" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>
         </div>
     }
 </div>
-
-<style>
-.movie-list {
-    margin-top: 20px;
-}
-.movie-item {
-    margin-bottom: 30px;
-}
-.thumbnail {
-    height: 420px;
-    overflow: hidden;
-}
-.caption {
-    padding: 15px;
-}
-</style>

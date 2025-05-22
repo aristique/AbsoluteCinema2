@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using ABSOLUTE_CINEMA.Domain.DTO;
 using ABSOLUTE_CINEMA.Domain.Entities;
-using System.Collections.Generic;
-using System;
+
 
 namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
 {
@@ -14,5 +13,6 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
         void SignIn(Guid userId, string email, UserRoleType role);
     void SignOut();                      
        List<UserViewModel> ListUsers();
+        Guid GetUserIdByEmail(string email);
     }
 }

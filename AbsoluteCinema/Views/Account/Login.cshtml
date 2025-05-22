@@ -1,58 +1,27 @@
-﻿@model ABSOLUTE_CINEMA.Models.Login
+﻿@model ABSOLUTE_CINEMA.Domain.DTO.Login
+
 @{
     ViewBag.Title = "Вход";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="auth-container">
-    <div class="auth-form-container">
-        <div class="auth-logo">
-            <h1>ABSOLUTE CINEMA</h1>
-        </div>
-        
-        <div class="auth-form">
-            <h2>Вход</h2>
-            
-            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
-            {
-                @Html.AntiForgeryToken()
-                
-                <div class="validation-summary">
-                    @Html.ValidationSummary(true, "", new { @class = "error-message" })
-                </div>
-                
-                <div class="form-group">
-                    <div class="input-container">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-input", placeholder = " " })
-                        @Html.LabelFor(m => m.Email, new { @class = "floating-label" })
-                    </div>
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-error" })
-                </div>
-                
-                <div class="form-group">
-                    <div class="input-container">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-input", placeholder = " " })
-                        @Html.LabelFor(m => m.Password, new { @class = "floating-label" })
-                    </div>
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "field-error" })
-                </div>
-                
-                <div class="form-group remember-me">
-                    <label class="checkbox-container">
-                        @Html.CheckBoxFor(m => m.RememberMe)
-                        <span class="checkmark"></span>
-                        @Html.LabelFor(m => m.RememberMe)
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <button type="submit" class="btn-submit">Войти</button>
-                </div>
-                
-                <div class="auth-links">
-                    <p>Впервые на ABSOLUTE CINEMA? <a href="@Url.Action("Register", "Account")">Зарегистрируйтесь</a></p>
-                </div>
-            }
-        </div>
+<h2>Вход</h2>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
     </div>
-</div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Войти</button>
+}

@@ -1,212 +1,100 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 using ABSOLUTE_CINEMA.Domain.Entities;
-using ABSOLUTE_CINEMA.Domain.DTO;
+using System.Linq;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
-    
-        [Authorize(Roles = "Admin")]
-        public class MoviesController : Controller
+    [Authorize(Roles = "Admin")]
+    public class MoviesController : Controller
+    {
+        private readonly IMovie _movie;
+
+        public MoviesController(IMovie movie)
         {
-            private readonly WebDbContext _db = new WebDbContext();
+            _movie = movie;
+        }
 
-            // GET: Movies
-            public ActionResult Index()
+        public ActionResult Index()
+        {
+            var movies = _movie.GetAll();
+            return View(movies);
+        }
+
+        public ActionResult Create()
+        {
+            PopulateSelects();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Movie movie, List<Guid> SelectedGenres, List<Guid> SelectedActors, List<Guid> SelectedDirectors, string youtubeInput)
+        {
+            if (ModelState.IsValid)
             {
-                var movies = _db.Movies
-                    .Include(m => m.Genres.Select(g => g.Genre))
-                    .ToList();
-                return View(movies);
-            }
-
-            // GET: Movies/Create
-            public ActionResult Create()
-            {
-                ViewBag.Genres = _db.Genres.ToList();
-                ViewBag.Actors = _db.Actors.ToList();
-                ViewBag.Directors = _db.Directors.ToList();
-                return View();
-            }
-
-            // В контроллере MoviesController
-            [HttpPost]
-            [ValidateAntiForgeryToken]
-            public ActionResult Create(Movie movie, 
-                List<Guid> SelectedGenres,
-                List<Guid> SelectedActors,
-                List<Guid> SelectedDirectors, 
-                string youtubeInput)
-            {
-                ModelState.Remove("YouTubeVideoId");
-                movie.YouTubeVideoId = youtubeInput;
-
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        // Инициализация коллекций
-                        movie.Genres = new List<MovieGenre>();
-                        movie.Actors = new List<MovieActor>();
-                        movie.Directors = new List<MovieDirector>();
-
-                        AddRelations(movie, SelectedGenres, SelectedActors, SelectedDirectors);
-
-                        _db.Movies.Add(movie);
-                        _db.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
-                    catch (Exception ex)
-                    {
-                        ModelState.AddModelError("", "Ошибка: " + ex.Message);
-                    }
-                }
-
-                ViewBag.Genres = _db.Genres.ToList();
-                ViewBag.Actors = _db.Actors.ToList();
-                ViewBag.Directors = _db.Directors.ToList();
-                return View(movie);
-            }
-            
-
-            private void AddRelations(Movie movie, List<Guid> genres, List<Guid> actors, List<Guid> directors)
-            {
-                movie.Genres = genres?.Select(g => new MovieGenre { GenreId = g }).ToList() 
-                               ?? new List<MovieGenre>();
-
-                movie.Actors = actors?.Select(a => new MovieActor { ActorId = a }).ToList() 
-                               ?? new List<MovieActor>();
-
-                movie.Directors = directors?.Select(d => new MovieDirector { DirectorId = d }).ToList() 
-                                  ?? new List<MovieDirector>();
-            }
-            
-            
-            public ActionResult Details(Guid id)
-            {
-                try
-                {
-                    var movie = _db.Movies
-                        .Include(m => m.Genres.Select(g => g.Genre))
-                        .FirstOrDefault(m => m.Id == id);
-
-                    if (movie == null) return HttpNotFound();
-        
-                    if (string.IsNullOrWhiteSpace(movie.YouTubeVideoId))
-                    {
-                        ViewBag.VideoError = "Видео недоступно";
-                    }
-
-                    return View(movie);
-                }
-                catch (Exception ex)
-                {
-                    // Логирование ошибки
-                    return View("Error");
-                }
-            }
-
-            public ActionResult Edit(Guid id)
-            {
-                var movie = _db.Movies
-                    .Include(m => m.Genres)
-                    .Include(m => m.Actors)
-                    .Include(m => m.Directors)
-                    .FirstOrDefault(m => m.Id == id);
-
-                if (movie == null) return HttpNotFound();
-
-                ViewBag.Genres = _db.Genres.ToList();
-                ViewBag.Actors = _db.Actors.ToList();
-                ViewBag.Directors = _db.Directors.ToList();
-
-                return View(movie);
-            }
-
-            [HttpPost]
-            [ValidateAntiForgeryToken]
-            public ActionResult Edit(Movie movie, List<Guid> SelectedGenres, List<Guid> SelectedActors,
-                List<Guid> SelectedDirectors)
-            {
-                if (ModelState.IsValid)
-                {
-                    var existingMovie = _db.Movies
-                        .Include(m => m.Genres)
-                        .Include(m => m.Actors)
-                        .Include(m => m.Directors)
-                        .FirstOrDefault(m => m.Id == movie.Id);
-
-                    if (existingMovie == null) return HttpNotFound();
-
-                    // Обновляем основные свойства
-                    existingMovie.Title = movie.Title;
-                    existingMovie.Year = movie.Year;
-                    existingMovie.Country = movie.Country;
-                    existingMovie.Description = movie.Description;
-                    existingMovie.YouTubeVideoId = movie.YouTubeVideoId;
-
-                    // Обновляем связи
-                    UpdateMovieRelations(existingMovie, SelectedGenres, SelectedActors, SelectedDirectors);
-
-                    _db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-                return View(movie);
-            }
-
-            // GET: Movies/Delete/{id}
-            public ActionResult Delete(Guid id)
-            {
-                var movie = _db.Movies.Find(id);
-                if (movie == null) return HttpNotFound();
-                return View(movie);
-            }
-
-            [HttpPost, ActionName("Delete")]
-            [ValidateAntiForgeryToken]
-            public ActionResult DeleteConfirmed(Guid id)
-            {
-                var movie = _db.Movies
-                    .Include(m => m.Genres)
-                    .Include(m => m.Actors)
-                    .Include(m => m.Directors)
-                    .FirstOrDefault(m => m.Id == id);
-
-                if (movie != null)
-                {
-                    _db.Movies.Remove(movie);
-                    _db.SaveChanges();
-                }
-
+                _movie.Create(movie, SelectedGenres, SelectedActors, SelectedDirectors, youtubeInput);
                 return RedirectToAction("Index");
             }
+            PopulateSelects();
+            return View(movie);
+        }
 
-            private void UpdateMovieRelations(Movie movie, List<Guid> genres, List<Guid> actors, List<Guid> directors)
+        public ActionResult Edit(Guid id)
+        {
+            var movieEntity = _movie.Get(id);
+            if (movieEntity == null) return HttpNotFound();
+
+            PopulateSelects();
+            return View(movieEntity);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Movie movie, List<Guid> SelectedGenres, List<Guid> SelectedActors, List<Guid> SelectedDirectors)
+        {
+            if (ModelState.IsValid)
             {
-                // Удаление старых связей
-                _db.MovieGenres.RemoveRange(movie.Genres);
-                _db.MovieActors.RemoveRange(movie.Actors);
-                _db.MovieDirectors.RemoveRange(movie.Directors);
-
-                // Добавление новых связей
-                movie.Genres = genres?
-                    .Select(g => new MovieGenre { GenreId = g })
-                    .ToList() ?? new List<MovieGenre>();
-
-                movie.Actors = actors?
-                    .Select(a => new MovieActor { ActorId = a })
-                    .ToList() ?? new List<MovieActor>();
-
-                movie.Directors = directors?
-                    .Select(d => new MovieDirector { DirectorId = d })
-                    .ToList() ?? new List<MovieDirector>();
-
-                _db.SaveChanges();
+                _movie.Update(movie, SelectedGenres, SelectedActors, SelectedDirectors);
+                return RedirectToAction("Index");
             }
+            PopulateSelects();
+            return View(movie);
+        }
+
+        public ActionResult Delete(Guid id)
+        {
+            var movieEntity = _movie.Get(id);
+            if (movieEntity == null) return HttpNotFound();
+            return View(movieEntity);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(Guid id)
+        {
+            _movie.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        private void PopulateSelects()
+        {
+            ViewBag.Genres = new SelectList(_movie.GetAll()
+                .SelectMany(m => m.Genres)
+                .Select(g => g.Genre)
+                .Distinct(), "Id", "Name");
+
+            ViewBag.Actors = new SelectList(_movie.GetAll()
+                .SelectMany(m => m.Actors)
+                .Select(a => a.Actor)
+                .Distinct(), "Id", "Name");
+
+            ViewBag.Directors = new SelectList(_movie.GetAll()
+                .SelectMany(m => m.Directors)
+                .Select(d => d.Director)
+                .Distinct(), "Id", "Name");
         }
     }
+}

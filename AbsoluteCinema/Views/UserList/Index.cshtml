@@ -1,45 +1,50 @@
-﻿@model IEnumerable<ABSOLUTE_CINEMA.Models.User>
-
+﻿@model IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.User>
 @{
-    ViewBag.Title = "Список пользователей";
-    var allRoles = ViewBag.AllRoles as List<ABSOLUTE_CINEMA.Models.Role>;
+    ViewBag.Title = "Пользователи"; Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Список пользователей</h2>
-
-@using (Html.BeginForm("UpdateRoles", "UserList", FormMethod.Post))
-{
-    <table class="table table-bordered">
-        <thead>
+<h2>@ViewBag.Title</h2>
+<table class="table table-hover">
+    <thead><tr><th>Имя</th><th>Email</th><th>Роли</th><th>Действия</th></tr></thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
             <tr>
-                <th>Имя</th>
-                <th>Email</th>
-                <th>Роль</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model)
-            {
-                var selectedRoleId = user.UserRoles.FirstOrDefault()?.RoleId;
-
-                <tr>
-                    <td>@user.Name</td>
-                    <td>@user.Email</td>
-                    <td>
-                        <input type="hidden" name="userIds" value="@user.Id" />
-                        <select name="roleIds">
-                            @foreach (var role in allRoles)
+                <td>@u.Name</td>
+                <td>@u.Email</td>
+                <td>@string.Join(", ", u.UserRoles.Select(ur => ur.Role.Name))</td>
+                <td>
+                    @using (Html.BeginForm("ChangeRole", "Admin", FormMethod.Post, new { @class = "d-inline" }))
+                    {
+                        @Html.Hidden("userId", u.Id)
+                        <select name="roleId" class="form-control d-inline w-auto">
+                            @foreach (var r in ViewBag.AllRoles as IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Role>)
                             {
-                                <option value="@role.Id" @(role.Id == selectedRoleId ? "selected" : "")>
-                                    @role.Name
-                                </option>
+                                <option value="@r.Id">@r.Name</option>
                             }
                         </select>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-}
+                        <button type="submit" class="btn btn-sm btn-info">Сменить роль</button>
+                    }
+                    @using (Html.BeginForm("Ban", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
+                    {
+                        @Html.Hidden("userId", u.Id)
+                        <button type="submit" class="btn btn-sm btn-danger">Забанить</button>
+                    }
+                    @using (Html.BeginForm("DeleteComments", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
+                    {
+                        @Html.Hidden("userId", u.Id)
+                        <button type="submit" class="btn btn-sm btn-warning">Удалить комм.</button>
+                    }
+                    @using (Html.BeginForm("GrantSubscription", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
+                    {
+                        @Html.Hidden("userId", u.Id)
+                        <select name="subscriptionType" class="form-control d-inline w-auto">
+                            <option value="Monthly">Месячная</option>
+                            <option value="Annual">Годовая</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-success">Подписать</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

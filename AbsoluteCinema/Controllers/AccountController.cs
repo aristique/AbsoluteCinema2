@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
+﻿// Controllers/AccountController.cs
+using System;
 using System.Web.Mvc;
 using System.Web.Security;
 using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
@@ -19,13 +18,45 @@ namespace ABSOLUTE_CINEMA.Controllers
         }
 
         [HttpGet]
-        public ActionResult Register() => View();
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult Login()
+        {
+            // Сбрасываем старые куки при заходе на страницу логина
+            FormsAuthentication.SignOut();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(Login model)
+        {
+            // Проверка учетных данных без валидации модели
+            var userRole = _account.Login(model);
+            if (userRole == UserRoleType.User)
+            {
+                ModelState.AddModelError("", "Неверные учетные данные");
+                return View(model);
+            }
+
+            // Получаем идентификатор пользователя и создаем аутентификационную куку
+            var userId = _account.GetUserIdByEmail(model.Email);
+            _account.SignIn(userId, model.Email, userRole);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult Register()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(Register model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
             var result = _account.Register(model);
             if (!result.Success)
@@ -34,24 +65,8 @@ namespace ABSOLUTE_CINEMA.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Login");
-        }
-
-        [HttpGet]
-        public ActionResult Login() => View();
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(Login model)
-        {
-            if (!ModelState.IsValid) return View(model);
-
-            var role = _account.Login(model);
-            if (role == UserRoleType.None)
-            {
-                ModelState.AddModelError("", "Неверные учётные данные");
-                return View(model);
-            }
+            // Логиним сразу после регистрации
+            _account.SignIn(result.UserId, model.Email, UserRoleType.User);
 
             return RedirectToAction("Index", "Home");
         }
@@ -60,6 +75,9 @@ namespace ABSOLUTE_CINEMA.Controllers
         public ActionResult Logout()
         {
             _account.SignOut();
+            FormsAuthentication.SignOut();
+            Session.Clear();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 

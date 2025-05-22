@@ -1,146 +1,137 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Global.asax.cs
+using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
-using ABSOLUTE_CINEMA.Models;
+using System.Web.Helpers;              // Для AntiForgeryConfig
+
+// Сущности домена
+using ABSOLUTE_CINEMA.Domain.Entities;
+// Контекст базы данных
+using ABSOLUTE_CINEMA;
 
 namespace ABSOLUTE_CINEMA
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
+            // Отключаем жёсткую проверку привязки анти-фальшивого токена к имени пользователя
+            AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
+
+            // Настройка DI-контейнера
+            UnityConfig.RegisterComponents();
+
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Инициализация ролей и начальных данных
             EnsureRolesAndAdminCreated();
             EnsureInitialData();
         }
-        
+
         private void EnsureRolesAndAdminCreated()
         {
             using (var db = new WebDbContext())
+            using (var tx = db.Database.BeginTransaction())
             {
-                using (var transaction = db.Database.BeginTransaction())
+                try
                 {
-                    try
+                    var required = new[] { "Admin", "RegisteredUser", "Guest" };
+                    foreach (var name in required)
                     {
-                        // Создание ролей
-                        var requiredRoles = new[] { "Admin", "RegisteredUser", "Guest" };
-                        foreach (var roleName in requiredRoles)
+                        if (!db.Roles.Any(r => r.Name == name))
+                            db.Roles.Add(new Role { Name = name });
+                    }
+                    db.SaveChanges();
+
+                    var adminRole = db.Roles.First(r => r.Name == "Admin");
+                    if (!db.Users.Any(u => u.Email == "admin@cinema.com"))
+                    {
+                        var admin = new User
                         {
-                            if (!db.Roles.Any(r => r.Name == roleName))
-                            {
-                                db.Roles.Add(new Role { Name = roleName });
-                            }
-                        }
+                            Id = Guid.NewGuid(),
+                            Name = "Administrator",
+                            Email = "admin@cinema.com",
+                            PasswordHash = BCrypt.Net.BCrypt.HashPassword("StrongAdminPassword123!")
+                        };
+                        db.Users.Add(admin);
                         db.SaveChanges();
 
-                        // Создание администратора
-                        var adminRole = db.Roles.First(r => r.Name == "Admin");
-                        if (!db.Users.Any(u => u.Email == "admin@cinema.com"))
+                        db.UserRoles.Add(new UserRole
                         {
-                            var admin = new User
-                            {
-                                Id = Guid.NewGuid(), // Явное указание нового GUID
-                                Name = "Admin",
-                                Email = "admin@cinema.com",
-                                PasswordHash = BCrypt.Net.BCrypt.HashPassword("StrongAdminPassword123!")
-                            };
-
-                            db.Users.Add(admin);
-                            db.SaveChanges(); // Сохраняем пользователя сначала
-
-                            db.UserRoles.Add(new UserRole
-                            {
-                                UserId = admin.Id,
-                                RoleId = adminRole.Id
-                            });
-                            db.SaveChanges();
-                        }
-
-                        transaction.Commit();
+                            UserId = admin.Id,
+                            RoleId = adminRole.Id
+                        });
+                        db.SaveChanges();
                     }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        // Логирование ошибки
-                        System.Diagnostics.Debug.WriteLine($"Initialization error: {ex.Message}");
-                        throw;
-                    }
+
+                    tx.Commit();
+                }
+                catch
+                {
+                    tx.Rollback();
+                    throw;
                 }
             }
         }
-        // В Global.asax.cs
+
         private void EnsureInitialData()
         {
             using (var db = new WebDbContext())
             {
-                // Жанры
                 if (!db.Genres.Any())
                 {
-                    var genres = new List<Genre>
+                    db.Genres.AddRange(new[]
                     {
                         new Genre { Name = "Боевик" },
                         new Genre { Name = "Драма" },
                         new Genre { Name = "Комедия" }
-                    };
-                    db.Genres.AddRange(genres);
+                    });
                 }
-
-                // Актеры
                 if (!db.Actors.Any())
                 {
-                    var actors = new List<Actor>
+                    db.Actors.AddRange(new[]
                     {
                         new Actor { Name = "Том Круз" },
                         new Actor { Name = "Марго Робби" }
-                    };
-                    db.Actors.AddRange(actors);
+                    });
                 }
-
-                // Режиссеры
                 if (!db.Directors.Any())
                 {
-                    var directors = new List<Director>
+                    db.Directors.AddRange(new[]
                     {
                         new Director { Name = "Квентин Тарантино" },
                         new Director { Name = "Кристофер Нолан" }
-                    };
-                    db.Directors.AddRange(directors);
+                    });
                 }
-
                 db.SaveChanges();
             }
         }
-        
-        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+
+        protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (authCookie != null)
+            var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie == null) return;
+
+            try
             {
-                try
-                {
-                    FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                    var identity = new GenericIdentity(authTicket.Name, "Forms");
-            
-                    // Десериализуем роли из UserData
-                    var roles = authTicket.UserData.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-            
-                    var principal = new GenericPrincipal(identity, roles);
-                    HttpContext.Current.User = principal;
-                }
-                catch (Exception ex)
-                {
-                    // Логирование ошибки
-                    System.Diagnostics.Debug.WriteLine($"Authentication error: {ex.Message}");
-                }
+                var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                var identity = new GenericIdentity(ticket.Name, "Forms");
+                var roles = ticket.UserData.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                HttpContext.Current.User = new GenericPrincipal(identity, roles);
+            }
+            catch
+            {
+                // Ошибка дешифровки — пропускаем аутентификацию
             }
         }
     }

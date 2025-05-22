@@ -1,27 +1,16 @@
-﻿@model ABSOLUTE_CINEMA.Models.ProfileViewModel
-@{
-    ViewBag.Title = "Профиль";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Профиль пользователя</h2>
-<div class="profile-info">
+﻿@model ABSOLUTE_CINEMA.Domain.DTO.ProfileViewModel
+@{ ViewBag.Title = "Профиль"; Layout = "~/Views/Shared/_Layout.cshtml"; }
+<h2>@ViewBag.Title</h2>
+<div class="card p-3">
     <p><strong>Имя:</strong> @Model.Name</p>
     <p><strong>Email:</strong> @Model.Email</p>
-    
     @if (Model.Subscription != null)
     {
-        <div class="subscription-info">
-            <h3>Подписка</h3>
-            <p>Тип: @Model.Subscription.Type</p>
-            <p>Действует до: @Model.Subscription.EndDate.ToString("d")</p>
-        </div>
+        <hr />
+        <p><strong>Подписка:</strong> @Model.Subscription.Type до @Model.Subscription.EndDate.ToString("d")</p>
     }
     else
     {
-        <div class="alert alert-info">
-            У вас нет активной подписки. 
-        
-        </div>
+        <div class="alert alert-info">У вас нет активной подписки.</div>
     }
 </div>

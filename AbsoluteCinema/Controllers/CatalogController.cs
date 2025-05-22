@@ -1,71 +1,35 @@
 ﻿using System;
-using System.Data.Entity;
+using System.Web.Mvc;
+using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
+using ABSOLUTE_CINEMA.Domain.Entities;
 using System.Linq;
 using System.Web.Mvc;
-using ABSOLUTE_CINEMA.Domain.Entities;
-using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
     public class CatalogController : Controller
     {
-        private readonly WebDbContext _db = new WebDbContext();
+        private readonly ICatalog _catalog;
+
+        public CatalogController(ICatalog catalog)
+        {
+            _catalog = catalog;
+        }
 
         public ActionResult Index(string genre = null)
         {
-            try
-            {
-                IQueryable<Movie> query = _db.Movies
-                    .Include(m => m.Genres.Select(g => g.Genre));
-
-                if (!string.IsNullOrEmpty(genre))
-                {
-                    query = query.Where(m => m.Genres.Any(g => g.Genre.Name == genre));
-                }
-
-                var movies = query.ToList();
-                ViewBag.Genres = _db.Genres.ToList(); // Всегда инициализируем
-
-                return View(movies);
-            }
-            catch (Exception ex)
-            {
-                // Логирование ошибки
-                return View("Error");
-            }
-        }
-        // CatalogController.cs
-        public ActionResult ByGenre(string genre)
-        {
-            var movies = _db.Movies
-                .Include(m => m.Genres.Select(g => g.Genre))
-                .Where(m => m.Genres.Any(g => g.Genre.Name == genre))
-                .ToList();
-
-            ViewBag.GenreName = genre;
-            ViewBag.Genres = _db.Genres.ToList(); // Добавлено
-
-            return View("Index", movies);
+            var movies = _catalog.GetAll(genre);
+            ViewBag.Genres = _catalog.GetGenres();
+            return View(movies);
         }
 
         public ActionResult Details(Guid id)
         {
-            var movie = _db.Movies
-                .Include(m => m.Genres.Select(g => g.Genre))
-                .Include(m => m.Actors.Select(a => a.Actor))
-                .Include(m => m.Directors.Select(d => d.Director))
-                .FirstOrDefault(m => m.Id == id);
+            var movie = _catalog.GetById(id);
+            if (movie == null) return HttpNotFound();
 
-            if (movie == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBag.Genres = _db.Genres.ToList(); // Всегда инициализируем
-
+            ViewBag.Genres = _catalog.GetGenres();
             return View(movie);
         }
-
-        // Остальные методы без изменений
     }
 }
