@@ -5,6 +5,7 @@ using System.Web.Security;
 using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 using ABSOLUTE_CINEMA.Domain.DTO;
 using ABSOLUTE_CINEMA.Domain.Entities;
+using ABSOLUTE_CINEMA.Web.ViewModels;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
@@ -53,20 +54,26 @@ namespace ABSOLUTE_CINEMA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Register model)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            var result = _account.Register(model);
+            // Преобразование ViewModel → DTO
+            var dto = new Register
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Password = model.Password,
+                ConfirmPassword = model.ConfirmPassword
+            };
+
+            var result = _account.Register(dto);
             if (!result.Success)
             {
                 ModelState.AddModelError("", result.Message);
                 return View(model);
             }
-
-            // Логиним сразу после регистрации
-            _account.SignIn(result.UserId, model.Email, UserRoleType.User);
 
             return RedirectToAction("Index", "Home");
         }
