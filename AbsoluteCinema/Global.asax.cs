@@ -74,9 +74,9 @@ namespace ABSOLUTE_CINEMA
                 {
                     db.Genres.AddRange(new[]
                     {
-                        new Genre { Name = "Боевик" },
-                        new Genre { Name = "Драма" },
-                        new Genre { Name = "Комедия" }
+                        new Genre { Id = Guid.NewGuid(), Name = "Боевик" },
+                        new Genre { Id = Guid.NewGuid(), Name = "Драма" },
+                        new Genre { Id = Guid.NewGuid(), Name = "Комедия" }
                     });
                 }
 
@@ -84,8 +84,8 @@ namespace ABSOLUTE_CINEMA
                 {
                     db.Actors.AddRange(new[]
                     {
-                        new Actor { Name = "Том Круз" },
-                        new Actor { Name = "Марго Робби" }
+                        new Actor { Id = Guid.NewGuid(), Name = "Том Круз" },
+                        new Actor { Id = Guid.NewGuid(), Name = "Марго Робби" }
                     });
                 }
 
@@ -93,8 +93,8 @@ namespace ABSOLUTE_CINEMA
                 {
                     db.Directors.AddRange(new[]
                     {
-                        new Director { Name = "Квентин Тарантино" },
-                        new Director { Name = "Кристофер Нолан" }
+                        new Director { Id = Guid.NewGuid(), Name = "Квентин Тарантино" },
+                        new Director { Id = Guid.NewGuid(), Name = "Кристофер Нолан" }
                     });
                 }
 
