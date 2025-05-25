@@ -1,5 +1,4 @@
-﻿@model IEnumerable<ABSOLUTE_CINEMA.Models.Movie>
-
+﻿@model IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Movie>
 @{
     ViewBag.Title = "Управление фильмами";
 }
@@ -18,14 +17,15 @@
         <th>Действия</th>
     </tr>
 
-    @foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Title)</td>
             <td>@Html.DisplayFor(modelItem => item.Year)</td>
             <td>@Html.DisplayFor(modelItem => item.Country)</td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
