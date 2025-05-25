@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
-using ABSOLUTE_CINEMA.Domain.Entities;  // use domain entities
+using ABSOLUTE_CINEMA.Domain.Entities;
 
 namespace ABSOLUTE_CINEMA
+
 {
     public class WebDbContext : DbContext
     {
@@ -26,7 +27,7 @@ namespace ABSOLUTE_CINEMA
         {
             base.OnModelCreating(modelBuilder);
 
-            // composite keys
+
             modelBuilder.Entity<UserRole>()
                 .HasKey(ur => new { ur.UserId, ur.RoleId });
             modelBuilder.Entity<MovieGenre>()
@@ -36,7 +37,7 @@ namespace ABSOLUTE_CINEMA
             modelBuilder.Entity<MovieDirector>()
                 .HasKey(md => new { md.MovieId, md.DirectorId });
 
-            // one-to-many for Comment
+  
             modelBuilder.Entity<Comment>()
                 .HasRequired(c => c.Movie)
                 .WithMany(m => m.Comments)
@@ -46,13 +47,12 @@ namespace ABSOLUTE_CINEMA
                 .WithMany(u => u.Comments)
                 .HasForeignKey(c => c.UserId);
 
-            // indexes
             modelBuilder.Entity<Comment>()
                 .HasIndex(c => c.MovieId).HasName("IX_Comments_MovieId");
             modelBuilder.Entity<Comment>()
                 .HasIndex(c => c.UserId).HasName("IX_Comments_UserId");
 
-            // subscription relation
+       
             modelBuilder.Entity<Subscription>()
                 .HasRequired(s => s.User)
                 .WithMany(u => u.Subscriptions)

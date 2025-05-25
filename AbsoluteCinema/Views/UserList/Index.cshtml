@@ -15,6 +15,7 @@
                 <td>
                     @using (Html.BeginForm("ChangeRole", "Admin", FormMethod.Post, new { @class = "d-inline" }))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("userId", u.Id)
                         <select name="roleId" class="form-control d-inline w-auto">
                             @foreach (var r in ViewBag.AllRoles as IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Role>)
@@ -26,16 +27,19 @@
                     }
                     @using (Html.BeginForm("Ban", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("userId", u.Id)
                         <button type="submit" class="btn btn-sm btn-danger">Забанить</button>
                     }
                     @using (Html.BeginForm("DeleteComments", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("userId", u.Id)
                         <button type="submit" class="btn btn-sm btn-warning">Удалить комм.</button>
                     }
                     @using (Html.BeginForm("GrantSubscription", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("userId", u.Id)
                         <select name="subscriptionType" class="form-control d-inline w-auto">
                             <option value="Monthly">Месячная</option>

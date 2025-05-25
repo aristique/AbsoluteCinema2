@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
-using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
     [Authorize]
     public class CommentsController : Controller
     {
-        private readonly IComment _comment;
-
-        public CommentsController(IComment comment)
-        {
-            _comment = comment;
-        }
+        private readonly CommentBL _comment = new CommentBL();
 
         [HttpPost]
         [ValidateAntiForgeryToken]

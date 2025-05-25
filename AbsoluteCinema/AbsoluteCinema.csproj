@@ -175,7 +175,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
@@ -277,6 +276,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\UserList\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Compile Include="Views\ViewModels\MovieFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -332,6 +332,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{0f9c6a6f-9ddf-4332-8099-b4da3b02f752}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{5602c2c8-4016-4588-a6e0-180053bfa15b}</Project>
+      <Name>Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

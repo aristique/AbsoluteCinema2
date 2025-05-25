@@ -74,6 +74,7 @@
     <Compile Include="BLogic\CommentBL.cs" />
     <Compile Include="BLogic\MovieBL.cs" />
     <Compile Include="BLogic\ProfileBL.cs" />
+    <Compile Include="BLogic\SessionBL .cs" />
     <Compile Include="BLogic\SubscriptionBL.cs" />
     <Compile Include="BLogic\UserListBL.cs" />
     <Compile Include="Core\AccountApi.cs" />
@@ -102,6 +103,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{0f9c6a6f-9ddf-4332-8099-b4da3b02f752}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{5602c2c8-4016-4588-a6e0-180053bfa15b}</Project>
+      <Name>Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

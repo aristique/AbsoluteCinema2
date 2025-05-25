@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Web.Mvc;
-using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
-using ABSOLUTE_CINEMA.Domain.Entities;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private readonly IAdmin _admin;
-
-        public AdminController(IAdmin admin)
-        {
-            _admin = admin;
-        }
+        private readonly AdminBL _admin = new AdminBL();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Ban(Guid userId)
         {
             _admin.BanUser(userId);
-            return RedirectToAction("UsersList", "Account");
+            return RedirectToAction("Index", "UserList");
         }
 
         [HttpPost]
@@ -28,7 +22,7 @@ namespace ABSOLUTE_CINEMA.Controllers
         public ActionResult ChangeRole(Guid userId, Guid roleId)
         {
             _admin.ChangeUserRole(userId, roleId);
-            return RedirectToAction("UsersList", "Account");
+            return RedirectToAction("Index", "UserList");
         }
 
         [HttpPost]
@@ -36,7 +30,7 @@ namespace ABSOLUTE_CINEMA.Controllers
         public ActionResult DeleteComments(Guid userId)
         {
             _admin.DeleteComments(userId);
-            return RedirectToAction("UsersList", "Account");
+            return RedirectToAction("Index", "UserList");
         }
 
         [HttpPost]
@@ -44,7 +38,7 @@ namespace ABSOLUTE_CINEMA.Controllers
         public ActionResult GrantSubscription(Guid userId, string subscriptionType)
         {
             _admin.GrantSubscription(userId, subscriptionType);
-            return RedirectToAction("UsersList", "Account");
+            return RedirectToAction("Index", "UserList");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.Domain.Entities;
 
 namespace ABSOLUTE_CINEMA.Controllers
@@ -9,16 +9,12 @@ namespace ABSOLUTE_CINEMA.Controllers
     [Authorize(Roles = "Admin")]
     public class UserListController : Controller
     {
-        private readonly IUserList _userList;
-
-        public UserListController(IUserList userList)
-        {
-            _userList = userList;
-        }
+        private readonly UserListBL _userList = new UserListBL();
 
         public ActionResult Index()
         {
             var users = _userList.GetAllUsers();
+            ViewBag.AllRoles = _userList.GetAllRoles();
             return View(users);
         }
 

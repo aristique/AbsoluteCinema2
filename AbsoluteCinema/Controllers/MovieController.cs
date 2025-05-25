@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
-using ABSOLUTE_CINEMA.Domain.Entities;
 using System.Linq;
+using System.Web.Mvc;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
+using ABSOLUTE_CINEMA.Domain.Entities;
+using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class MoviesController : Controller
     {
-        private readonly IMovie _movie;
-
-        public MoviesController(IMovie movie)
-        {
-            _movie = movie;
-        }
+        private readonly MovieBL _movie = new MovieBL();
 
         public ActionResult Index()
         {
@@ -25,21 +21,34 @@ namespace ABSOLUTE_CINEMA.Controllers
 
         public ActionResult Create()
         {
-            PopulateSelects();
-            return View();
+            ViewBag.Genres = _movie.GetAvailableGenres();
+            ViewBag.Actors = _movie.GetAvailableActors();
+            ViewBag.Directors = _movie.GetAvailableDirectors();
+            return View(new MovieFormViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Movie movie, List<Guid> SelectedGenres, List<Guid> SelectedActors, List<Guid> SelectedDirectors, string youtubeInput)
+        public ActionResult Create(MovieFormViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _movie.Create(movie, SelectedGenres, SelectedActors, SelectedDirectors, youtubeInput);
+                var movie = new Movie
+                {
+                    Title = model.Title,
+                    Year = model.Year,
+                    Country = model.Country,
+                    Description = model.Description
+                };
+
+                _movie.Create(movie, model.SelectedGenres, model.SelectedActors, model.SelectedDirectors, youtubeId: null);
                 return RedirectToAction("Index");
             }
-            PopulateSelects();
-            return View(movie);
+
+            ViewBag.Genres = _movie.GetAvailableGenres();
+            ViewBag.Actors = _movie.GetAvailableActors();
+            ViewBag.Directors = _movie.GetAvailableDirectors();
+            return View(model);
         }
 
         public ActionResult Edit(Guid id)
@@ -47,21 +56,45 @@ namespace ABSOLUTE_CINEMA.Controllers
             var movieEntity = _movie.Get(id);
             if (movieEntity == null) return HttpNotFound();
 
-            PopulateSelects();
-            return View(movieEntity);
+            var model = new MovieFormViewModel
+            {
+                Title = movieEntity.Title,
+                Year = movieEntity.Year,
+                Country = movieEntity.Country,
+                Description = movieEntity.Description,
+                SelectedGenres = movieEntity.Genres.Select(g => g.Genre.Id).ToList(),
+                SelectedActors = movieEntity.Actors.Select(a => a.Actor.Id).ToList(),
+                SelectedDirectors = movieEntity.Directors.Select(d => d.Director.Id).ToList()
+            };
+
+            ViewBag.Genres = _movie.GetAvailableGenres();
+            ViewBag.Actors = _movie.GetAvailableActors();
+            ViewBag.Directors = _movie.GetAvailableDirectors();
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Movie movie, List<Guid> SelectedGenres, List<Guid> SelectedActors, List<Guid> SelectedDirectors)
+        public ActionResult Edit(Guid id, MovieFormViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _movie.Update(movie, SelectedGenres, SelectedActors, SelectedDirectors);
+                var movie = _movie.Get(id);
+                if (movie == null) return HttpNotFound();
+
+                movie.Title = model.Title;
+                movie.Year = model.Year;
+                movie.Country = model.Country;
+                movie.Description = model.Description;
+
+                _movie.Update(movie, model.SelectedGenres, model.SelectedActors, model.SelectedDirectors);
                 return RedirectToAction("Index");
             }
-            PopulateSelects();
-            return View(movie);
+
+            ViewBag.Genres = _movie.GetAvailableGenres();
+            ViewBag.Actors = _movie.GetAvailableActors();
+            ViewBag.Directors = _movie.GetAvailableDirectors();
+            return View(model);
         }
 
         public ActionResult Delete(Guid id)
@@ -77,24 +110,6 @@ namespace ABSOLUTE_CINEMA.Controllers
         {
             _movie.Delete(id);
             return RedirectToAction("Index");
-        }
-
-        private void PopulateSelects()
-        {
-            ViewBag.Genres = new SelectList(_movie.GetAll()
-                .SelectMany(m => m.Genres)
-                .Select(g => g.Genre)
-                .Distinct(), "Id", "Name");
-
-            ViewBag.Actors = new SelectList(_movie.GetAll()
-                .SelectMany(m => m.Actors)
-                .Select(a => a.Actor)
-                .Distinct(), "Id", "Name");
-
-            ViewBag.Directors = new SelectList(_movie.GetAll()
-                .SelectMany(m => m.Directors)
-                .Select(d => d.Director)
-                .Distinct(), "Id", "Name");
         }
     }
 }

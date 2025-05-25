@@ -1,19 +1,11 @@
-﻿// Global.asax.cs
-using System;
+﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Web.Helpers;              // Для AntiForgeryConfig
-
-// Сущности домена
 using ABSOLUTE_CINEMA.Domain.Entities;
-// Контекст базы данных
-using ABSOLUTE_CINEMA;
 
 namespace ABSOLUTE_CINEMA
 {
@@ -23,17 +15,8 @@ namespace ABSOLUTE_CINEMA
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-
-            // Отключаем жёсткую проверку привязки анти-фальшивого токена к имени пользователя
-            AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
-
-            // Настройка DI-контейнера
-            UnityConfig.RegisterComponents();
-
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            // Инициализация ролей и начальных данных
             EnsureRolesAndAdminCreated();
             EnsureInitialData();
         }
@@ -47,10 +30,9 @@ namespace ABSOLUTE_CINEMA
                 {
                     var required = new[] { "Admin", "RegisteredUser", "Guest" };
                     foreach (var name in required)
-                    {
                         if (!db.Roles.Any(r => r.Name == name))
                             db.Roles.Add(new Role { Name = name });
-                    }
+
                     db.SaveChanges();
 
                     var adminRole = db.Roles.First(r => r.Name == "Admin");
@@ -97,6 +79,7 @@ namespace ABSOLUTE_CINEMA
                         new Genre { Name = "Комедия" }
                     });
                 }
+
                 if (!db.Actors.Any())
                 {
                     db.Actors.AddRange(new[]
@@ -105,6 +88,7 @@ namespace ABSOLUTE_CINEMA
                         new Actor { Name = "Марго Робби" }
                     });
                 }
+
                 if (!db.Directors.Any())
                 {
                     db.Directors.AddRange(new[]
@@ -113,6 +97,7 @@ namespace ABSOLUTE_CINEMA
                         new Director { Name = "Кристофер Нолан" }
                     });
                 }
+
                 db.SaveChanges();
             }
         }
@@ -125,14 +110,21 @@ namespace ABSOLUTE_CINEMA
             try
             {
                 var ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                var identity = new GenericIdentity(ticket.Name, "Forms");
-                var roles = ticket.UserData.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-                HttpContext.Current.User = new GenericPrincipal(identity, roles);
+                var decryptedUserData = ABSOLUTE_CINEMA.Helpers.CookieGenerator.Validate(ticket.UserData);
+
+                var parts = decryptedUserData.Split('|');
+                var identity = new System.Security.Principal.GenericIdentity(ticket.Name, "Forms");
+
+                
+                var roles = parts.Length >= 2 ? new[] { parts[1] } : new string[0];
+
+                HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(identity, roles);
             }
             catch
             {
-                // Ошибка дешифровки — пропускаем аутентификацию
+         
             }
         }
+
     }
 }

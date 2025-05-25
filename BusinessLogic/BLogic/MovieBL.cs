@@ -9,16 +9,15 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
 {
     public class MovieBL : MovieApi, IMovie
     {
-        private readonly WebDbContext _db;
-
-        public MovieBL(WebDbContext db)
+        public List<Movie> GetAll()
         {
-            _db = db;
+            return GetAlll();
         }
 
-        public List<Movie> GetAll() => GetAll(_db);
-
-        public Movie Get(Guid id) => Find(_db, id);
+        public Movie Get(Guid id)
+        {
+            return Findd(id);
+        }
 
         public Movie Create(Movie movie, List<Guid> genreIds, List<Guid> actorIds, List<Guid> directorIds, string youtubeId)
         {
@@ -27,39 +26,32 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
             movie.Directors = directorIds?.Select(d => new MovieDirector { DirectorId = d }).ToList() ?? new List<MovieDirector>();
             movie.YouTubeVideoId = youtubeId;
 
-            _db.Movies.Add(movie);
-            _db.SaveChanges();
-            return movie;
+            return SaveMoviee(movie);
         }
+
         public void Update(Movie movie, List<Guid> genreIds, List<Guid> actorIds, List<Guid> directorIds)
         {
-            var existing = Find(_db, movie.Id);
-            if (existing == null) return;
-            existing.Title = movie.Title;
-            existing.Year = movie.Year;
-            existing.Country = movie.Country;
-            existing.Description = movie.Description;
-            existing.YouTubeVideoId = movie.YouTubeVideoId;
-
-            _db.MovieGenres.RemoveRange(existing.Genres);
-            _db.MovieActors.RemoveRange(existing.Actors);
-            _db.MovieDirectors.RemoveRange(existing.Directors);
-            existing.Genres = genreIds?.Select(g => new MovieGenre { GenreId = g }).ToList() ?? new List<MovieGenre>();
-            existing.Actors = actorIds?.Select(a => new MovieActor { ActorId = a }).ToList() ?? new List<MovieActor>();
-            existing.Directors = directorIds?.Select(d => new MovieDirector { DirectorId = d }).ToList() ?? new List<MovieDirector>();
-
-            Save(_db);
+            UpdateMoviee(movie, genreIds, actorIds, directorIds);
         }
 
+        public List<Genre> GetAvailableGenres()
+        {
+            return GetAvailableGenress();
+        }
+
+        public List<Actor> GetAvailableActors()
+        {
+            return GetAvailableActorss();
+        }
+
+        public List<Director> GetAvailableDirectors()
+        {
+            return GetAvailableDirectorss();
+        }
 
         public void Delete(Guid id)
         {
-            var movie = Find(_db, id);
-            if (movie != null)
-            {
-                _db.Movies.Remove(movie);
-                Save(_db);
-            }
+            DeleteMoviee(id);
         }
     }
 }

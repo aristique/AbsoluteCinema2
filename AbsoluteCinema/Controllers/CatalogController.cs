@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Web.Mvc;
-using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
-using ABSOLUTE_CINEMA.Domain.Entities;
-using System.Linq;
-using System.Web.Mvc;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
     public class CatalogController : Controller
     {
-        private readonly ICatalog _catalog;
-
-        public CatalogController(ICatalog catalog)
-        {
-            _catalog = catalog;
-        }
+        private readonly CatalogBL _catalog = new CatalogBL();
 
         public ActionResult Index(string genre = null)
         {

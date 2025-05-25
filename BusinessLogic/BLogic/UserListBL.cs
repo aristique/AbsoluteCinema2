@@ -8,21 +8,19 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
 {
     public class UserListBL : UserListApi, IUserList
     {
-        private readonly WebDbContext _db;
-
-        public UserListBL(WebDbContext db)
+        public List<Role> GetAllRoles()
         {
-            _db = db;
+            return GetAllRoless();
         }
 
         public List<User> GetAllUsers()
         {
-            return base.GetAllUsers(_db);
+            return GetAllUserss();
         }
 
         public void UpdateRoles(Guid[] userIds, Guid[] roleIds)
         {
-            base.UpdateRoles(_db, userIds, roleIds);
+            UpdateRoless(userIds, roleIds);
         }
     }
 }

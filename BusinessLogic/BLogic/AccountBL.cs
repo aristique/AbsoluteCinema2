@@ -12,66 +12,94 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
 {
     public class AccountBL : AccountApi, IAccount
     {
-        private readonly WebDbContext _db;
-
-        public AccountBL(WebDbContext db)
-        {
-            _db = db;
-        }
-
         public UserRegistrationResponse Register(Register dto)
         {
-            if (ExistsEmail(_db, dto.Email))
-                return new UserRegistrationResponse { Success = false, Message = "Email уже используется" };
+            if (ExistsEmail(dto.Email))
+                return new UserRegistrationResponse
+                {
+                    Success = false,
+                    Message = "Email уже используется"
+                };
 
-            var user = CreateUser(_db, dto);
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Name = dto.Name,
+                Email = dto.Email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                CreatedAt = DateTime.UtcNow
+            };
 
-            // Присваиваем существующую роль RegisteredUser из таблицы Roles
-            AssignRole(_db, user.Id, "RegisteredUser");
+            var createdUser = CreateUser(user);
+            AssignRole(createdUser.Id, "User");
 
-            return new UserRegistrationResponse { Success = true, UserId = user.Id };
+            return new UserRegistrationResponse
+            {
+                Success = true,
+                UserId = createdUser.Id
+            };
         }
+
         public Guid GetUserIdByEmail(string email)
-    => FindByEmail(_db, email)?.Id ?? Guid.Empty;
+        {
+            var user = FindByEmail(email);
+            return user?.Id ?? Guid.Empty;
+        }
 
         public UserRoleType Login(Login dto)
         {
-            var user = FindByEmail(_db, dto.Email);
+            var user = FindByEmail(dto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return UserRoleType.None;
 
-            var roleName = GetRoles(_db, user.Id).FirstOrDefault();
-            var role = Enum.TryParse<UserRoleType>(roleName, out var rt) ? rt : UserRoleType.None;
+            var roleName = GetRoles(user.Id).FirstOrDefault();
+            if (roleName == "Banned" || roleName == "Guest")
+                return UserRoleType.None;
 
+            var role = Enum.TryParse<UserRoleType>(roleName, out var rt) ? rt : UserRoleType.None;
             SignIn(user.Id, dto.Email, role);
             return role;
         }
 
         public void SignIn(Guid userId, string email, UserRoleType role)
         {
-            var userData = $"{userId}|{(int)role}";
+            var userData = $"{userId}|{role}";
+            var encryptedUserData = ABSOLUTE_CINEMA.Helpers.CookieGenerator.Create(userData);
+
             var ticket = new FormsAuthenticationTicket(
                 1,
                 email,
                 DateTime.Now,
                 DateTime.Now.AddMinutes(30),
                 false,
-                userData
+                encryptedUserData
             );
 
-            var encrypted = FormsAuthentication.Encrypt(ticket);
-            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted)
+            var encryptedTicket = FormsAuthentication.Encrypt(ticket);
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket)
             {
                 HttpOnly = true
             };
+
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
+
 
         public void SignOut()
         {
             FormsAuthentication.SignOut();
         }
 
-        public List<UserViewModel> ListUsers() => ListUsers(_db);
+        public List<UserViewModel> ListUsers()
+        {
+            var users = GetAllUsers();
+
+            return users.Select(u => new UserViewModel
+            {
+                Name = u.Name,
+                Email = u.Email,
+                Roles = string.Join(", ", u.UserRoles.Select(ur => ur.Role.Name))
+            }).ToList();
+        }
     }
 }

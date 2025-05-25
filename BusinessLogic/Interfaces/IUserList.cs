@@ -8,5 +8,6 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
     {
         List<User> GetAllUsers();
         void UpdateRoles(Guid[] userIds, Guid[] roleIds);
+        List<Role> GetAllRoles();
     }
 }

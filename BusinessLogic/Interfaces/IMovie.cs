@@ -11,5 +11,8 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
         Movie Get(Guid id);
         void Update(Movie movie, List<Guid> genres, List<Guid> actors, List<Guid> directors);
         void Delete(Guid id);
+        List<Genre> GetAvailableGenres();
+        List<Actor> GetAvailableActors();
+        List<Director> GetAvailableDirectors();
     }
 }

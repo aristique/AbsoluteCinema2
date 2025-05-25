@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
@@ -8,12 +8,7 @@ namespace ABSOLUTE_CINEMA.Controllers
     [Authorize]
     public class SubscriptionController : Controller
     {
-        private readonly ISubscription _subscription;
-
-        public SubscriptionController(ISubscription subscription)
-        {
-            _subscription = subscription;
-        }
+        private readonly SubscriptionBL _subscription = new SubscriptionBL();
 
         [HttpGet]
         public ActionResult Subscribe()
@@ -36,6 +31,7 @@ namespace ABSOLUTE_CINEMA.Controllers
                 TempData["SubscriptionMessage"] = "У вас уже есть активная подписка.";
                 return RedirectToAction("Index", "Profile");
             }
+
             if (!ModelState.IsValid)
                 return View(model);
 

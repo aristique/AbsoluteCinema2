@@ -1,54 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ABSOLUTE_CINEMA.Domain.Entities;
+using System.Web;
+using System.Web.Security;
+using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
+using ABSOLUTE_CINEMA.BusinessLogic.Core;
 using ABSOLUTE_CINEMA.Domain.DTO;
+using ABSOLUTE_CINEMA.Domain.Entities;
 
 
 namespace ABSOLUTE_CINEMA.BusinessLogic.Core
 {
     public class AccountApi
     {
-        public bool ExistsEmail(WebDbContext db, string email)
-            => db.Users.Any(u => u.Email == email);
-
-        public User CreateUser(WebDbContext db, Register dto)
+        public bool ExistsEmail(string email)
         {
-            var user = new User
+            using (var db = new WebDbContext())
             {
-                Id = Guid.NewGuid(),
-                Name = dto.Name,
-                Email = dto.Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                CreatedAt = DateTime.UtcNow
-            };
-            db.Users.Add(user);
-            db.SaveChanges();
-            return user;
+                return db.Users.Any(u => u.Email == email);
+            }
         }
 
-        public void AssignRole(WebDbContext db, Guid userId, string roleName)
+        public User CreateUser(User user)
         {
-            var role = db.Roles.First(r => r.Name == roleName);
-            db.UserRoles.Add(new UserRole { UserId = userId, RoleId = role.Id });
-            db.SaveChanges();
+            using (var db = new WebDbContext())
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return user;
+            }
         }
 
-        public User FindByEmail(WebDbContext db, string email)
-            => db.Users.FirstOrDefault(u => u.Email == email);
-
-        public List<string> GetRoles(WebDbContext db, Guid userId)
-            => db.UserRoles.Where(ur => ur.UserId == userId)
-                           .Select(ur => ur.Role.Name).ToList();
-
-        public List<UserViewModel> ListUsers(WebDbContext db)
+        public void AssignRole(Guid userId, string roleName)
         {
-            return db.Users.Select(u => new UserViewModel
+            using (var db = new WebDbContext())
             {
-                Name = u.Name,
-                Email = u.Email,
-                Roles = string.Join(",", u.UserRoles.Select(ur => ur.Role.Name))
-            }).ToList();
+                var role = db.Roles.FirstOrDefault(r => r.Name == roleName);
+                if (role != null)
+                {
+                    db.UserRoles.Add(new UserRole { UserId = userId, RoleId = role.Id });
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public User FindByEmail(string email)
+        {
+            using (var db = new WebDbContext())
+            {
+                return db.Users.FirstOrDefault(u => u.Email == email);
+            }
+        }
+
+        public List<string> GetRoles(Guid userId)
+        {
+            using (var db = new WebDbContext())
+            {
+                return db.UserRoles
+                         .Where(ur => ur.UserId == userId)
+                         .Select(ur => ur.Role.Name)
+                         .ToList();
+            }
+        }
+
+        public List<User> GetAllUsers()
+        {
+            using (var db = new WebDbContext())
+            {
+                return db.Users
+                         .Include("UserRoles.Role") 
+                         .ToList();
+            }
         }
     }
 }
