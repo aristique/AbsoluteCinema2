@@ -35,6 +35,7 @@ namespace ABSOLUTE_CINEMA.Controllers
             {
                 var movie = new Movie
                 {
+                    Id = Guid.NewGuid(),
                     Title = model.Title,
                     Year = model.Year,
                     Country = model.Country,
