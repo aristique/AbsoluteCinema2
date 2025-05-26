@@ -16,7 +16,18 @@ namespace ABSOLUTE_CINEMA.Controllers
         public ActionResult Index()
         {
             var movies = _movie.GetAll();
-            return View(movies);
+
+            var viewModels = movies.Select(m => new MovieFormViewModel
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Year = m.Year,
+                Country = m.Country,
+                Description = m.Description,
+                YouTubeVideoId = m.YouTubeVideoId
+            }).ToList();
+
+            return View(viewModels);
         }
 
         public ActionResult Create()
@@ -39,11 +50,12 @@ namespace ABSOLUTE_CINEMA.Controllers
                     Title = model.Title,
                     Year = model.Year,
                     Country = model.Country,
-                    Description = model.Description
+                    Description = model.Description,
+                    YouTubeVideoId = model.YouTubeVideoId
                 };
 
-                _movie.Create(movie, model.SelectedGenres, model.SelectedActors, model.SelectedDirectors, youtubeId: null);
-                return RedirectToAction("Index");
+                _movie.Create(movie, model.SelectedGenres, model.SelectedActors, model.SelectedDirectors, model.YouTubeVideoId);
+                return RedirectToAction("Index", "Catalog");
             }
 
             ViewBag.Genres = _movie.GetAvailableGenres();
@@ -59,10 +71,12 @@ namespace ABSOLUTE_CINEMA.Controllers
 
             var model = new MovieFormViewModel
             {
+                Id = movieEntity.Id,          
                 Title = movieEntity.Title,
                 Year = movieEntity.Year,
                 Country = movieEntity.Country,
                 Description = movieEntity.Description,
+                YouTubeVideoId = movieEntity.YouTubeVideoId,
                 SelectedGenres = movieEntity.Genres.Select(g => g.Genre.Id).ToList(),
                 SelectedActors = movieEntity.Actors.Select(a => a.Actor.Id).ToList(),
                 SelectedDirectors = movieEntity.Directors.Select(d => d.Director.Id).ToList()
@@ -73,6 +87,7 @@ namespace ABSOLUTE_CINEMA.Controllers
             ViewBag.Directors = _movie.GetAvailableDirectors();
             return View(model);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -87,9 +102,10 @@ namespace ABSOLUTE_CINEMA.Controllers
                 movie.Year = model.Year;
                 movie.Country = model.Country;
                 movie.Description = model.Description;
+                movie.YouTubeVideoId = model.YouTubeVideoId;
 
                 _movie.Update(movie, model.SelectedGenres, model.SelectedActors, model.SelectedDirectors);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Catalog");
             }
 
             ViewBag.Genres = _movie.GetAvailableGenres();
@@ -110,7 +126,7 @@ namespace ABSOLUTE_CINEMA.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             _movie.Delete(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Catalog");
         }
     }
 }

@@ -1,19 +1,131 @@
-﻿@model ABSOLUTE_CINEMA.Domain.Entities.Movie
+﻿@model ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.MovieDetailsViewModel
+
 @{
     ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@Model.Title (@Model.Year)</h2>
-<div class="mb-3">
-    <img src="/img/@Model.Id" class="img-fluid" alt="@Model.Title">
-</div>
-<p>@Model.Description</p>
-<p><strong>Страна:</strong> @Model.Country</p>
-<p><strong>Жанры:</strong> @string.Join(", ", Model.Genres.Select(g => g.Genre.Name))</p>
-<p><strong>Режиссеры:</strong> @string.Join(", ", Model.Directors.Select(d => d.Director.Name))</p>
-<p><strong>Актеры:</strong> @string.Join(", ", Model.Actors.Select(a => a.Actor.Name))</p>
-@if (!string.IsNullOrEmpty(Model.YouTubeVideoId))
-{
-    <div class="embed-responsive embed-responsive-16by9 mb-3">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@Model.YouTubeVideoId"></iframe>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">@Model.Title (@Model.Year)</h2>
+
+    @if (!string.IsNullOrEmpty(Model.YouTubeVideoId))
+    {
+        <div class="d-flex justify-content-center mb-4">
+            <div style="width: 100%; max-width: 960px;">
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                    <iframe src="@($"https://www.youtube.com/embed/{Model.YouTubeVideoId}")"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h5 class="mt-4">Информация</h5>
+            <p><strong>Страна:</strong> @Model.Country</p>
+            <p><strong>Год выпуска:</strong> @Model.Year</p>
+
+            <h5 class="mt-4">Жанры</h5>
+            @if (Model.Genres.Any())
+            {
+                <ul>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <li>@genre</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Нет жанров</p>
+            }
+
+            <h5 class="mt-4">Режиссёры</h5>
+            @if (Model.Directors.Any())
+            {
+                <ul>
+                    @foreach (var director in Model.Directors)
+                    {
+                        <li>@director</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Нет режиссёров</p>
+            }
+
+            <h5 class="mt-4">Актёры</h5>
+            @if (Model.Actors.Any())
+            {
+                <ul>
+                    @foreach (var actor in Model.Actors)
+                    {
+                        <li>@actor</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Нет актёров</p>
+            }
+
+            <h5 class="mt-4">Описание</h5>
+            <p>@Model.Description</p>
+
+            <hr class="my-4" />
+            <h4>Комментарии</h4>
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="mb-4">
+                    @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("movieId", Model.Id)
+
+                        <div class="form-group">
+                            <label for="text">Оставить комментарий:</label>
+                            <textarea name="text" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Добавить</button>
+                    }
+                </div>
+            }
+
+ 
+            <div class="comments-list">
+                @if (Model.Comments != null && Model.Comments.Any())
+                {
+                    foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+                    {
+                        <div class="comment border rounded p-3 mb-3">
+                            <strong>@comment.UserName</strong>
+                            <span class="text-muted float-end">@comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                            <p class="mt-2">@comment.Text</p>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                using (Html.BeginForm("Delete", "Comments", FormMethod.Post, new { @class = "d-inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("id", comment.Id)
+                                    @Html.Hidden("movieId", Model.Id)
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+                                }
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Комментариев пока нет.</p>
+                }
+            </div>
+        </div>
     </div>
-}
+</div>

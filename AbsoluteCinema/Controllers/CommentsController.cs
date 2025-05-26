@@ -13,10 +13,16 @@ namespace ABSOLUTE_CINEMA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Guid movieId, string text)
         {
-            if (!ModelState.IsValid)
+            // Проверка на пустой комментарий
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                TempData["CommentError"] = "Комментарий не может быть пустым.";
                 return RedirectToAction("Details", "Catalog", new { id = movieId });
+            }
 
+            // Добавление комментария
             _comment.Create(movieId, text);
+
             return RedirectToAction("Details", "Catalog", new { id = movieId });
         }
 

@@ -1,20 +1,61 @@
-﻿@model IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Movie>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.MovieViewModel>
+@using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels
+
 @{
     ViewBag.Title = "Каталог фильмов";
+    var selectedGenres = ViewBag.SelectedGenres as List<string>;
 }
-<h2>@ViewBag.Title</h2>
-<div class="row">
-    @foreach (var movie in Model)
-    {
-        <div class="col-md-3 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="/img/@movie.Id" alt="@movie.Title">
-                <div class="card-body">
-                    <h5 class="card-title">@movie.Title</h5>
-                    <p class="card-text">@movie.Year</p>
-                    <a href="@Url.Action("Details", new { id=movie.Id })" class="btn btn-primary">Подробнее</a>
+
+<div class="container my-4">
+    <h2 class="mb-4">@ViewBag.Title</h2>
+
+    <form method="get" action="@Url.Action("Index", "Catalog")" class="mb-4">
+        <div class="row">
+            <div class="col-md-12">
+                <label class="form-label">Фильтрация по жанрам:</label>
+                <div class="d-flex flex-wrap gap-2">
+                    @if (ViewBag.Genres != null)
+                    {
+                        foreach (var genre in ViewBag.Genres as IEnumerable<GenreViewModel>)
+                        {
+                            <div class="form-check me-3">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="genres"
+                                       value="@genre.Name"
+                                       id="genre_@genre.Id"
+                                       @(selectedGenres.Contains(genre.Name) ? "checked" : "") />
+                                <label class="form-check-label" for="genre_@genre.Id">
+                                    @genre.Name
+                                </label>
+                            </div>
+                        }
+                    }
                 </div>
+                <button type="submit" class="btn btn-primary mt-3">Применить</button>
             </div>
         </div>
-    }
+    </form>
+
+    <div class="row">
+        @foreach (var movie in Model)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    @if (!string.IsNullOrEmpty(movie.YouTubeVideoId))
+                    {
+                        <img class="card-img-top" src="@($"https://img.youtube.com/vi/{movie.YouTubeVideoId}/0.jpg")" alt="@movie.Title" />
+                    }
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@movie.Title</h5>
+                        <p class="card-text text-muted">@movie.Year</p>
+                        <a href="@Url.Action("Details", "Catalog", new { id = movie.Id })" class="btn btn-primary mt-auto">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

@@ -89,14 +89,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
         {
             using (var db = new WebDbContext())
             {
-                return db.Movies
-                         .Include("Genres.Genre")
-                         .ToList()
-                         .SelectMany(m => m.Genres)
-                         .Select(g => g.Genre)
-                         .GroupBy(g => g.Id)
-                         .Select(g => g.First())
-                         .ToList();
+                return db.Genres.ToList();
             }
         }
 
@@ -104,29 +97,16 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
         {
             using (var db = new WebDbContext())
             {
-                return db.Movies
-                         .Include("Actors.Actor")
-                         .ToList()
-                         .SelectMany(m => m.Actors)
-                         .Select(a => a.Actor)
-                         .GroupBy(a => a.Id)
-                         .Select(a => a.First())
-                         .ToList();
+                return db.Actors.ToList();
             }
         }
+
 
         public List<Director> GetAvailableDirectorss()
         {
             using (var db = new WebDbContext())
             {
-                return db.Movies
-                         .Include("Directors.Director")
-                         .ToList()
-                         .SelectMany(m => m.Directors)
-                         .Select(d => d.Director)
-                         .GroupBy(d => d.Id)
-                         .Select(d => d.First())
-                         .ToList();
+                return db.Directors.ToList();
             }
         }
     }

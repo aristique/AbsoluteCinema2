@@ -19,7 +19,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
 
         public Movie GetById(Guid id)
         {
-            return GetAllMoviess().FirstOrDefault(m => m.Id == id);
+            return GetMovieById(id); 
         }
 
         public List<Genre> GetGenres()

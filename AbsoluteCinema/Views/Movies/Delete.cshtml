@@ -1,10 +1,21 @@
 ﻿@model ABSOLUTE_CINEMA.Domain.Entities.Movie
-@{ ViewBag.Title = "Удалить фильм"; Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{
+    ViewBag.Title = "Удалить фильм";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h2>@ViewBag.Title</h2>
-<h4>Вы уверены, что хотите удалить фильм "@Model.Title"?</h4>
-@using (Html.BeginForm())
+<h4>Вы уверены, что хотите удалить фильм «@Model.Title»?</h4>
+
+@using (Html.BeginForm(
+    actionName: "Delete",
+    controllerName: "Movies",
+    routeValues: new { id = Model.Id },
+    method: FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
     <button type="submit" class="btn btn-danger">Удалить</button>
     @Html.ActionLink("Отмена", "Index", "Movies", null, new { @class = "btn btn-secondary ml-2" })
 }

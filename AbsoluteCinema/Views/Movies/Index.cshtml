@@ -1,32 +1,33 @@
-﻿@model IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Movie>
+﻿@model IEnumerable<ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.MovieFormViewModel>
+
 @{
     ViewBag.Title = "Управление фильмами";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Добавить новый фильм", "Create")
-</p>
-
-<table class="table">
-    <tr>
-        <th>Название</th>
-        <th>Год</th>
-        <th>Страна</th>
-        <th>Действия</th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.Title)</td>
-            <td>@Html.DisplayFor(modelItem => item.Year)</td>
-            <td>@Html.DisplayFor(modelItem => item.Country)</td>
-            <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
-            </td>
+            <th>Название</th>
+            <th>Год</th>
+            <th>Страна</th>
+            <th style="width:200px">Действия</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.Title</td>
+                <td>@m.Year</td>
+                <td>@m.Country</td>
+                <td>
+                    @Html.ActionLink("Ред.", "Edit", new { id = m.Id }, new { @class = "btn btn-sm btn-primary" })
+                    @Html.ActionLink("Удал.", "Delete", new { id = m.Id }, new { @class = "btn btn-sm btn-danger ml-2" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
