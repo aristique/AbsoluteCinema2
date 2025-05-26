@@ -47,7 +47,9 @@
                 <div class="card h-100 shadow-sm">
                     @if (!string.IsNullOrEmpty(movie.YouTubeVideoId))
                     {
-                        <img class="card-img-top" src="@($"https://img.youtube.com/vi/{movie.YouTubeVideoId}/0.jpg")" alt="@movie.Title" />
+                       <img class="card-img-top"
+                            src="@("https://img.youtube.com/vi/" + movie.YouTubeVideoId + "/0.jpg")"
+                            alt="@movie.Title" />
                     }
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">@movie.Title</h5>
