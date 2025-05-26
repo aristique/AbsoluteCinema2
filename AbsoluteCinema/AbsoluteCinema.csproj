@@ -260,7 +260,7 @@
     <Content Include="Views\Movies\Delete.cshtml" />
     <Content Include="Views\Movies\Edit.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\Subscription\Subscripe.cshtml" />
+    <Content Include="Views\Subscription\Subscribe.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
