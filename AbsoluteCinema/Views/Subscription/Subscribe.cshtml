@@ -1,24 +1,36 @@
-﻿@model ABSOLUTE_CINEMA.Domain.DTO.PaymentViewModel
-@{ ViewBag.Title = "Оформить подписку"; Layout = "~/Views/Shared/_Layout.cshtml"; }
+﻿@model ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.PaymentViewModel
+@{
+    ViewBag.Title = "Оформить подписку";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h2>@ViewBag.Title</h2>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-group">
-        @Html.LabelFor(m => m.SubscriptionType)
-        @Html.DropDownListFor(m => m.SubscriptionType, new SelectList(new[] { "Monthly", "Annual" }), "", new { @class = "form-control" })
-    </div>
-    <div class="form-group">
         @Html.LabelFor(m => m.CardNumber)
         @Html.TextBoxFor(m => m.CardNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CardNumber, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.ExpiryDate)
-        @Html.TextBoxFor(m => m.ExpiryDate, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.ExpiryDate, new { @class = "form-control", placeholder = "MM/YY" })
+        @Html.ValidationMessageFor(m => m.ExpiryDate, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.CVV)
         @Html.TextBoxFor(m => m.CVV, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CVV, "", new { @class = "text-danger" })
     </div>
-    <button type="submit" class="btn btn-primary">Подписаться</button>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SubscriptionType)
+        @Html.DropDownListFor(m => m.SubscriptionType,
+            new SelectList(new[] { "Monthly", "Yearly" }),
+            "-- Выберите тип подписки --",
+            new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SubscriptionType, "", new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary">Оплатить</button>
 }

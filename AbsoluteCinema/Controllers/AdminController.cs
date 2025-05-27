@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
+using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [CustomAuthorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly AdminBL _admin = new AdminBL();
@@ -17,6 +18,7 @@ namespace ABSOLUTE_CINEMA.Controllers
             return RedirectToAction("Index", "UserList");
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangeRole(Guid userId, Guid roleId)
@@ -25,6 +27,7 @@ namespace ABSOLUTE_CINEMA.Controllers
             return RedirectToAction("Index", "UserList");
         }
 
+        // POST: /Admin/DeleteComments
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteComments(Guid userId)
@@ -33,6 +36,7 @@ namespace ABSOLUTE_CINEMA.Controllers
             return RedirectToAction("Index", "UserList");
         }
 
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GrantSubscription(Guid userId, string subscriptionType)

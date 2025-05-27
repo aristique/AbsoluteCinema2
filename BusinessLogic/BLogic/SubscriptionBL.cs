@@ -15,7 +15,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
             return HasActive(userId);
         }
 
-        public void Subscribe(PaymentViewModel dto)
+        public void Subscribe(PaymentModel dto)
         {
             var session = new SessionBL();
             var userId = session.GetCurrentUserId();

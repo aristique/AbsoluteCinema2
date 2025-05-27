@@ -6,7 +6,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
 {
     public class ProfileBL : ProfileApi, IProfile
     {
-        public ProfileViewModel GetProfile(string email)
+        public ProfileModel GetProfile(string email)
         {
             return Loadd(email);
         }

@@ -17,6 +17,6 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
         /// Создаёт новую подписку, если у пользователя её нет.
         /// </summary>
         /// <param name="dto">Данные из формы оплаты.</param>
-        void Subscribe(PaymentViewModel dto);
+        void Subscribe(PaymentModel dto);
     }
 }

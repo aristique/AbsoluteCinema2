@@ -1,11 +1,12 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
+using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
 using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
-    [Authorize]
+    [CustomAuthorize]  
     public class SubscriptionController : Controller
     {
         private readonly SubscriptionBL _subscription = new SubscriptionBL();
@@ -13,18 +14,19 @@ namespace ABSOLUTE_CINEMA.Controllers
         [HttpGet]
         public ActionResult Subscribe()
         {
-            var has = _subscription.HasActive();
-            if (has)
+            if (_subscription.HasActive())
             {
                 TempData["SubscriptionMessage"] = "У вас уже есть активная подписка.";
                 return RedirectToAction("Index", "Profile");
             }
-            return View();
+
+            
+            return View(new PaymentViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Subscribe(PaymentViewModel model)
+        public ActionResult Subscribe(PaymentViewModel vm)
         {
             if (_subscription.HasActive())
             {
@@ -33,9 +35,18 @@ namespace ABSOLUTE_CINEMA.Controllers
             }
 
             if (!ModelState.IsValid)
-                return View(model);
+                return View(vm);
 
-            _subscription.Subscribe(model);
+           
+            var dto = new PaymentModel
+            {
+                CardNumber = vm.CardNumber,
+                ExpiryDate = vm.ExpiryDate,
+                CVV = vm.CVV,
+                SubscriptionType = vm.SubscriptionType
+            };
+
+            _subscription.Subscribe(dto);
             return RedirectToAction("Index", "Profile");
         }
     }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using ABSOLUTE_CINEMA.Domain.Entities;
+using ABSOLUTE_CINEMA.Helpers;
 
 namespace ABSOLUTE_CINEMA
 {
@@ -104,25 +106,39 @@ namespace ABSOLUTE_CINEMA
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (authCookie == null) return;
+            var authCookie = Context.Request.Cookies["AuthCookie"];
+            if (authCookie == null || string.IsNullOrEmpty(authCookie.Value))
+                return;
 
             try
             {
-                var ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                var decryptedUserData = ABSOLUTE_CINEMA.Helpers.CookieGenerator.Validate(ticket.UserData);
-
-                var parts = decryptedUserData.Split('|');
-                var identity = new System.Security.Principal.GenericIdentity(ticket.Name, "Forms");
+                
+                var decrypted = CookieGenerator.Validate(authCookie.Value);
+                var parts = decrypted.Split('|');
+                if (parts.Length != 4) return;
 
                 
-                var roles = parts.Length >= 2 ? new[] { parts[1] } : new string[0];
+                if (!DateTime.TryParse(parts[3], null,
+                        System.Globalization.DateTimeStyles.RoundtripKind,
+                        out var expireUtc)
+                    || expireUtc < DateTime.UtcNow)
+                    return;
 
-                HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(identity, roles);
+                
+                var email = parts[1];
+                var role = parts[2];
+
+                
+                var identity = new GenericIdentity(email, "CustomCookie");
+                var principal = new GenericPrincipal(identity, new[] { role });
+
+                
+                Context.User = principal;
+                System.Threading.Thread.CurrentPrincipal = principal;
             }
             catch
             {
-         
+                
             }
         }
 

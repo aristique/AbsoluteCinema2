@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title - Absolute Cinema</title>
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
 
     <style>
@@ -62,20 +61,22 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
+                <!-- Всегда доступно -->
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Index", "Home")">Главная</a>
                 </li>
 
+                @* Только для аутентифицированных *@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "Catalog")">Каталог</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "Profile")">Профиль</a>
                     </li>
 
+                    @* Только для админов *@
                     if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
@@ -85,12 +86,11 @@
                             <a class="nav-link" href="@Url.Action("Subscribe", "Subscription")">Подписки</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-premium ml-2" href="@Url.Action("Create", "Movies")"> Создать</a>
+                            <a class="btn btn-premium ml-2" href="@Url.Action("Create", "Movies")">Создать</a>
                         </li>
                         <li class="nav-item">
-+              <            <a class="nav-link" href="@Url.Action("Index", "Movies")">Изменить</a>
+                            <a class="nav-link" href="@Url.Action("Index", "Movies")">Изменить</a>
                         </li>
-
                     }
                 }
             </ul>

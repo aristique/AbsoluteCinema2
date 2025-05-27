@@ -5,10 +5,11 @@ using System.Web.Mvc;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.Domain.Entities;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
+using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [CustomAuthorize(Roles = "Admin")]
     public class MoviesController : Controller
     {
         private readonly MovieBL _movie = new MovieBL();
@@ -16,7 +17,6 @@ namespace ABSOLUTE_CINEMA.Controllers
         public ActionResult Index()
         {
             var movies = _movie.GetAll();
-
             var viewModels = movies.Select(m => new MovieFormViewModel
             {
                 Id = m.Id,
@@ -39,7 +39,6 @@ namespace ABSOLUTE_CINEMA.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(MovieFormViewModel model)
         {
             if (ModelState.IsValid)
@@ -54,7 +53,11 @@ namespace ABSOLUTE_CINEMA.Controllers
                     YouTubeVideoId = model.YouTubeVideoId
                 };
 
-                _movie.Create(movie, model.SelectedGenres, model.SelectedActors, model.SelectedDirectors, model.YouTubeVideoId);
+                _movie.Create(movie,
+                              model.SelectedGenres,
+                              model.SelectedActors,
+                              model.SelectedDirectors,
+                              model.YouTubeVideoId);
                 return RedirectToAction("Index", "Catalog");
             }
 
@@ -67,11 +70,12 @@ namespace ABSOLUTE_CINEMA.Controllers
         public ActionResult Edit(Guid id)
         {
             var movieEntity = _movie.Get(id);
-            if (movieEntity == null) return HttpNotFound();
+            if (movieEntity == null)
+                return HttpNotFound();
 
             var model = new MovieFormViewModel
             {
-                Id = movieEntity.Id,          
+                Id = movieEntity.Id,
                 Title = movieEntity.Title,
                 Year = movieEntity.Year,
                 Country = movieEntity.Country,
@@ -88,15 +92,14 @@ namespace ABSOLUTE_CINEMA.Controllers
             return View(model);
         }
 
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(Guid id, MovieFormViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var movie = _movie.Get(id);
-                if (movie == null) return HttpNotFound();
+                if (movie == null)
+                    return HttpNotFound();
 
                 movie.Title = model.Title;
                 movie.Year = model.Year;
@@ -104,7 +107,10 @@ namespace ABSOLUTE_CINEMA.Controllers
                 movie.Description = model.Description;
                 movie.YouTubeVideoId = model.YouTubeVideoId;
 
-                _movie.Update(movie, model.SelectedGenres, model.SelectedActors, model.SelectedDirectors);
+                _movie.Update(movie,
+                              model.SelectedGenres,
+                              model.SelectedActors,
+                              model.SelectedDirectors);
                 return RedirectToAction("Index", "Catalog");
             }
 
@@ -116,11 +122,22 @@ namespace ABSOLUTE_CINEMA.Controllers
 
         public ActionResult Delete(Guid id)
         {
-            var movieEntity = _movie.Get(id);
-            if (movieEntity == null) return HttpNotFound();
-            return View(movieEntity);
+            var entity = _movie.Get(id);
+            if (entity == null)
+                return HttpNotFound();
+
+            var vm = new MovieViewModel
+            {
+                Id = entity.Id,
+                Title = entity.Title,
+                Year = entity.Year,
+                YouTubeVideoId = entity.YouTubeVideoId
+            };
+
+            return View(vm);
         }
 
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)

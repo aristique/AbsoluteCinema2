@@ -1,51 +1,84 @@
-﻿@model IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.User>
+﻿@model ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.UserListViewModel
+
 @{
-    ViewBag.Title = "Пользователи"; Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Пользователи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2>@ViewBag.Title</h2>
+
 <table class="table table-hover">
-    <thead><tr><th>Имя</th><th>Email</th><th>Роли</th><th>Действия</th></tr></thead>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Роль</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
     <tbody>
-        @foreach (var u in Model)
+        @foreach (var u in Model.Users)
         {
             <tr>
                 <td>@u.Name</td>
                 <td>@u.Email</td>
-                <td>@string.Join(", ", u.UserRoles.Select(ur => ur.Role.Name))</td>
+                <td>@u.Role</td>
                 <td>
+                    @* — сменить роль *@
                     @using (Html.BeginForm("ChangeRole", "Admin", FormMethod.Post, new { @class = "d-inline" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("userId", u.Id)
                         <select name="roleId" class="form-control d-inline w-auto">
-                            @foreach (var r in ViewBag.AllRoles as IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Role>)
+                            @foreach (var r in Model.AllRoles)
                             {
-                                <option value="@r.Id">@r.Name</option>
+                                <option value="@r.Id" @(r.Name == u.Role ? "selected" : "")>@r.Name</option>
                             }
                         </select>
-                        <button type="submit" class="btn btn-sm btn-info">Сменить роль</button>
+                        <button type="submit" class="btn btn-sm btn-info ml-1">Изменить</button>
                     }
-                    @using (Html.BeginForm("Ban", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
+
+                    @* — бан / разбан *@
+                    @if (!u.IsBanned)
                     {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("userId", u.Id)
-                        <button type="submit" class="btn btn-sm btn-danger">Забанить</button>
+                        using (Html.BeginForm("Ban", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("userId", u.Id)
+                            <button type="submit" class="btn btn-sm btn-danger">Забанить</button>
+                        }
                     }
+                    else
+                    {
+                        using (Html.BeginForm("Unban", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("userId", u.Id)
+                            <button type="submit" class="btn btn-sm btn-success">Разбанить</button>
+                        }
+                    }
+
+                    @* — удалить комментарии *@
                     @using (Html.BeginForm("DeleteComments", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("userId", u.Id)
                         <button type="submit" class="btn btn-sm btn-warning">Удалить комм.</button>
                     }
+
+                    @* — выдать подписку *@
                     @using (Html.BeginForm("GrantSubscription", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("userId", u.Id)
                         <select name="subscriptionType" class="form-control d-inline w-auto">
-                            <option value="Monthly">Месячная</option>
-                            <option value="Annual">Годовая</option>
+                            @foreach (var type in Model.SubscriptionTypes)
+                            {
+                                var display = type == "Monthly" ? "Месячная" : "Годовая";
+                                <option value="@type">@display</option>
+                            }
                         </select>
-                        <button type="submit" class="btn btn-sm btn-success">Подписать</button>
+                        <button type="submit" class="btn btn-sm btn-success ml-1">Подписать</button>
                     }
                 </td>
             </tr>

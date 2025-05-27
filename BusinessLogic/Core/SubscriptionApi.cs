@@ -19,6 +19,9 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
         {
             using (var db = new WebDbContext())
             {
+                if (entity.Id == Guid.Empty)
+                    entity.Id = Guid.NewGuid();
+
                 db.Subscriptions.Add(entity);
                 db.SaveChanges();
             }

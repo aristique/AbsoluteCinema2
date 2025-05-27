@@ -8,11 +8,11 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
 {
     public interface IAccount
     {
-        UserRegistrationResponse Register(Register dto);
+        UserRegistrationResponse Register(Registerr dto);
         UserRoleType Login(Login dto);
         void SignIn(Guid userId, string email, UserRoleType role);
     void SignOut();                      
-       List<UserViewModel> ListUsers();
+       List<UserModel> ListUsers();
         Guid GetUserIdByEmail(string email);
     }
 }

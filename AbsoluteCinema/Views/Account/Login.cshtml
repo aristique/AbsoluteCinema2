@@ -1,4 +1,4 @@
-﻿@model ABSOLUTE_CINEMA.Domain.DTO.Login
+﻿@model ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.LoginViewModel
 
 @{
     ViewBag.Title = "Вход";
@@ -7,9 +7,13 @@
 
 <h2>Вход</h2>
 
+@Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
 {
-    @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+    @Html.AntiForgeryToken() <!-- обязательно добавьте эту строку! -->
+
+    <input type="hidden" name="returnUrl" value="@(ViewBag.ReturnUrl ?? "")" />
 
     <div class="form-group">
         @Html.LabelFor(m => m.Email)

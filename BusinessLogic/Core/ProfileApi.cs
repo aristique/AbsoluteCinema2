@@ -7,7 +7,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
 {
     public class ProfileApi
     {
-        public ProfileViewModel Loadd(string email)
+        public ProfileModel Loadd(string email)
         {
             using (var db = new WebDbContext())
             {
@@ -19,7 +19,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
 
                 var active = user.Subscriptions.FirstOrDefault(s => s.IsActive && s.EndDate >= System.DateTime.UtcNow);
 
-                return new ProfileViewModel
+                return new ProfileModel
                 {
                     Name = user.Name,
                     Email = user.Email,

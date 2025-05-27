@@ -1,88 +1,102 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Web.Security;
+﻿using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
+using System.Linq;
+using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
-using ABSOLUTE_CINEMA.Domain.DTO;
 using ABSOLUTE_CINEMA.Domain.Entities;
-using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
+using ABSOLUTE_CINEMA.Domain.DTO;
+using System.Web.Mvc;
 
-namespace ABSOLUTE_CINEMA.Controllers
+public class AccountController : Controller
 {
-    public class AccountController : Controller
+    private readonly AccountBL _account = new AccountBL();
+
+    [HttpGet]
+ 
+    public ActionResult Login()
     {
-        private readonly AccountBL _account = new AccountBL();
+        return View(new LoginViewModel());
+    }
 
-        [HttpGet]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Login()
+    [HttpPost]
+      [ValidateAntiForgeryToken]
+    public ActionResult Login(LoginViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var role = _account.Login(new Login
         {
-            FormsAuthentication.SignOut();
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(Login model)
+            Email = model.Email,
+            Password = model.Password
+        });
+
+        if (role == UserRoleType.None)
         {
-            var userRole = _account.Login(model);
-            if (userRole == UserRoleType.User)
-            {
-                ModelState.AddModelError("", "Неверные учетные данные");
-                return View(model);
-            }
-
-            var session = new SessionBL();
-            var userId = session.GetCurrentUserId();
-            var email = model.Email;
-            var role = session.GetCurrentUserRole();
-
-            return RedirectToAction("Index", "Home");
+            ModelState.AddModelError("", "Неверные учётные данные");
+            return View(model);
         }
 
-        [HttpGet]
-        public ActionResult Register()
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+
+    public ActionResult Register()
+    {
+        return View(new RegisterViewModel());
+    }
+
+    [HttpPost]
+   
+    [ValidateAntiForgeryToken]
+    public ActionResult Register(RegisterViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+
+        if (model.Password != model.ConfirmPassword)
         {
-            return View();
+            ModelState.AddModelError("", "Пароли не совпадают");
+            return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel model)
+        var result = _account.Register(new Registerr
         {
-            if (!ModelState.IsValid)
-                return View(model);
+            Name = model.Name,
+            Email = model.Email,
+            Password = model.Password,
+            ConfirmPassword = model.ConfirmPassword
+        });
 
-            var dto = new Register
-            {
-                Name = model.Name,
-                Email = model.Email,
-                Password = model.Password,
-                ConfirmPassword = model.ConfirmPassword
-            };
-
-            var result = _account.Register(dto);
-            if (!result.Success)
-            {
-                ModelState.AddModelError("", result.Message);
-                return View(model);
-            }
-
-            return RedirectToAction("Index", "Home");
+        if (!result.Success)
+        {
+            ModelState.AddModelError("", result.Message);
+            return View(model);
         }
 
-        [Authorize]
-        public ActionResult Logout()
-        {
-            _account.SignOut();
-            FormsAuthentication.SignOut();
-            Session.Clear();
-            Session.Abandon();
-            return RedirectToAction("Index", "Home");
-        }
+        _account.SignIn(result.UserId, model.Email, UserRoleType.RegisteredUser);
+        return RedirectToAction("Index", "Home");
+    }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult UsersList()
+    [CustomAuthorize]
+    public ActionResult Logout()
+    {
+        _account.SignOut();
+        return RedirectToAction("Index", "Home");
+    }
+
+    [CustomAuthorize(Roles = "Admin")]
+    public ActionResult UsersList()
+    {
+        var usersDto = _account.ListUsers();
+        var vm = usersDto.Select(u => new UserViewModel
         {
-            var users = _account.ListUsers();
-            return View(users);
-        }
+            Id = u.Id,
+            Name = u.Name,
+            Email = u.Email,
+            Role = u.Roles
+        }).ToList();
+
+        return View(vm);
     }
 }

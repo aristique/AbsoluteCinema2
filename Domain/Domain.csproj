@@ -55,11 +55,11 @@
   <ItemGroup>
     <Compile Include="BaseDbItem.cs" />
     <Compile Include="DTO\Login.cs" />
-    <Compile Include="DTO\PaymentViewModel.cs" />
-    <Compile Include="DTO\ProfileViewModel.cs" />
-    <Compile Include="DTO\Register.cs" />
+    <Compile Include="DTO\PaymentModel.cs" />
+    <Compile Include="DTO\ProfileModel.cs" />
+    <Compile Include="DTO\Registerr.cs" />
     <Compile Include="DTO\UserRegistrationResponse.cs" />
-    <Compile Include="DTO\UserViewModel.cs" />
+    <Compile Include="DTO\UserModel.cs" />
     <Compile Include="Entities\Actor.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Director.cs" />

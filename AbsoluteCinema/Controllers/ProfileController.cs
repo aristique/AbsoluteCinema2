@@ -1,6 +1,7 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
+using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
@@ -11,9 +12,19 @@ namespace ABSOLUTE_CINEMA.Controllers
 
         public ActionResult Index()
         {
-            var email = User.Identity.Name;
-            var model = _profile.GetProfile(email);
-            return View(model);
+            
+            ProfileModel dto = _profile.GetProfile(User.Identity.Name);
+
+            
+            var vm = new ProfileViewModel
+            {
+                Name = dto.Name,
+                Email = dto.Email,
+                Subscription = dto.Subscription
+            };
+
+            
+            return View(vm);
         }
     }
 }

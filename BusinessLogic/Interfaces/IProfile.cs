@@ -3,6 +3,6 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
 {
     public interface IProfile
     {
-        ProfileViewModel GetProfile(string email);
+        ProfileModel GetProfile(string email);
     }
 }
