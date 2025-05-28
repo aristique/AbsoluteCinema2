@@ -26,5 +26,19 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
         {
             return GetGenress();
         }
+        public void RecordDetailsView(Guid movieId)
+        {
+            RecordDetailsVieww(movieId);
+        }
+        public List<Movie> GetPopular(int top = 4)
+        {
+            return base.GetTopPopularMoviess(top);
+        }
+        public void IncrementDetailsViewCount(Guid movieId)
+        {
+            base.IncrementDetailsViewCountt(movieId);
+        }
+
+
     }
 }

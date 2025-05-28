@@ -32,6 +32,42 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
                     .FirstOrDefault(m => m.Id == id);
             }
         }
+   
+        public void RecordDetailsVieww(Guid movieId)
+        {
+            using (var db = new WebDbContext())
+            {
+                var movie = db.Movies.Find(movieId);
+                if (movie != null)
+                {
+                    movie.DetailsViewCount++;
+                    db.SaveChanges();
+                }
+            }
+        }
+        public List<Movie> GetTopPopularMoviess(int top = 4)
+        {
+            using (var db = new WebDbContext())
+            {
+                return db.Movies
+                         .OrderByDescending(m => m.DetailsViewCount)
+                         .Take(top)
+                         .ToList();
+            }
+        }
+        public void IncrementDetailsViewCountt(Guid movieId)
+        {
+            using (var db = new WebDbContext())
+            {
+                var movie = db.Movies.Find(movieId);
+                if (movie != null)
+                {
+                    movie.DetailsViewCount++;
+                    db.SaveChanges();
+                }
+            }
+        }
+
         public List<Genre> GetGenress()
         {
             using (var db = new WebDbContext())

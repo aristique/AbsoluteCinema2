@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
@@ -61,12 +62,12 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                
+
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Index", "Home")">Главная</a>
                 </li>
 
-                
+
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item">
@@ -75,12 +76,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "Profile")">Профиль</a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Subscribe", "Subscription")">Подписки</a>
                     </li>
 
-                    
+
                     if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">

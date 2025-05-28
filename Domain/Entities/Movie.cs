@@ -11,6 +11,7 @@ namespace ABSOLUTE_CINEMA.Domain.Entities
         public string Country { get; set; }
         public string Description { get; set; }
         public string YouTubeVideoId { get; set; }
+        public int DetailsViewCount { get; set; } = 0;
         public virtual ICollection<Comment> Comments { get; set; }
     = new List<Comment>();
         public virtual ICollection<MovieGenre> Genres { get; set; } = new List<MovieGenre>();

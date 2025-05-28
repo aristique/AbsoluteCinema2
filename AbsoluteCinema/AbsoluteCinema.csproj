@@ -223,6 +223,10 @@
     <Compile Include="Migrations\202505141927361_Pr1.designer.cs">
       <DependentUpon>202505141927361_Pr1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202505281602234_AddDetailsViewCount.cs" />
+    <Compile Include="Migrations\202505281602234_AddDetailsViewCount.Designer.cs">
+      <DependentUpon>202505281602234_AddDetailsViewCount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ViewModels\CommentViewModel.cs" />
@@ -332,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505141927361_Pr1.resx">
       <DependentUpon>202505141927361_Pr1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505281602234_AddDetailsViewCount.resx">
+      <DependentUpon>202505281602234_AddDetailsViewCount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

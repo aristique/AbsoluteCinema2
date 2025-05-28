@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
-using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
+using ABSOLUTE_CINEMA.Domain.Entities;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
@@ -12,11 +13,13 @@ namespace ABSOLUTE_CINEMA.Controllers
     {
         private readonly ICatalog _catalog = new CatalogBL();
 
+        [HttpGet]
         public ActionResult Index(List<string> genres = null)
         {
+            // Берём все фильмы
             var movies = _catalog.GetAll();
 
-            
+            // Фильтруем по выбранным жанрам (если есть)
             if (genres != null && genres.Any())
             {
                 movies = movies
@@ -24,29 +27,51 @@ namespace ABSOLUTE_CINEMA.Controllers
                     .ToList();
             }
 
-            
-            var viewModels = movies.Select(m => new MovieViewModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Year = m.Year,
-                YouTubeVideoId = m.YouTubeVideoId
-            }).ToList();
+            // Проекция в MovieViewModel
+            var viewModels = movies
+                .Select(m => new MovieViewModel
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    Year = m.Year,
+                    YouTubeVideoId = m.YouTubeVideoId
+                })
+                .ToList();
 
+            // Получаем топ-4 самых популярных
            
-            var allGenres = _catalog.GetGenres()
+
+            // Жанры для фильтрации
+            var allGenres = _catalog
+                .GetGenres()
                 .Select(g => new GenreViewModel
                 {
                     Id = g.Id,
                     Name = g.Name
-                }).ToList();
+                })
+                .ToList();
 
             ViewBag.Genres = allGenres;
             ViewBag.SelectedGenres = genres ?? new List<string>();
+            
 
             return View(viewModels);
         }
 
+        /// <summary>
+        /// Увеличивает счётчик просмотров и перенаправляет на Details.
+        /// </summary>
+        [HttpGet]
+        public ActionResult TrackAndDetails(Guid id)
+        {
+            _catalog.IncrementDetailsViewCount(id);
+            return RedirectToAction("Details", new { id });
+        }
+
+        /// <summary>
+        /// Страница «Подробнее» без побочных эффектов.
+        /// </summary>
+        [HttpGet]
         public ActionResult Details(Guid id)
         {
             var movie = _catalog.GetById(id);
@@ -64,17 +89,19 @@ namespace ABSOLUTE_CINEMA.Controllers
                 Genres = movie.Genres.Select(g => g.Genre.Name).ToList(),
                 Actors = movie.Actors.Select(a => a.Actor.Name).ToList(),
                 Directors = movie.Directors.Select(d => d.Director.Name).ToList(),
-                Comments = movie.Comments.Select(c => new CommentViewModel
-                {
-                    Id = c.Id,
-                    Text = c.Text,
-                    UserName = c.User?.Name ,
-                    CreatedAt = c.CreatedAt
-                }).ToList()
+                Comments = movie.Comments
+                                 .OrderByDescending(c => c.CreatedAt)
+                                 .Select(c => new CommentViewModel
+                                 {
+                                     Id = c.Id,
+                                     Text = c.Text,
+                                     UserName = c.User?.Name ?? string.Empty,
+                                     CreatedAt = c.CreatedAt
+                                 })
+                                 .ToList()
             };
 
             return View(model);
         }
-
     }
 }
