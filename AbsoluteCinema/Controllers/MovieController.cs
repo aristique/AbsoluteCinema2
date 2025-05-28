@@ -6,13 +6,14 @@ using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.Domain.Entities;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
+using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
     [CustomAuthorize(Roles = "Admin")]
     public class MoviesController : Controller
     {
-        private readonly MovieBL _movie = new MovieBL();
+        private readonly IMovie _movie = new MovieBL();
 
         public ActionResult Index()
         {
@@ -120,30 +121,6 @@ namespace ABSOLUTE_CINEMA.Controllers
             return View(model);
         }
 
-        public ActionResult Delete(Guid id)
-        {
-            var entity = _movie.Get(id);
-            if (entity == null)
-                return HttpNotFound();
-
-            var vm = new MovieViewModel
-            {
-                Id = entity.Id,
-                Title = entity.Title,
-                Year = entity.Year,
-                YouTubeVideoId = entity.YouTubeVideoId
-            };
-
-            return View(vm);
-        }
-
-        
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
-        {
-            _movie.Delete(id);
-            return RedirectToAction("Index", "Catalog");
-        }
+       
     }
 }

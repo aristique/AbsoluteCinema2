@@ -1,52 +1,45 @@
 ﻿using System.Web.Mvc;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
-using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
+using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
-    [CustomAuthorize]  
+    [CustomAuthorize]
     public class SubscriptionController : Controller
     {
-        private readonly SubscriptionBL _subscription = new SubscriptionBL();
+        private readonly ISubscription _subscription = new SubscriptionBL();
 
         [HttpGet]
         public ActionResult Subscribe()
         {
             if (_subscription.HasActive())
-            {
-                TempData["SubscriptionMessage"] = "У вас уже есть активная подписка.";
                 return RedirectToAction("Index", "Profile");
-            }
 
-            
             return View(new PaymentViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Subscribe(PaymentViewModel vm)
+        public ActionResult Subscribe(PaymentViewModel paymentViewModel)
         {
             if (_subscription.HasActive())
-            {
-                TempData["SubscriptionMessage"] = "У вас уже есть активная подписка.";
                 return RedirectToAction("Index", "Profile");
-            }
 
             if (!ModelState.IsValid)
-                return View(vm);
+                return View(paymentViewModel);
 
-           
-            var dto = new PaymentModel
+            var paymentRequest = new PaymentModel
             {
-                CardNumber = vm.CardNumber,
-                ExpiryDate = vm.ExpiryDate,
-                CVV = vm.CVV,
-                SubscriptionType = vm.SubscriptionType
+                CardNumber = paymentViewModel.CardNumber,
+                ExpiryDate = paymentViewModel.ExpiryDate,
+                CVV = paymentViewModel.CVV,
+                SubscriptionType = paymentViewModel.SubscriptionType
             };
 
-            _subscription.Subscribe(dto);
+            _subscription.Subscribe(paymentRequest);
             return RedirectToAction("Index", "Profile");
         }
     }

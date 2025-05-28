@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Пользователи";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    // Для “разбана” вернём пользователя в роль RegisteredUser
+    var defaultRoleId = Model.AllRoles
+        .FirstOrDefault(r => r.Name == "RegisteredUser")?.Id;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -25,45 +28,40 @@
                 <td>@u.Role</td>
                 <td>
                     @* — сменить роль *@
-                    @using (Html.BeginForm("ChangeRole", "Admin", FormMethod.Post, new { @class = "d-inline" }))
+                    @using (Html.BeginForm("ChangeUserRole", "Admin", FormMethod.Post, new { @class = "d-inline" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("userId", u.Id)
                         <select name="roleId" class="form-control d-inline w-auto">
                             @foreach (var r in Model.AllRoles)
                             {
-                                <option value="@r.Id" @(r.Name == u.Role ? "selected" : "")>@r.Name</option>
+                                <option value="@r.Id" @(r.Name == u.Role ? "selected" : "")>
+                                    @r.Name
+                                </option>
                             }
                         </select>
                         <button type="submit" class="btn btn-sm btn-info ml-1">Изменить</button>
                     }
 
                     @* — бан / разбан *@
-                    @if (!u.IsBanned)
+                    @if (u.Role != "Banned")
                     {
-                        using (Html.BeginForm("Ban", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
+                        using (Html.BeginForm("BanUser", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.Hidden("userId", u.Id)
                             <button type="submit" class="btn btn-sm btn-danger">Забанить</button>
                         }
                     }
-                    else
+                    else if (defaultRoleId != null)
                     {
-                        using (Html.BeginForm("Unban", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
+                        using (Html.BeginForm("ChangeUserRole", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.Hidden("userId", u.Id)
+                            @Html.Hidden("roleId", defaultRoleId.Value)
                             <button type="submit" class="btn btn-sm btn-success">Разбанить</button>
                         }
-                    }
-
-                    @* — удалить комментарии *@
-                    @using (Html.BeginForm("DeleteComments", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("userId", u.Id)
-                        <button type="submit" class="btn btn-sm btn-warning">Удалить комм.</button>
                     }
 
                     @* — выдать подписку *@

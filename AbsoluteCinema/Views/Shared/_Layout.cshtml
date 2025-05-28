@@ -61,12 +61,12 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <!-- Всегда доступно -->
+                
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Index", "Home")">Главная</a>
                 </li>
 
-                @* Только для аутентифицированных *@
+                
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item">
@@ -75,15 +75,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "Profile")">Профиль</a>
                     </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Subscribe", "Subscription")">Подписки</a>
+                    </li>
 
-                    @* Только для админов *@
+                    
                     if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Index", "UserList")">Пользователи</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Subscribe", "Subscription")">Подписки</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn btn-premium ml-2" href="@Url.Action("Create", "Movies")">Создать</a>

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web.Mvc;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
+using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
     public class CatalogController : Controller
     {
-        private readonly CatalogBL _catalog = new CatalogBL();
+        private readonly ICatalog _catalog = new CatalogBL();
 
         public ActionResult Index(List<string> genres = null)
         {

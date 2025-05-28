@@ -16,10 +16,11 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
             ChangeUserRolee(userId, roleId);
         }
 
-        public void DeleteComments(Guid userId)
+        public void DeleteComments(Guid commentId)
         {
-           DeleteCommentss(userId);
+            DeleteComment(commentId);
         }
+
 
         public void GrantSubscription(Guid userId, string subscriptionType)
         {

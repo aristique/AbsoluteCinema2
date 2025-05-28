@@ -8,7 +8,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
     {
         void BanUser(Guid userId);
         void ChangeUserRole(Guid userId, Guid roleId);
-        void DeleteComments(Guid userId);
+        void DeleteComments(Guid commentId);
         void GrantSubscription(Guid userId, string subscriptionType);
     }
 }

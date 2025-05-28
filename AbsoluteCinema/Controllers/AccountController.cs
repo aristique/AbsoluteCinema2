@@ -2,101 +2,111 @@
 using System.Linq;
 using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
-using ABSOLUTE_CINEMA.Domain.Entities;
-using ABSOLUTE_CINEMA.Domain.DTO;
+using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 using System.Web.Mvc;
 
-public class AccountController : Controller
+namespace ABSOLUTE_CINEMA.AbsoluteCinema.Controllers
 {
-    private readonly AccountBL _account = new AccountBL();
-
-    [HttpGet]
- 
-    public ActionResult Login()
+    public class AccountController : Controller
     {
-        return View(new LoginViewModel());
-    }
+        private readonly IAccount _accountService = new AccountBL();
 
-    [HttpPost]
-      [ValidateAntiForgeryToken]
-    public ActionResult Login(LoginViewModel model)
-    {
-        if (!ModelState.IsValid)
-            return View(model);
-
-        var role = _account.Login(new Login
+        [HttpGet]
+        public ActionResult Login()
         {
-            Email = model.Email,
-            Password = model.Password
-        });
-
-        if (role == UserRoleType.None)
-        {
-            ModelState.AddModelError("", "Неверные учётные данные");
-            return View(model);
+            return View(new LoginViewModel());
         }
 
-        return RedirectToAction("Index", "Home");
-    }
-
-    [HttpGet]
-
-    public ActionResult Register()
-    {
-        return View(new RegisterViewModel());
-    }
-
-    [HttpPost]
-   
-    [ValidateAntiForgeryToken]
-    public ActionResult Register(RegisterViewModel model)
-    {
-        if (!ModelState.IsValid)
-            return View(model);
-
-        if (model.Password != model.ConfirmPassword)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel loginModel)
         {
-            ModelState.AddModelError("", "Пароли не совпадают");
-            return View(model);
+            if (!ModelState.IsValid)
+            {
+                return View(loginModel);
+            }
+
+            var userRole = _accountService.Login(new Domain.DTO.Login
+            {
+                Email = loginModel.Email,
+                Password = loginModel.Password
+            });
+
+            if (userRole == Domain.Entities.UserRoleType.None)
+            {
+                ModelState.AddModelError(string.Empty, "Неверные учётные данные");
+                return View(loginModel);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
-        var result = _account.Register(new Registerr
+        [HttpGet]
+        public ActionResult Register()
         {
-            Name = model.Name,
-            Email = model.Email,
-            Password = model.Password,
-            ConfirmPassword = model.ConfirmPassword
-        });
-
-        if (!result.Success)
-        {
-            ModelState.AddModelError("", result.Message);
-            return View(model);
+            return View(new RegisterViewModel());
         }
 
-        _account.SignIn(result.UserId, model.Email, UserRoleType.RegisteredUser);
-        return RedirectToAction("Index", "Home");
-    }
-
-    [CustomAuthorize]
-    public ActionResult Logout()
-    {
-        _account.SignOut();
-        return RedirectToAction("Index", "Home");
-    }
-
-    [CustomAuthorize(Roles = "Admin")]
-    public ActionResult UsersList()
-    {
-        var usersDto = _account.ListUsers();
-        var vm = usersDto.Select(u => new UserViewModel
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterViewModel registerModel)
         {
-            Id = u.Id,
-            Name = u.Name,
-            Email = u.Email,
-            Role = u.Roles
-        }).ToList();
+            if (!ModelState.IsValid)
+            {
+                return View(registerModel);
+            }
 
-        return View(vm);
+            if (registerModel.Password != registerModel.ConfirmPassword)
+            {
+                ModelState.AddModelError(string.Empty, "Пароли не совпадают");
+                return View(registerModel);
+            }
+
+            var registrationResult = _accountService.Register(new Domain.DTO.Registerr
+            {
+                Name = registerModel.Name,
+                Email = registerModel.Email,
+                Password = registerModel.Password,
+                ConfirmPassword = registerModel.ConfirmPassword
+            });
+
+            if (!registrationResult.Success)
+            {
+                ModelState.AddModelError(string.Empty, registrationResult.Message);
+                return View(registerModel);
+            }
+
+            _accountService.SignIn(
+                registrationResult.UserId,
+                registerModel.Email,
+                Domain.Entities.UserRoleType.RegisteredUser
+            );
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [CustomAuthorize]
+        public ActionResult Logout()
+        {
+            _accountService.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [CustomAuthorize(Roles = "Admin")]
+        public ActionResult UsersList()
+        {
+            var allUsers = _accountService.ListUsers();
+            var userViewModels = allUsers
+                .Select(user => new UserViewModel
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Role = user.Roles
+                })
+                .ToList();
+
+            return View(userViewModels);
+        }
     }
 }

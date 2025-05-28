@@ -6,6 +6,6 @@
         Guest = 1,
         RegisteredUser = 10,
         Admin = 100,
-        Banned = 200
+        
     }
 }

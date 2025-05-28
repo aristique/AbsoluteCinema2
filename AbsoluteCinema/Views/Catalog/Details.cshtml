@@ -79,7 +79,6 @@
             <hr class="my-4" />
             <h4>Комментарии</h4>
 
-
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="mb-4">
@@ -97,7 +96,6 @@
                 </div>
             }
 
- 
             <div class="comments-list">
                 @if (Model.Comments != null && Model.Comments.Any())
                 {
@@ -105,17 +103,21 @@
                     {
                         <div class="comment border rounded p-3 mb-3">
                             <strong>@comment.UserName</strong>
-                            <span class="text-muted float-end">@comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                            <span class="text-muted float-end">
+                                @comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                            </span>
                             <p class="mt-2">@comment.Text</p>
 
                             @if (User.IsInRole("Admin"))
                             {
-                                using (Html.BeginForm("Delete", "Comments", FormMethod.Post, new { @class = "d-inline" }))
+                                using (Html.BeginForm("DeleteComment", "Admin", FormMethod.Post, new { @class = "d-inline" }))
                                 {
                                     @Html.AntiForgeryToken()
-                                    @Html.Hidden("id", comment.Id)
+                                    @Html.Hidden("commentId", comment.Id)
                                     @Html.Hidden("movieId", Model.Id)
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        Удалить
+                                    </button>
                                 }
                             }
                         </div>

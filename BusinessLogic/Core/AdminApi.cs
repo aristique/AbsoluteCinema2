@@ -14,7 +14,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
                 var oldRoles = db.UserRoles.Where(ur => ur.UserId == userId).ToList();
                 if (oldRoles.Any()) db.UserRoles.RemoveRange(oldRoles);
 
-                var banned = db.Roles.FirstOrDefault(r => r.Name == "Banned");
+                var banned = db.Roles.FirstOrDefault(r => r.Name == "Guest");
                 if (banned != null)
                 {
                     db.UserRoles.Add(new UserRole { UserId = userId, RoleId = banned.Id });
@@ -35,18 +35,19 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
             }
         }
 
-        public void DeleteCommentss(Guid userId)
+        public void DeleteComment(Guid commentId)
         {
             using (var db = new WebDbContext())
             {
-                var comms = db.Comments.Where(c => c.UserId == userId).ToList();
-                if (comms.Any())
+                var comm = db.Comments.Find(commentId);
+                if (comm != null)
                 {
-                    db.Comments.RemoveRange(comms);
+                    db.Comments.Remove(comm);
                     db.SaveChanges();
                 }
             }
         }
+
 
         public void GrantSubscriptionn(Guid userId, string subscriptionType)
         {
