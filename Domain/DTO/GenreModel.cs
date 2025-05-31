@@ -1,10 +1,10 @@
 ﻿using System;
-namespace ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels
+using System.Collections.Generic;
+namespace ABSOLUTE_CINEMA.Domain.DTO
 {
-    public class GenreViewModel
+    public class GenreModel
     {
         public Guid Id { get; set; }
-
         public string Name { get; set; }
     }
 }

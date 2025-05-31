@@ -44,7 +44,7 @@
 
     <div class="form-group">
         @Html.Label("Жанры")
-        @foreach (var g in ViewBag.Genres as IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Genre>)
+        @foreach (var g in ViewBag.Genres as IEnumerable<ABSOLUTE_CINEMA.Domain.DTO.GenreModel>)
         {
             <div class="form-check form-check-inline">
                 <input type="checkbox" name="SelectedGenres" value="@g.Id" class="form-check-input" id="genre_@g.Id" />
@@ -55,7 +55,7 @@
 
     <div class="form-group">
         @Html.Label("Актеры")
-        @foreach (var a in ViewBag.Actors as IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Actor>)
+        @foreach (var a in ViewBag.Actors as IEnumerable<ABSOLUTE_CINEMA.Domain.DTO.ActorModel>)
         {
             <div class="form-check form-check-inline">
                 <input type="checkbox" name="SelectedActors" value="@a.Id" class="form-check-input" id="actor_@a.Id" />
@@ -66,7 +66,7 @@
 
     <div class="form-group">
         @Html.Label("Режиссеры")
-        @foreach (var d in ViewBag.Directors as IEnumerable<ABSOLUTE_CINEMA.Domain.Entities.Director>)
+        @foreach (var d in ViewBag.Directors as IEnumerable<ABSOLUTE_CINEMA.Domain.DTO.DirectorModel>)
         {
             <div class="form-check form-check-inline">
                 <input type="checkbox" name="SelectedDirectors" value="@d.Id" class="form-check-input" id="director_@d.Id" />

@@ -17,9 +17,11 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
                          .Include("Genres.Genre")
                          .Include("Actors.Actor")
                          .Include("Directors.Director")
+                         .Include("Comments.User") 
                          .ToList();
             }
         }
+
 
         public Movie Findd(Guid id)
         {
@@ -29,9 +31,11 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
                          .Include("Genres.Genre")
                          .Include("Actors.Actor")
                          .Include("Directors.Director")
+                         .Include("Comments.User") 
                          .FirstOrDefault(m => m.Id == id);
             }
         }
+
 
         public Movie SaveMoviee(Movie movie)
         {

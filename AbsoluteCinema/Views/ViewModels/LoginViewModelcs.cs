@@ -12,7 +12,6 @@ namespace ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Запомнить меня")]
-        public bool RememberMe { get; set; }
+
     }
 }

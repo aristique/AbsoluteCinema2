@@ -1,11 +1,12 @@
-﻿using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
-using System.Linq;
-using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
+﻿using System.Linq;
+using System.Web.Mvc;
+using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
-using System.Web.Mvc;
+using ABSOLUTE_CINEMA.Domain.DTO;
+using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
 
-namespace ABSOLUTE_CINEMA.AbsoluteCinema.Controllers
+namespace ABSOLUTE_CINEMA.Controllers
 {
     public class AccountController : Controller
     {
@@ -19,23 +20,23 @@ namespace ABSOLUTE_CINEMA.AbsoluteCinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel loginModel)
+        public ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
-            {
-                return View(loginModel);
-            }
+                return View(model);
 
-            var userRole = _accountService.Login(new Domain.DTO.Login
+            var loginDto = new Login
             {
-                Email = loginModel.Email,
-                Password = loginModel.Password
-            });
+                Email = model.Email,
+                Password = model.Password
+            };
 
-            if (userRole == Domain.Entities.UserRoleType.None)
+            var role = _accountService.Login(loginDto);
+
+            if (role == Domain.Entities.UserRoleType.None)
             {
                 ModelState.AddModelError(string.Empty, "Неверные учётные данные");
-                return View(loginModel);
+                return View(model);
             }
 
             return RedirectToAction("Index", "Home");
@@ -49,39 +50,33 @@ namespace ABSOLUTE_CINEMA.AbsoluteCinema.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel registerModel)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
+                return View(model);
+
+            if (model.Password != model.ConfirmPassword)
             {
-                return View(registerModel);
+                ModelState.AddModelError("", "Пароли не совпадают");
+                return View(model);
             }
 
-            if (registerModel.Password != registerModel.ConfirmPassword)
+            var registerDto = new Registerr
             {
-                ModelState.AddModelError(string.Empty, "Пароли не совпадают");
-                return View(registerModel);
+                Name = model.Name,
+                Email = model.Email,
+                Password = model.Password,
+                ConfirmPassword = model.ConfirmPassword
+            };
+
+            var result = _accountService.Register(registerDto);
+            if (!result.Success)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View(model);
             }
 
-            var registrationResult = _accountService.Register(new Domain.DTO.Registerr
-            {
-                Name = registerModel.Name,
-                Email = registerModel.Email,
-                Password = registerModel.Password,
-                ConfirmPassword = registerModel.ConfirmPassword
-            });
-
-            if (!registrationResult.Success)
-            {
-                ModelState.AddModelError(string.Empty, registrationResult.Message);
-                return View(registerModel);
-            }
-
-            _accountService.SignIn(
-                registrationResult.UserId,
-                registerModel.Email,
-                Domain.Entities.UserRoleType.RegisteredUser
-            );
-
+            _accountService.SignIn(result.UserId, model.Email, Domain.Entities.UserRoleType.RegisteredUser);
             return RedirectToAction("Index", "Home");
         }
 
@@ -95,18 +90,17 @@ namespace ABSOLUTE_CINEMA.AbsoluteCinema.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public ActionResult UsersList()
         {
-            var allUsers = _accountService.ListUsers();
-            var userViewModels = allUsers
-                .Select(user => new UserViewModel
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Email = user.Email,
-                    Role = user.Roles
-                })
-                .ToList();
+            var users = _accountService.ListUsers();
 
-            return View(userViewModels);
+            var viewModels = users.Select(u => new UserViewModel
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                Role = u.Role
+            }).ToList();
+
+            return View(viewModels);
         }
     }
 }

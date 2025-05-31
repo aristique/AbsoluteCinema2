@@ -10,31 +10,23 @@ namespace ABSOLUTE_CINEMA.Controllers
 {
     public class UserListController : Controller
     {
-        private readonly IUserList _userList;
-
-
+        private readonly IUserList _userList = new UserListBL();
 
         [HttpGet]
         public ActionResult Index()
         {
-            var users = _userList.GetAllUsers();
+            var users = _userList.GetAllUsers(); 
             var roles = _userList.GetAllRoles();
             var subscriptionTypes = new[] { "Monthly", "Yearly" };
 
             var model = new UserListViewModel
             {
-                Users = users.Select(user =>
+                Users = users.Select(user => new UserViewModel
                 {
-                    var firstRole = user.UserRoles.FirstOrDefault();
-                    return new UserViewModel
-                    {
-                        Id = user.Id,
-                        Name = user.Name,
-                        Email = user.Email,
-                        Role = firstRole != null
-                                    ? firstRole.Role.Name
-                                    : string.Empty
-                    };
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Role = user.Roles // ← уже строка
                 }).ToList(),
 
                 AllRoles = roles.Select(role => new RoleViewModel

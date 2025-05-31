@@ -54,10 +54,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDbItem.cs" />
+    <Compile Include="DTO\ActorModel.cs" />
+    <Compile Include="DTO\CommentCreateModel.cs" />
+    <Compile Include="DTO\CommentModel.cs" />
+    <Compile Include="DTO\DirectorModel.cs" />
+    <Compile Include="DTO\GenreModel.cs" />
     <Compile Include="DTO\Login.cs" />
+    <Compile Include="DTO\CreateMovieModel.cs" />
+    <Compile Include="DTO\MovieDetailsModel.cs" />
+    <Compile Include="DTO\MovieModel.cs" />
     <Compile Include="DTO\PaymentModel.cs" />
     <Compile Include="DTO\ProfileModel.cs" />
     <Compile Include="DTO\Registerr.cs" />
+    <Compile Include="DTO\SubscriptionModel.cs" />
     <Compile Include="DTO\UserRegistrationResponse.cs" />
     <Compile Include="DTO\UserModel.cs" />
     <Compile Include="Entities\Actor.cs" />

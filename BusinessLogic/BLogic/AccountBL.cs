@@ -6,7 +6,7 @@ using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 using ABSOLUTE_CINEMA.BusinessLogic.Core;
 using ABSOLUTE_CINEMA.Domain.DTO;
 using ABSOLUTE_CINEMA.Domain.Entities;
-using ABSOLUTE_CINEMA.Helpers;     
+using ABSOLUTE_CINEMA.Helpers;
 
 namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
 {
@@ -15,7 +15,6 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
         private const string CookieName = "AuthCookie";
         private static readonly TimeSpan CookieLifetime = TimeSpan.FromMinutes(30);
 
-       
         public UserRegistrationResponse Register(Registerr dto)
         {
             if (ExistsEmail(dto.Email))
@@ -30,15 +29,13 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
                 CreatedAt = DateTime.UtcNow
             };
 
-            var createdUser = CreateUser(user);
-
-            
-            AssignRole(createdUser.Id, "RegisteredUser");
+            CreateUser(user);
+            AssignRole(user.Id, "RegisteredUser");
 
             return new UserRegistrationResponse
             {
                 Success = true,
-                UserId = createdUser.Id
+                UserId = user.Id
             };
         }
 
@@ -58,22 +55,21 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
             if (roleName == "Banned" || roleName == "Guest")
                 return UserRoleType.None;
 
-            var role = Enum.TryParse<UserRoleType>(roleName, out var rt)
-                ? rt
+            var role = Enum.TryParse<UserRoleType>(roleName, out var parsed)
+                ? parsed
                 : UserRoleType.None;
 
-            
             SignIn(user.Id, user.Email, role);
             return role;
         }
 
         public void SignIn(Guid userId, string email, UserRoleType role)
         {
-            var expireUtc = DateTime.UtcNow.Add(CookieLifetime); // теперь используется поле
+            var expireUtc = DateTime.UtcNow.Add(CookieLifetime);
             var payload = $"{userId}|{email}|{role}|{expireUtc:O}";
             var encrypted = CookieGenerator.Create(payload);
 
-            var cookie = new HttpCookie("AuthCookie", encrypted)
+            var cookie = new HttpCookie(CookieName, encrypted)
             {
                 HttpOnly = true,
                 Secure = false,
@@ -85,7 +81,6 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
 
         public void SignOut()
         {
-            
             var expired = new HttpCookie(CookieName)
             {
                 Expires = DateTime.UtcNow.AddDays(-1),
@@ -97,14 +92,13 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.BLogic
 
         public List<UserModel> ListUsers()
         {
-            var users = GetAllUsers();
-            return users
+            return GetAllUsers()
                 .Select(u => new UserModel
                 {
                     Id = u.Id,
                     Name = u.Name,
                     Email = u.Email,
-                    Roles = string.Join(", ", u.UserRoles.Select(ur => ur.Role.Name))
+                    Role = u.UserRoles.FirstOrDefault()?.Role?.Name ?? string.Empty
                 })
                 .ToList();
         }

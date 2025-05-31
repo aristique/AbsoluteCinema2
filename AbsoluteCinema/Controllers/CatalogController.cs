@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
-using ABSOLUTE_CINEMA.Domain.Entities;
+using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
@@ -13,21 +13,19 @@ namespace ABSOLUTE_CINEMA.Controllers
     {
         private readonly ICatalog _catalog = new CatalogBL();
 
+       
         [HttpGet]
-        public ActionResult Index(List<string> genres = null)
+        public ActionResult Index(List<string> genres)
         {
-            // Берём все фильмы
             var movies = _catalog.GetAll();
 
-            // Фильтруем по выбранным жанрам (если есть)
             if (genres != null && genres.Any())
             {
                 movies = movies
-                    .Where(m => m.Genres.Any(g => genres.Contains(g.Genre.Name)))
+                    .Where(m => m.Genres != null && m.Genres.Any(g => genres.Contains(g.Name)))
                     .ToList();
             }
 
-            // Проекция в MovieViewModel
             var viewModels = movies
                 .Select(m => new MovieViewModel
                 {
@@ -38,10 +36,6 @@ namespace ABSOLUTE_CINEMA.Controllers
                 })
                 .ToList();
 
-            // Получаем топ-4 самых популярных
-           
-
-            // Жанры для фильтрации
             var allGenres = _catalog
                 .GetGenres()
                 .Select(g => new GenreViewModel
@@ -53,14 +47,11 @@ namespace ABSOLUTE_CINEMA.Controllers
 
             ViewBag.Genres = allGenres;
             ViewBag.SelectedGenres = genres ?? new List<string>();
-            
 
             return View(viewModels);
         }
 
-        /// <summary>
-        /// Увеличивает счётчик просмотров и перенаправляет на Details.
-        /// </summary>
+
         [HttpGet]
         public ActionResult TrackAndDetails(Guid id)
         {
@@ -68,9 +59,6 @@ namespace ABSOLUTE_CINEMA.Controllers
             return RedirectToAction("Details", new { id });
         }
 
-        /// <summary>
-        /// Страница «Подробнее» без побочных эффектов.
-        /// </summary>
         [HttpGet]
         public ActionResult Details(Guid id)
         {
@@ -86,19 +74,20 @@ namespace ABSOLUTE_CINEMA.Controllers
                 Country = movie.Country,
                 Description = movie.Description,
                 YouTubeVideoId = movie.YouTubeVideoId,
-                Genres = movie.Genres.Select(g => g.Genre.Name).ToList(),
-                Actors = movie.Actors.Select(a => a.Actor.Name).ToList(),
-                Directors = movie.Directors.Select(d => d.Director.Name).ToList(),
+                Genres = movie.Genres.ToList(),
+
+                Actors = movie.Actors.ToList(),
+                Directors = movie.Directors.ToList(),
                 Comments = movie.Comments
-                                 .OrderByDescending(c => c.CreatedAt)
-                                 .Select(c => new CommentViewModel
-                                 {
-                                     Id = c.Id,
-                                     Text = c.Text,
-                                     UserName = c.User?.Name ?? string.Empty,
-                                     CreatedAt = c.CreatedAt
-                                 })
-                                 .ToList()
+                    .OrderByDescending(c => c.CreatedAt)
+                    .Select(c => new CommentViewModel
+                    {
+                        Id = c.Id,
+                        Text = c.Text,
+                        UserName = c.UserName,
+                        CreatedAt = c.CreatedAt
+                    })
+                    .ToList()
             };
 
             return View(model);

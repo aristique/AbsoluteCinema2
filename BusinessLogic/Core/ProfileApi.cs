@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Data.Entity;                    // Для Include(...)
+using System.Linq;
 using ABSOLUTE_CINEMA.Domain.DTO;
 using ABSOLUTE_CINEMA.Domain.Entities;
-
 
 namespace ABSOLUTE_CINEMA.BusinessLogic.Core
 {
@@ -11,19 +12,38 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
         {
             using (var db = new WebDbContext())
             {
+
                 var user = db.Users
-                    .Include("Subscriptions")
+                    .Include(u => u.Subscriptions)
                     .FirstOrDefault(u => u.Email == email);
 
-                if (user == null) return null;
+                if (user == null)
+                    return null;
 
-                var active = user.Subscriptions.FirstOrDefault(s => s.IsActive && s.EndDate >= System.DateTime.UtcNow);
+                var activeEntity = user.Subscriptions
+                    .FirstOrDefault(s => s.IsActive && s.EndDate >= DateTime.UtcNow);
+
+        
+                SubscriptionModel activeDto = null;
+                if (activeEntity != null)
+                {
+                    activeDto = new SubscriptionModel
+                    {
+                        Id = activeEntity.Id,
+                        Type = activeEntity.Type,              
+                        StartDate = activeEntity.StartDate,
+                        EndDate = activeEntity.EndDate,
+                        IsActive = activeEntity.IsActive
+
+                    };
+                }
+
 
                 return new ProfileModel
                 {
                     Name = user.Name,
                     Email = user.Email,
-                    Subscription = active
+                    Subscription = activeDto
                 };
             }
         }

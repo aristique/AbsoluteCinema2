@@ -1,28 +1,29 @@
 ﻿using System.Web.Mvc;
+using ABSOLUTE_CINEMA.BusinessLogic.Core;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
-using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
-using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
 using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
-    [Authorize]
     public class ProfileController : Controller
     {
-        private readonly IProfile _profile = new ProfileBL();
+        private readonly ProfileApi _profileApi = new ProfileApi();
 
+        [HttpGet]
+        [Authorize]
         public ActionResult Index()
         {
-            var profileData = _profile.GetProfile(User.Identity.Name);
-
-            var profileViewModel = new ProfileViewModel
+            var email = User.Identity.Name;
+            var dto = _profileApi.Loadd(email);
+            if (dto == null)
+                return HttpNotFound();
+            var viewModel = new ProfileViewModel
             {
-                Name = profileData.Name,
-                Email = profileData.Email,
-                Subscription = profileData.Subscription
+                Name = dto.Name,
+                Email = dto.Email,
+                Subscription = dto.Subscription
             };
-
-            return View(profileViewModel);
+            return View(viewModel);
         }
     }
 }

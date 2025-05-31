@@ -5,6 +5,7 @@ namespace ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels
     public class MovieFormViewModel
     {
         public string Title { get; set; }
+
         public Guid Id { get; set; }
         public int Year { get; set; }
         public string Country { get; set; }

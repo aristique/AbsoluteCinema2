@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
-using ABSOLUTE_CINEMA.Domain.Entities;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 using ABSOLUTE_CINEMA.BusinessLogic.Attributes;
+using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
+using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
@@ -27,7 +26,6 @@ namespace ABSOLUTE_CINEMA.Controllers
                 Description = m.Description,
                 YouTubeVideoId = m.YouTubeVideoId
             }).ToList();
-
             return View(viewModels);
         }
 
@@ -40,51 +38,50 @@ namespace ABSOLUTE_CINEMA.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(MovieFormViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var movie = new Movie
-                {
-                    Id = Guid.NewGuid(),
-                    Title = model.Title,
-                    Year = model.Year,
-                    Country = model.Country,
-                    Description = model.Description,
-                    YouTubeVideoId = model.YouTubeVideoId
-                };
-
-                _movie.Create(movie,
-                              model.SelectedGenres,
-                              model.SelectedActors,
-                              model.SelectedDirectors,
-                              model.YouTubeVideoId);
-                return RedirectToAction("Index", "Catalog");
+                ViewBag.Genres = _movie.GetAvailableGenres();
+                ViewBag.Actors = _movie.GetAvailableActors();
+                ViewBag.Directors = _movie.GetAvailableDirectors();
+                return View(model);
             }
 
-            ViewBag.Genres = _movie.GetAvailableGenres();
-            ViewBag.Actors = _movie.GetAvailableActors();
-            ViewBag.Directors = _movie.GetAvailableDirectors();
-            return View(model);
+            var dto = new CreateMovieModel
+            {
+                Title = model.Title,
+                Year = model.Year,
+                Country = model.Country,
+                Description = model.Description,
+                YouTubeVideoId = model.YouTubeVideoId,
+                SelectedGenres = model.SelectedGenres,
+                SelectedActors = model.SelectedActors,
+                SelectedDirectors = model.SelectedDirectors
+            };
+
+            _movie.Create(dto);
+            return RedirectToAction("Index", "Catalog");
         }
 
         public ActionResult Edit(Guid id)
         {
-            var movieEntity = _movie.Get(id);
-            if (movieEntity == null)
+            var movie = _movie.Get(id);
+            if (movie == null)
                 return HttpNotFound();
 
             var model = new MovieFormViewModel
             {
-                Id = movieEntity.Id,
-                Title = movieEntity.Title,
-                Year = movieEntity.Year,
-                Country = movieEntity.Country,
-                Description = movieEntity.Description,
-                YouTubeVideoId = movieEntity.YouTubeVideoId,
-                SelectedGenres = movieEntity.Genres.Select(g => g.Genre.Id).ToList(),
-                SelectedActors = movieEntity.Actors.Select(a => a.Actor.Id).ToList(),
-                SelectedDirectors = movieEntity.Directors.Select(d => d.Director.Id).ToList()
+                Id = movie.Id,
+                Title = movie.Title,
+                Year = movie.Year,
+                Country = movie.Country,
+                Description = movie.Description,
+                YouTubeVideoId = movie.YouTubeVideoId,
+                SelectedGenres = movie.Genres.Select(g => g.Id).ToList(),
+                SelectedActors = movie.Actors.Select(a => a.Id).ToList(),
+                SelectedDirectors = movie.Directors.Select(d => d.Id).ToList()
             };
 
             ViewBag.Genres = _movie.GetAvailableGenres();
@@ -94,33 +91,58 @@ namespace ABSOLUTE_CINEMA.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Guid id, MovieFormViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var movie = _movie.Get(id);
-                if (movie == null)
-                    return HttpNotFound();
-
-                movie.Title = model.Title;
-                movie.Year = model.Year;
-                movie.Country = model.Country;
-                movie.Description = model.Description;
-                movie.YouTubeVideoId = model.YouTubeVideoId;
-
-                _movie.Update(movie,
-                              model.SelectedGenres,
-                              model.SelectedActors,
-                              model.SelectedDirectors);
-                return RedirectToAction("Index", "Catalog");
+                ViewBag.Genres = _movie.GetAvailableGenres();
+                ViewBag.Actors = _movie.GetAvailableActors();
+                ViewBag.Directors = _movie.GetAvailableDirectors();
+                return View(model);
             }
 
-            ViewBag.Genres = _movie.GetAvailableGenres();
-            ViewBag.Actors = _movie.GetAvailableActors();
-            ViewBag.Directors = _movie.GetAvailableDirectors();
-            return View(model);
+            var dto = new CreateMovieModel
+            {
+                Title = model.Title,
+                Year = model.Year,
+                Country = model.Country,
+                Description = model.Description,
+                YouTubeVideoId = model.YouTubeVideoId,
+                SelectedGenres = model.SelectedGenres,
+                SelectedActors = model.SelectedActors,
+                SelectedDirectors = model.SelectedDirectors
+            };
+
+            _movie.Update(id, dto);
+            return RedirectToAction("Index", "Catalog");
         }
 
-       
+        [HttpGet]
+        public ActionResult Delete(Guid id)
+        {
+            var movie = _movie.Get(id);
+            if (movie == null)
+                return HttpNotFound();
+
+            var viewModel = new MovieViewModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Year = movie.Year,
+
+                YouTubeVideoId = movie.YouTubeVideoId
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Guid id, FormCollection form)
+        {
+            _movie.Delete(id);
+            return RedirectToAction("Index");
+        }
     }
 }
