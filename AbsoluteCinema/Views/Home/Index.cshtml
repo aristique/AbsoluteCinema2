@@ -1,33 +1,222 @@
-﻿@model IEnumerable<ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.MovieViewModel>
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Главная";
-}
-
-<section class="hero">
-    <div class="hero-content">
-        <h1>Мир кино без границ</h1>
-        <p>Откройте для себя лучшие фильмы и сериалы всех времён</p>
-        <button class="cta-button">Смотреть сейчас</button>
-    </div>
-</section>
-
-<section class="featured-section">
-    <h2 class="section-title">Популярные фильмы</h2>
-    <div class="movie-grid">
-        @foreach (var movie in Model)
-        {
-            <div class="movie-card">
-                @if (!string.IsNullOrEmpty(movie.YouTubeVideoId))
-                {
-                    <img src="@($"https://img.youtube.com/vi/{movie.YouTubeVideoId}/0.jpg")" alt="@movie.Title" />
-                }
-                <div class="movie-info">
-                    <h3>@movie.Title</h3>
-                    <p>Год: @movie.Year</p>
-                    <a href="@Url.Action("TrackAndDetails", "Catalog", new { id = movie.Id })" class="cta-button">Подробнее</a>
-                </div>
-            </div>
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная | Absolute Cinema</title>
+    <style>
+        :root {
+            --netflix-red: #e50914;
+            --netflix-dark: #141414;
+            --netflix-gray: #333;
+            --netflix-light: #f5f5f1;
         }
-    </div>
-</section>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--netflix-dark);
+            color: var(--netflix-light);
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+       
+        .hero {
+            position: relative;
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                        url('https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e0-ecd7979cc88b/2b0a4b0e-5ba4-4d38-9c3a-0d8aeb8b0f3b/RU-ru-20240311-popsignuptwoweeks-perspective_alpha_website_large.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Buttons */
+        .cta-button {
+            background-color: var(--netflix-red);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #f40612;
+            transform: scale(1.05);
+        }
+
+        /* Movie Rows */
+        .movie-row {
+            padding: 2rem 4%;
+            position: relative;
+        }
+
+        .row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .movie-scroller {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1rem 0;
+            gap: 1rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .movie-scroller::-webkit-scrollbar {
+            display: none;
+        }
+
+       
+        .movie-card {
+            flex: 0 0 auto;
+            width: 250px;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .movie-card:hover img {
+            height: 160px;
+        }
+
+        .movie-info {
+            padding: 1rem;
+            background-color: var(--netflix-gray);
+        }
+
+        .movie-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-info p {
+            color: #aaa;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .movie-info .cta-button {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            width: 100%;
+            text-align: center;
+        }
+
+
+        @@media (max-width: 768px) {
+            .hero {
+                height: 60vh;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .movie-card {
+                width: 180px;
+            }
+
+            .movie-card img {
+                height: 100px;
+            }
+
+            .movie-card:hover img {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Мир кино без границ</h1>
+            <p>Откройте для себя лучшие фильмы и сериалы всех времён</p>
+            <button class="cta-button">Смотреть сейчас</button>
+        </div>
+    </section>
+
+    <!-- Popular Movies Row -->
+    <section class="movie-row">
+        <div class="row-header">
+            <h2 class="section-title">Популярные фильмы</h2>
+        </div>
+        <div class="movie-scroller">
+            @foreach (var movie in Model)
+            {
+                <div class="movie-card">
+                    @if (!string.IsNullOrEmpty(movie.YouTubeVideoId))
+                    {
+                        <img src="@($"https://img.youtube.com/vi/{movie.YouTubeVideoId}/0.jpg")" alt="@movie.Title" />
+                    }
+                    <div class="movie-info">
+                        <h3>@movie.Title</h3>
+                        <p>Год: @movie.Year</p>
+                        <a href="@Url.Action("TrackAndDetails", "Catalog", new { id = movie.Id })" class="cta-button">Подробнее</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+
+</body>
+</html>
