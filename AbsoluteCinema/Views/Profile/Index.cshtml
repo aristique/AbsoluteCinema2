@@ -1,16 +1,19 @@
 ﻿@model ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.ProfileViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<div class="login-page-container">
-    <div class="login-wrapper">
-        <!-- Заголовок профиля -->
-        <div class="login-header">
-            <div class="logo">
+<div class="profile-page-container">
+
+    <!-- Левая колонка: карточка профиля -->
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-logo">
                 <i class="bi bi-person-circle"></i>
                 <span>Ваш Профиль</span>
             </div>
         </div>
 
-        <!-- Данные пользователя -->
         <div class="input-group">
             <label>Имя:</label>
             <div class="input-field">
@@ -27,7 +30,7 @@
 
         @if (Model.Subscription != null)
         {
-            <h4 style="color: var(--netflix-light); margin-top: 2rem; margin-bottom: 1rem;">Информация о подписке</h4>
+            <h4 class="section-title">Информация о подписке</h4>
 
             <div class="input-group">
                 <label>Начало:</label>
@@ -52,9 +55,68 @@
         }
         else
         {
-            <p class="register-prompt" style="margin-top: 2rem; color: var(--netflix-light);">
+            <p class="no-subscription">
                 У вас нет активной подписки.
             </p>
         }
     </div>
+    <!-- /profile-card -->
+    <!-- Правая колонка: история просмотров -->
+    <div class="history-wrapper">
+        @using (Html.BeginForm("ClearHistory", "Profile", FormMethod.Post, new { @class = "clear-history-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="netflix-btn-danger">
+                Очистить историю
+            </button>
+        }
+
+        <h4 class="section-title">История просмотров</h4>
+
+        @if (Model.History == null || !Model.History.Any())
+        {
+            <p class="empty-history">
+                Ваша история просмотров пока пуста.
+            </p>
+        }
+        else
+        {
+            <div class="history-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Название фильма</th>
+                            <th>Превью</th>
+                            <th>Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.History)
+                        {
+                            <tr>
+                                <td>@item.ViewedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>@item.MovieTitle</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.YouTubeVideoId))
+                                    {
+                                        <img src="https://img.youtube.com/vi/@item.YouTubeVideoId/0.jpg"
+                                             alt="@item.MovieTitle" />
+                                    }
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Details", "Catalog", new { id = item.MovieId })"
+                                       class="netflix-btn-outline btn-watch">
+                                        Смотреть
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+    <!-- /history-wrapper -->
+
 </div>

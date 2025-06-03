@@ -26,7 +26,7 @@ namespace ABSOLUTE_CINEMA.Controllers
             return View(new PaymentViewModel());
         }
 
-        // POST: /Subscription/Subscribe
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Subscribe(PaymentViewModel paymentViewModel)

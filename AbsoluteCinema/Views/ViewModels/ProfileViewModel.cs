@@ -1,4 +1,5 @@
-﻿using ABSOLUTE_CINEMA.Domain.DTO;
+﻿using System.Collections.Generic;
+using ABSOLUTE_CINEMA.Domain.DTO;
 
 namespace ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels
 {
@@ -7,5 +8,6 @@ namespace ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels
         public string Name { get; set; }
         public string Email { get; set; }
         public SubscriptionModel Subscription { get; set; }
+        public IEnumerable<HistoryItemViewModel> History { get; set; }
     }
 }

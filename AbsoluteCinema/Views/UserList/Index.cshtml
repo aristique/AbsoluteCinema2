@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Пользователи";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    // Для “разбана” вернём пользователя в роль RegisteredUser
+   
     var defaultRoleId = Model.AllRoles
         .FirstOrDefault(r => r.Name == "RegisteredUser")?.Id;
 }
@@ -27,7 +27,7 @@
                 <td>@u.Email</td>
                 <td>@u.Role</td>
                 <td>
-                    @* — сменить роль *@
+            
                     @using (Html.BeginForm("ChangeUserRole", "Admin", FormMethod.Post, new { @class = "d-inline" }))
                     {
                         @Html.AntiForgeryToken()
@@ -64,7 +64,7 @@
                         }
                     }
 
-                    @* — выдать подписку *@
+              
                     @using (Html.BeginForm("GrantSubscription", "Admin", FormMethod.Post, new { @class = "d-inline ml-1" }))
                     {
                         @Html.AntiForgeryToken()

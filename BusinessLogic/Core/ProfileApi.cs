@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.Entity;                    // Для Include(...)
+using System.Data.Entity;                   
 using System.Linq;
 using ABSOLUTE_CINEMA.Domain.DTO;
 using ABSOLUTE_CINEMA.Domain.Entities;

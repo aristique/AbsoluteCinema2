@@ -41,9 +41,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
             return userId;
         }
 
-        /// <summary>
-        /// Получить роль пользователя из куки.
-        /// </summary>
+
         public string GetCurrentUserRole()
         {
             var data = DecryptUserData();
@@ -51,7 +49,7 @@ namespace ABSOLUTE_CINEMA.BusinessLogic.Core
             if (parts.Length < 3)
                 throw new InvalidOperationException("Неправильный формат данных в AuthCookie.");
 
-            return parts[2]; // роль
+            return parts[2]; 
         }
     }
 }

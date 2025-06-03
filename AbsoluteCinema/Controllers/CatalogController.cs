@@ -5,25 +5,26 @@ using System.Web.Mvc;
 using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels;
 using ABSOLUTE_CINEMA.BusinessLogic.BLogic;
 using ABSOLUTE_CINEMA.BusinessLogic.Interfaces;
+using ABSOLUTE_CINEMA.Domain.DTO;
+using ABSOLUTE_CINEMA.Domain.Entities;
 
 namespace ABSOLUTE_CINEMA.Controllers
 {
     public class CatalogController : Controller
     {
         private readonly ICatalog _catalog = new CatalogBL();
+        private readonly IHistory _historyService = new HistoryBL();
+        private readonly IUserSession _session = new SessionBL();
 
         [HttpGet]
         public ActionResult Index(List<string> genres)
         {
-            // 1. Проверяем, есть ли у текущего пользователя активная платная подписка:
+  
             var subscriptionService = new SubscriptionBL();
             bool hasPaidSubscription = subscriptionService.HasActive();
             ViewBag.HasPaidSubscription = hasPaidSubscription;
 
-            // 2. Получаем все фильмы
             var movies = _catalog.GetAll();
-
-            // 3. Применяем фильтр по выбранным жанрам, если он задан
             if (genres != null && genres.Any())
             {
                 movies = movies
@@ -31,7 +32,6 @@ namespace ABSOLUTE_CINEMA.Controllers
                     .ToList();
             }
 
-            // 4. Маппим фильмы в MovieViewModel, включая список жанров
             var viewModels = movies
                 .Select(m => new MovieViewModel
                 {
@@ -49,7 +49,6 @@ namespace ABSOLUTE_CINEMA.Controllers
                 })
                 .ToList();
 
-            // 5. Получаем полный список жанров для фильтрации
             var allGenres = _catalog
                 .GetGenres()
                 .Select(g => new GenreViewModel
@@ -59,14 +58,11 @@ namespace ABSOLUTE_CINEMA.Controllers
                 })
                 .ToList();
 
-            // 6. Если нет платной подписки, удаляем жанр "Платное" из списка
             if (!hasPaidSubscription)
             {
                 allGenres = allGenres
                     .Where(g => !string.Equals(g.Name, "Платное", StringComparison.OrdinalIgnoreCase))
                     .ToList();
-
-                // Убираем "Платное" из уже выбранных жанров, если оно там есть
                 genres = genres?
                     .Where(g => !string.Equals(g, "Платное", StringComparison.OrdinalIgnoreCase))
                     .ToList();
@@ -81,7 +77,21 @@ namespace ABSOLUTE_CINEMA.Controllers
         [HttpGet]
         public ActionResult TrackAndDetails(Guid id)
         {
+            
             _catalog.IncrementDetailsViewCount(id);
+
+            Guid userId = _session.GetCurrentUserId();
+            if (userId != Guid.Empty)
+            {
+               
+                var dto = new ViewingHistoryDto
+                {
+                    MovieId = id
+                                    };
+                _historyService.Create(dto);
+            }
+
+           
             return RedirectToAction("Details", new { id });
         }
 
@@ -116,6 +126,32 @@ namespace ABSOLUTE_CINEMA.Controllers
             };
 
             return View(model);
+        }
+
+        
+        [HttpGet]
+        [Authorize]
+        public ActionResult MyHistory(int limit = 50)
+        {
+          
+            Guid userId = _session.GetCurrentUserId();
+            if (userId == Guid.Empty)
+                return RedirectToAction("Login", "Account");
+
+      
+            var historyDtos = _historyService.GetByUser(userId, limit);
+
+     
+            var vm = historyDtos.Select(h => new HistoryItemViewModel
+            {
+                MovieId = h.MovieId,
+                MovieTitle = h.MovieTitle,
+                YouTubeVideoId = h.YouTubeVideoId,
+                ViewedAt = h.ViewedAt
+            })
+            .ToList();
+
+            return View(vm);
         }
     }
 }

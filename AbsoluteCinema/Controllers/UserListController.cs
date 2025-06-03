@@ -26,7 +26,7 @@ namespace ABSOLUTE_CINEMA.Controllers
                     Id = user.Id,
                     Name = user.Name,
                     Email = user.Email,
-                    Role = user.Roles // ← уже строка
+                    Role = user.Roles 
                 }).ToList(),
 
                 AllRoles = roles.Select(role => new RoleViewModel

@@ -1,5 +1,5 @@
 ﻿using System;
-using ABSOLUTE_CINEMA.Domain.Entities;  // импорт перечисления UserRole
+using ABSOLUTE_CINEMA.Domain.Entities;  
 
 namespace ABSOLUTE_CINEMA.BusinessLogic.Interfaces
 {

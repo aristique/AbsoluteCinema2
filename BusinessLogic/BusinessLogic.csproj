@@ -116,6 +116,7 @@
     <Compile Include="BLogic\AdminBL.cs" />
     <Compile Include="BLogic\CatalogBL.cs" />
     <Compile Include="BLogic\CommentBL.cs" />
+    <Compile Include="BLogic\HistoryBL.cs" />
     <Compile Include="BLogic\MovieBL.cs" />
     <Compile Include="BLogic\ProfileBL.cs" />
     <Compile Include="BLogic\SessionBL .cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Core\AdminApi.cs" />
     <Compile Include="Core\CatalogApi.cs" />
     <Compile Include="Core\CommentApi.cs" />
+    <Compile Include="Core\HistoryApi.cs" />
     <Compile Include="Core\MovieApi.cs" />
     <Compile Include="Core\ProfileApi.cs" />
     <Compile Include="Core\SessionApi.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Interfaces\IAdmin.cs" />
     <Compile Include="Interfaces\ICatalog.cs" />
     <Compile Include="Interfaces\IComment.cs" />
+    <Compile Include="Interfaces\IHistory.cs.cs" />
     <Compile Include="Interfaces\IMovie.cs" />
     <Compile Include="Interfaces\IProfile.cs" />
     <Compile Include="Interfaces\ISubscription.cs" />

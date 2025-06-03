@@ -6,11 +6,10 @@ namespace ABSOLUTE_CINEMA
 {
     public class WebDbContext : DbContext
     {
-        // Конструктор: будет искать в Web.config строку с name="WebDbContext"
+
         public WebDbContext() : base("name=WebDbContext")
         {
-            // Включаем логирование SQL-запросов в Output → Debug (Visual Studio)
-            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+           
         }
 
         public DbSet<User> Users { get; set; }
@@ -25,13 +24,14 @@ namespace ABSOLUTE_CINEMA
         public DbSet<MovieActor> MovieActors { get; set; }
         public DbSet<MovieDirector> MovieDirectors { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<ViewingHistory> ViewingHistories { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // 1) Указываем, что все таблицы по умолчанию лежат в схеме "dbo"
+        
             modelBuilder.HasDefaultSchema("dbo");
 
-            // 2) Настраиваем составные ключи
+         
             modelBuilder.Entity<UserRole>()
                 .HasKey(ur => new { ur.UserId, ur.RoleId });
 
@@ -44,7 +44,6 @@ namespace ABSOLUTE_CINEMA
             modelBuilder.Entity<MovieDirector>()
                 .HasKey(md => new { md.MovieId, md.DirectorId });
 
-            // 3) Привязываем связи для комментариев
             modelBuilder.Entity<Comment>()
                 .HasRequired(c => c.Movie)
                 .WithMany(m => m.Comments)
@@ -60,7 +59,7 @@ namespace ABSOLUTE_CINEMA
             modelBuilder.Entity<Comment>()
                 .HasIndex(c => c.UserId).HasName("IX_Comments_UserId");
 
-            // 4) Привязываем подписки к пользователям
+         
             modelBuilder.Entity<Subscription>()
                 .HasRequired(s => s.User)
                 .WithMany(u => u.Subscriptions)
