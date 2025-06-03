@@ -1,31 +1,56 @@
 ﻿@model ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.LoginViewModel
-
 @{
     ViewBag.Title = "Вход";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Вход</h2>
+<div class="login-page-container">
+    <div class="login-wrapper">
+        <!-- Логотип и заголовок -->
+        <div class="login-header">
+            <div class="logo">
+                <i class="bi bi-camera-reels-fill"></i>
+                <span>Absolute Cinema</span>
+            </div>
+            <h1>Войдите в аккаунт</h1>
+        </div>
 
-@Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+      
+        <div class="login-form">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
-{
-    @Html.AntiForgeryToken() 
+                <input type="hidden" name="returnUrl" value="@(ViewBag.ReturnUrl ?? "")" />
 
-    <input type="hidden" name="returnUrl" value="@(ViewBag.ReturnUrl ?? "")" />
+                
+                <div class="input-group">
+                    @Html.LabelFor(m => m.Email)
+                    <div class="input-field">
+                        <i class="bi bi-envelope"></i>
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = "Ваш email", autocomplete = "username" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-error" })
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                
+                <div class="input-group">
+                    @Html.LabelFor(m => m.Password)
+                    <div class="input-field">
+                        <i class="bi bi-lock"></i>
+                        @Html.PasswordFor(m => m.Password, new { placeholder = "Ваш пароль", autocomplete = "current-password" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validation-error" })
+                </div>
+
+               
+                <button type="submit" class="btn btn-login">Войти</button>
+            }
+        </div>
+
+       
+        <p class="register-prompt">
+            Нет аккаунта? <a href="@Url.Action("Register", "Account")">Зарегистрируйтесь</a>
+        </p>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password)
-        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
-        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-    </div>
-
-    <button type="submit" class="btn btn-primary">Войти</button>
-}
+</div>

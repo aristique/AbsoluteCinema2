@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "У вас уже есть подписка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <i class="bi bi-star-fill" style="font-size: 4rem; color: #e50914;"></i>
+            <h2 class="mt-3">У вас уже есть активная подписка</h2>
+            <p class="lead">
+                Благодарим! Ваш доступ к контенту активен.
+            </p>
+            <a href="@Url.Action("Index", "Profile")" class="btn btn-primary mt-3">
+                Перейти в профиль
+            </a>
+        </div>
+    </div>
+</div>

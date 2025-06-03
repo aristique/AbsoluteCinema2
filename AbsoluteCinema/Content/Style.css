@@ -1,0 +1,748 @@
+﻿:root {
+    --netflix-red: #e50914;
+    --netflix-dark: #141414;
+    --netflix-dark-light: #181818;
+    --netflix-gray: #333;
+    --netflix-light: #f5f5f1;
+    --netflix-text: #e5e5e5;
+    --netflix-text-secondary: #808080;
+}
+
+/* =======================================================
+   Базовые стили для всего сайта
+   ======================================================= */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--netflix-dark);
+    color: var(--netflix-text);
+    font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =======================================================
+   Навигационная панель (navbar)
+   ======================================================= */
+.netflix-navbar {
+    background-color: var(--netflix-dark) !important;
+    border-bottom: 1px solid var(--netflix-gray);
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.netflix-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--netflix-red) !important;
+    transition: all 0.3s ease;
+}
+
+    .netflix-logo:hover {
+        transform: scale(1.03);
+    }
+
+.nav-link {
+    color: var(--netflix-text) !important;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: var(--netflix-red) !important;
+    }
+
+        .nav-link:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--netflix-red);
+            animation: underline 0.3s forwards;
+        }
+
+@keyframes underline {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* Выпадающее меню */
+.netflix-dropdown {
+    background-color: var(--netflix-dark-light);
+    border: 1px solid var(--netflix-gray);
+}
+
+.dropdown-item {
+    color: var(--netflix-text) !important;
+    transition: all 0.2s ease;
+}
+
+    .dropdown-item:hover {
+        background-color: var(--netflix-gray);
+        color: white !important;
+    }
+
+/* =======================================================
+   Кнопки общего назначения
+   ======================================================= */
+.netflix-btn-danger {
+    background-color: var(--netflix-red);
+    color: white !important;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .netflix-btn-danger:hover {
+        background-color: #f40612;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+    }
+
+.netflix-btn-outline {
+    border: 1px solid var(--netflix-text);
+    color: var(--netflix-text) !important;
+    background: transparent;
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    transition: all 0.3s ease;
+}
+
+    .netflix-btn-outline:hover {
+        border-color: var(--netflix-red);
+        color: var(--netflix-red) !important;
+        transform: translateY(-2px);
+    }
+
+/* =======================================================
+   Основное содержимое (main)
+   ======================================================= */
+.netflix-main {
+    flex: 1;
+    padding: 2rem 0;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =======================================================
+   Подвал (footer)
+   ======================================================= */
+.netflix-footer {
+    background-color: var(--netflix-dark-light);
+    color: var(--netflix-text-secondary);
+    border-top: 1px solid var(--netflix-gray);
+    padding: 1rem 0;
+}
+
+.footer-links {
+    margin-top: 0.5rem;
+}
+
+    .footer-links a {
+        color: var(--netflix-text-secondary);
+        margin: 0 0.5rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .footer-links a:hover {
+            color: var(--netflix-red) !important;
+        }
+
+/* =======================================================
+   Стили для страницы входа (Login)
+   Применяются всегда, вне зависимости от ширины экрана
+   ======================================================= */
+
+/* Контейнер всей страницы входа */
+.login-page-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #141414 0%, #000000 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Карточка формы входа */
+.login-wrapper {
+    background-color: rgba(20, 20, 20, 0.9);
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(229, 9, 20, 0.6);
+    width: 100%;
+    max-width: 400px;
+    color: white;
+    text-align: center;
+    animation: fadeInUp 0.8s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Заголовок и логотип внутри карточки */
+.login-header {
+    margin-bottom: 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--netflix-red);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+    .logo i {
+        font-size: 32px;
+        margin-right: 10px;
+    }
+
+.login-header h1 {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0;
+    color: var(--netflix-red);
+    letter-spacing: 1.2px;
+}
+
+/* Группа для каждого поля ввода */
+.input-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        color: white;
+    }
+
+/* Контейнер иконки + инпута */
+.input-field {
+    position: relative;
+}
+
+    .input-field i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 18px;
+    }
+    /* Само поле ввода */
+    .input-field input {
+        width: 100%;
+        padding: 14px 18px 14px 45px;
+        font-size: 1.1rem;
+        background-color: #222;
+        border-radius: 8px;
+        border: none;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+        .input-field input::placeholder {
+            color: #888;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border: 2px solid var(--netflix-red);
+            background-color: #2a2a2a;
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+        }
+
+/* Кнопка «Войти» */
+.btn-login {
+    width: 100%;
+    padding: 15px 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-color: var(--netflix-red);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    user-select: none;
+    transition: background-color 0.3s ease, box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+    .btn-login:hover {
+        background-color: #f40612;
+        box-shadow: 0 10px 30px rgba(229, 9, 20, 0.7);
+        transform: translateY(-3px);
+    }
+
+/* Сообщения о валидации */
+.validation-error {
+    color: #ff4d4d;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    display: block;
+}
+
+/* Подсказка регистрации */
+.register-prompt {
+    margin-top: 30px;
+    font-size: 1rem;
+    color: #ccc;
+}
+
+    .register-prompt a {
+        color: var(--netflix-red);
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .register-prompt a:hover {
+            color: #f40612;
+            text-decoration: underline;
+        }
+
+/* =======================================================
+   Адаптивные правки для узких экранов (<= 480px)
+   ======================================================= */
+@media (max-width: 480px) {
+    .login-wrapper {
+        padding: 30px 20px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+    .login-header h1 {
+        font-size: 22px;
+    }
+
+    .input-field input {
+        padding: 12px 12px 12px 40px;
+        font-size: 15px;
+    }
+
+    .input-field i {
+        font-size: 16px;
+        left: 12px;
+    }
+
+    .btn-login {
+        font-size: 1.1rem;
+        padding: 13px 0;
+    }
+}
+
+/* =======================================================
+   СТИЛИ ДЛЯ КАТАЛОГА ФИЛЬМОВ
+   (Этот блок находится ВНЕ любого @media, 
+    поэтому будет применяться на всех разрешениях)
+   ======================================================= */
+
+/* Контейнер каталога */
+.catalog-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--netflix-dark);
+    color: var(--netflix-light);
+    animation: fadeInCatalog 0.8s ease-out;
+}
+
+@keyframes fadeInCatalog {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стили заголовка H1 на странице каталога */
+.catalog-container h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: inline-block;
+    color: var(--netflix-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+    .catalog-container h1::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--netflix-red);
+        border-radius: 2px;
+        animation: underlineGrowCatalog 0.6s 0.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        transform-origin: left;
+        transform: scaleX(0);
+    }
+
+@keyframes underlineGrowCatalog {
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* Сетка фильтров по жанрам */
+.genre-filter {
+    background-color: rgba(51, 51, 51, 0.7);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 3rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: all 0.4s ease;
+}
+
+    .genre-filter:hover {
+        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        transform: translateY(-2px);
+    }
+
+    .genre-filter label {
+        display: block;
+        margin-bottom: 1rem;
+        font-weight: 500;
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+        color: var(--netflix-light);
+    }
+
+.genre-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.genre-checkbox {
+    position: relative;
+}
+
+    .genre-checkbox input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .genre-checkbox label {
+        display: inline-block;
+        padding: 0.5rem 1.2rem;
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 400;
+        font-size: 0.95rem;
+        color: var(--netflix-light);
+        user-select: none;
+    }
+
+    .genre-checkbox input[type="checkbox"]:checked + label {
+        background-color: var(--netflix-red);
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
+        color: #fff;
+    }
+
+    .genre-checkbox input[type="checkbox"]:focus + label {
+        outline: 2px solid rgba(255,255,255,0.5);
+    }
+
+.filter-button {
+    background-color: var(--netflix-red);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .filter-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+
+    .filter-button:hover {
+        background-color: #f40612;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(229, 9, 20, 0.4);
+    }
+
+        .filter-button:hover::before {
+            left: 100%;
+        }
+
+/* Горизонтальный ряд с карточками */
+.movie-row {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.row-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    color: var(--netflix-light);
+}
+
+    .row-title::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 20px;
+        background: var(--netflix-red);
+        margin-right: 12px;
+        border-radius: 2px;
+    }
+
+/* Сама горизонтальная прокрутка */
+.movie-scroller {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+    gap: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding-bottom: 1rem;
+}
+
+    .movie-scroller::-webkit-scrollbar {
+        height: 8px;
+        background-color: rgba(20,20,20,0.2);
+        border-radius: 4px;
+    }
+
+    .movie-scroller::-webkit-scrollbar-thumb {
+        background-color: var(--netflix-red);
+        border-radius: 4px;
+    }
+
+/* Каждая карточка фильма */
+.movie-card {
+    flex: 0 0 auto;
+    width: 220px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    scroll-snap-align: start;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: var(--netflix-dark-light);
+}
+
+    .movie-card:hover {
+        transform: scale(1.05) translateY(-10px);
+        z-index: 10;
+    }
+
+/* Контейнер постера внутри карточки */
+.movie-poster-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 150%;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+/* Сам постер (изображение) */
+.movie-poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.movie-card:hover .movie-poster {
+    transform: scale(1.08);
+}
+
+/* Оверлей с информацией (появляется при ховере) */
+.movie-info-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1rem 1rem;
+    background: var(--netflix-gradient);
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    opacity: 0;
+}
+
+.movie-card:hover .movie-info-overlay {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Название фильма */
+.movie-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    color: var(--netflix-light);
+}
+
+/* Год фильма */
+.movie-year {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+/* Кнопка «Подробнее» внутри оверлея */
+.details-button {
+    background-color: var(--netflix-red);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: block;
+    text-decoration: none;
+}
+
+    .details-button:hover {
+        background-color: #f40612;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+    }
+
+/* ================================================
+   Уведомление об успешном применении фильтров
+   ================================================ */
+.notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--netflix-red);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 1000;
+}
+
+    .notification.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+/* =======================================================
+   Адаптивные правки для «Каталога» (ширина ≤ 768px)
+   ======================================================= */
+@media (max-width: 768px) {
+    .catalog-container {
+        padding: 1.5rem;
+    }
+
+        .catalog-container h1 {
+            font-size: 2rem;
+        }
+
+    .genre-checkboxes {
+        gap: 0.8rem;
+    }
+
+    .genre-checkbox label {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .movie-card {
+        width: 160px;
+    }
+
+    .movie-title {
+        font-size: 1rem;
+    }
+}

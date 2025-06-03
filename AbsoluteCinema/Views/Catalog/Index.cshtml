@@ -1,1 +1,71 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Каталог фильмов";
+    var selectedGenres = ViewBag.SelectedGenres as List<string> ?? new List<string>();
+    bool hasPaidSubscription = false;
+    if (ViewBag.HasPaidSubscription != null)
+    {
+        hasPaidSubscription = (bool)ViewBag.HasPaidSubscription;
+    }
+}
+@model IEnumerable<ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.MovieViewModel>
+@using ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels
+
+<div class="container">
+    <h1>@ViewBag.Title</h1>
+
+    <form method="get" action="@Url.Action("Index", "Catalog")" class="genre-filter" id="filterForm">
+        <label>Фильтрация по жанрам:</label>
+        <div class="genre-checkboxes">
+            @if (ViewBag.Genres != null)
+            {
+                foreach (var genre in ViewBag.Genres as IEnumerable<GenreViewModel>)
+                {
+                    <div class="genre-checkbox">
+                        <input type="checkbox"
+                               name="genres"
+                               value="@genre.Name"
+                               id="genre_@genre.Id"
+                               @(selectedGenres.Contains(genre.Name) ? "checked" : "") />
+                        <label for="genre_@genre.Id">@genre.Name</label>
+                    </div>
+                }
+            }
+        </div>
+        <button type="submit" class="filter-button">Применить фильтры</button>
+    </form>
+
+    <div class="movie-row">
+        <h2 class="row-title">Фильмы</h2>
+        <div class="movie-scroller">
+            @foreach (var movie in Model)
+            {
+              
+                if (!hasPaidSubscription
+                    && movie.Genres != null
+                    && movie.Genres.Any(g =>
+                        string.Equals(g.Name, "Платное", StringComparison.OrdinalIgnoreCase)))
+                {
+                    continue;
+                }
+
+                <div class="movie-card">
+                    <div class="movie-poster-container">
+                        @if (!string.IsNullOrEmpty(movie.YouTubeVideoId))
+                        {
+                            <img class="movie-poster"
+                                 src="@($"https://img.youtube.com/vi/{movie.YouTubeVideoId}/0.jpg")"
+                                 alt="@movie.Title" />
+                        }
+                        <div class="movie-info-overlay">
+                            <h3 class="movie-title">@movie.Title</h3>
+                            <p class="movie-year">@movie.Year</p>
+                            <a href="@Url.Action("TrackAndDetails", "Catalog", new { id = movie.Id })"
+                               class="details-button">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

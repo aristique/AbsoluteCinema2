@@ -10,27 +10,40 @@ namespace ABSOLUTE_CINEMA.Controllers
     [CustomAuthorize]
     public class SubscriptionController : Controller
     {
-        private readonly ISubscription _subscription = new SubscriptionBL();
+        private readonly ISubscription _subscriptionService = new SubscriptionBL();
+
 
         [HttpGet]
         public ActionResult Subscribe()
         {
-            if (_subscription.HasActive())
-                return RedirectToAction("Index", "Profile");
+            
+            if (_subscriptionService.HasActive())
+            {
+                return RedirectToAction(nameof(AlreadySubscribed));
+            }
 
+         
             return View(new PaymentViewModel());
         }
 
+        // POST: /Subscription/Subscribe
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Subscribe(PaymentViewModel paymentViewModel)
         {
-            if (_subscription.HasActive())
-                return RedirectToAction("Index", "Profile");
+            
+            if (_subscriptionService.HasActive())
+            {
+                return RedirectToAction(nameof(AlreadySubscribed));
+            }
 
+            
             if (!ModelState.IsValid)
+            {
                 return View(paymentViewModel);
+            }
 
+            
             var paymentRequest = new PaymentModel
             {
                 CardNumber = paymentViewModel.CardNumber,
@@ -39,8 +52,25 @@ namespace ABSOLUTE_CINEMA.Controllers
                 SubscriptionType = paymentViewModel.SubscriptionType
             };
 
-            _subscription.Subscribe(paymentRequest);
-            return RedirectToAction("Index", "Profile");
+            
+            _subscriptionService.Subscribe(paymentRequest);
+
+            
+            return RedirectToAction(nameof(AlreadySubscribed));
+        }
+
+        
+        [HttpGet]
+        public ActionResult AlreadySubscribed()
+        {
+            
+            if (!_subscriptionService.HasActive())
+            {
+                return RedirectToAction(nameof(Subscribe));
+            }
+
+           
+            return View();
         }
     }
 }

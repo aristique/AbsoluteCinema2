@@ -4,43 +4,71 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="text-center mb-4">Регистрация</h2>
-
-@* Validation summary *@
-@Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
-
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "register-form" }))
-                {
-                    @* Анти-форжери токен *@
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "font-weight-bold" })
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Ваше имя" })
-                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger small" })
-                    </div>
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(m => m.Email, new { @class = "font-weight-bold" })
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
-                    </div>
-                    <div class="form-group mb-3">
-                        @Html.LabelFor(m => m.Password, new { @class = "font-weight-bold" })
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
-                    </div>
-                    <div class="form-group mb-4">
-                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "font-weight-bold" })
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Подтвердите пароль" })
-                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger small" })
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block shadow-sm">Создать аккаунт</button>
-                }
+<div class="login-page-container">
+    <div class="login-wrapper">
+        <!-- Заголовок -->
+        <div class="login-header">
+            <div class="logo">
+                <i class="bi bi-person-plus-fill"></i>
+                <span>Absolute Cinema</span>
             </div>
+            <h1>Создайте аккаунт</h1>
         </div>
+
+        <!-- Форма регистрации -->
+        <div class="login-form">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <!-- Поле Имя -->
+                <div class="input-group">
+                    @Html.LabelFor(m => m.Name)
+                    <div class="input-field">
+                        <i class="bi bi-person-fill"></i>
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Ваше имя", autocomplete = "name", @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "validation-error" })
+                </div>
+
+                <!-- Поле Email -->
+                <div class="input-group">
+                    @Html.LabelFor(m => m.Email)
+                    <div class="input-field">
+                        <i class="bi bi-envelope"></i>
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = "Ваш email", autocomplete = "username", @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-error" })
+                </div>
+
+                <!-- Поле Пароль -->
+                <div class="input-group">
+                    @Html.LabelFor(m => m.Password)
+                    <div class="input-field">
+                        <i class="bi bi-lock-fill"></i>
+                        @Html.PasswordFor(m => m.Password, new { placeholder = "Пароль", autocomplete = "new-password", @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validation-error" })
+                </div>
+
+                <!-- Поле Подтверждения Пароля -->
+                <div class="input-group">
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    <div class="input-field">
+                        <i class="bi bi-lock-fill"></i>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Подтвердите пароль", autocomplete = "new-password", @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "validation-error" })
+                </div>
+
+                <!-- Кнопка регистрации -->
+                <button type="submit" class="btn btn-login">Создать аккаунт</button>
+            }
+        </div>
+
+        <!-- Ссылка на вход -->
+        <p class="register-prompt">
+            Уже есть аккаунт? <a href="@Url.Action("Login", "Account")">Войдите</a>
+        </p>
     </div>
 </div>

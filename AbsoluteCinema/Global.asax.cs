@@ -78,7 +78,8 @@ namespace ABSOLUTE_CINEMA
                     {
                         new Genre { Id = Guid.NewGuid(), Name = "Боевик" },
                         new Genre { Id = Guid.NewGuid(), Name = "Драма" },
-                        new Genre { Id = Guid.NewGuid(), Name = "Комедия" }
+                        new Genre { Id = Guid.NewGuid(), Name = "Комедия" },
+                        new Genre { Id = Guid.NewGuid(), Name = "Платное" }
                     });
                 }
 

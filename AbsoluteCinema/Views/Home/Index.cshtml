@@ -1,8 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<ABSOLUTE_CINEMA.AbsoluteCinema.ViewModels.MovieViewModel>
+
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Главная | Absolute Cinema</title>
     <style>
         :root {
@@ -26,12 +29,13 @@
             overflow-x: hidden;
         }
 
-       
         .hero {
             position: relative;
             height: 80vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-                        url('https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e0-ecd7979cc88b/2b0a4b0e-5ba4-4d38-9c3a-0d8aeb8b0f3b/RU-ru-20240311-popsignuptwoweeks-perspective_alpha_website_large.jpg') no-repeat center center/cover;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                url('https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e0-ecd7979cc88b/2b0a4b0e-5ba4-4d38-9c3a-0d8aeb8b0f3b/RU-ru-20240311-popsignuptwoweeks-perspective_alpha_website_large.jpg')
+                no-repeat center center/cover;
             display: flex;
             align-items: center;
             padding: 0 4%;
@@ -104,7 +108,6 @@
             display: none;
         }
 
-       
         .movie-card {
             flex: 0 0 auto;
             width: 250px;
@@ -112,11 +115,14 @@
             overflow: hidden;
             transition: all 0.3s ease;
             position: relative;
+            background-color: var(--netflix-gray);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
         }
 
         .movie-card:hover {
             transform: scale(1.05);
             z-index: 10;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
         }
 
         .movie-card img {
@@ -157,7 +163,6 @@
             text-align: center;
         }
 
-
         @@media (max-width: 768px) {
             .hero {
                 height: 60vh;
@@ -190,7 +195,10 @@
         <div class="hero-content">
             <h1>Мир кино без границ</h1>
             <p>Откройте для себя лучшие фильмы и сериалы всех времён</p>
-            <button class="cta-button">Смотреть сейчас</button>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="@Url.Action("Index", "Catalog")" class="cta-button">Смотреть сейчас</a>
+            }
         </div>
     </section>
 
@@ -210,13 +218,15 @@
                     <div class="movie-info">
                         <h3>@movie.Title</h3>
                         <p>Год: @movie.Year</p>
-                        <a href="@Url.Action("TrackAndDetails", "Catalog", new { id = movie.Id })" class="cta-button">Подробнее</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="@Url.Action("TrackAndDetails", "Catalog", new { id = movie.Id })"
+                               class="cta-button">Подробнее</a>
+                        }
                     </div>
                 </div>
             }
         </div>
     </section>
-
-
 </body>
 </html>
